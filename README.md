@@ -133,7 +133,6 @@ python -m benchmarks.runner --provider anthropic --model claude-3-5-haiku-202410
 ## Documentation
 
 - [Syntax Guide](docs/syntax-guide.md)
-- [Architecture Decisions](docs/architecture-decisions/)
 - [Benchmark Methodology](benchmarks/METHODOLOGY.md)
 
 ## Development
