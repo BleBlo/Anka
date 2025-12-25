@@ -1,0 +1,46 @@
+{
+  "id": "null_005",
+  "category": "adversarial",
+  "description": "Filter records where status equals 'active', excluding rows where status is null",
+  "input_schema": {
+    "records": [
+      {"name": "id", "type": "INT"},
+      {"name": "status", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "records": [
+          {"id": 1, "status": "active"},
+          {"id": 2, "status": null},
+          {"id": 3, "status": "inactive"},
+          {"id": 4, "status": "active"},
+          {"id": 5, "status": null}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "status": "active"},
+        {"id": 4, "status": "active"}
+      ]
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "status": null}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "status": "active"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "status": "active"}
+      ]
+    }
+  ]
+}

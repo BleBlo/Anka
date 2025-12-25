@@ -1,0 +1,48 @@
+{
+  "id": "map_003",
+  "category": "map",
+  "description": "Add a new column 'discounted_price' calculated as price minus 10",
+  "input_schema": {
+    "products": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "price", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 50.0},
+          {"id": 2, "name": "Gadget", "price": 100.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "Widget", "price": 50.0, "discounted_price": 40.0},
+        {"id": 2, "name": "Gadget", "price": 100.0, "discounted_price": 90.0}
+      ]
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "A", "price": 10.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "A", "price": 10.0, "discounted_price": 0.0}
+      ]
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "A", "price": 25.0},
+          {"id": 2, "name": "B", "price": 35.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "A", "price": 25.0, "discounted_price": 15.0},
+        {"id": 2, "name": "B", "price": 35.0, "discounted_price": 25.0}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "fin_016",
+  "category": "finance",
+  "difficulty": "medium",
+  "domain": "finance",
+  "operations_required": 2,
+  "description": "Filter undervalued stocks",
+  "prompt": "Filter stocks to only include those where current_price is less than avg_price, then sort by current_price ascending",
+  "input_schema": {
+    "stocks": {
+      "columns": ["ticker", "current_price", "avg_price"],
+      "types": ["STRING", "DECIMAL", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "stocks": [
+          {"ticker": "AAPL", "current_price": 140.0, "avg_price": 150.0},
+          {"ticker": "GOOGL", "current_price": 100.0, "avg_price": 140.0},
+          {"ticker": "MSFT", "current_price": 55.0, "avg_price": 50.0},
+          {"ticker": "AMZN", "current_price": 150.0, "avg_price": 180.0},
+          {"ticker": "META", "current_price": 280.0, "avg_price": 300.0}
+        ]
+      },
+      "expected": [
+        {"ticker": "GOOGL", "current_price": 100.0, "avg_price": 140.0},
+        {"ticker": "AAPL", "current_price": 140.0, "avg_price": 150.0},
+        {"ticker": "AMZN", "current_price": 150.0, "avg_price": 180.0},
+        {"ticker": "META", "current_price": 280.0, "avg_price": 300.0}
+      ]
+    }
+  ]
+}

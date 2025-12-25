@@ -1,0 +1,53 @@
+{
+  "id": "offbyone_002",
+  "category": "adversarial",
+  "description": "Get the first 5 rows from the data (rows at positions 0,1,2,3,4)",
+  "input_schema": {
+    "data": [
+      {"name": "id", "type": "INT"},
+      {"name": "value", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "data": [
+          {"id": 0, "value": "zero"},
+          {"id": 1, "value": "one"},
+          {"id": 2, "value": "two"},
+          {"id": 3, "value": "three"},
+          {"id": 4, "value": "four"},
+          {"id": 5, "value": "five"},
+          {"id": 6, "value": "six"}
+        ]
+      },
+      "expected_output": [
+        {"id": 0, "value": "zero"},
+        {"id": 1, "value": "one"},
+        {"id": 2, "value": "two"},
+        {"id": 3, "value": "three"},
+        {"id": 4, "value": "four"}
+      ]
+    },
+    {
+      "input": {
+        "data": [
+          {"id": 1, "value": "a"},
+          {"id": 2, "value": "b"},
+          {"id": 3, "value": "c"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "value": "a"},
+        {"id": 2, "value": "b"},
+        {"id": 3, "value": "c"}
+      ]
+    },
+    {
+      "input": {
+        "data": []
+      },
+      "expected_output": []
+    }
+  ]
+}

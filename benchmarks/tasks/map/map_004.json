@@ -1,0 +1,29 @@
+{
+  "id": "map_004",
+  "category": "map",
+  "difficulty": "medium",
+  "description": "Conditional column using IF expression",
+  "prompt": "Add a new column 'category' to the orders table: 'high' if amount > 500, 'medium' if amount > 100, otherwise 'low'",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "customer", "amount"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "customer": "Alice", "amount": 50},
+          {"id": 2, "customer": "Bob", "amount": 250},
+          {"id": 3, "customer": "Charlie", "amount": 750}
+        ]
+      },
+      "expected": [
+        {"id": 1, "customer": "Alice", "amount": 50, "category": "low"},
+        {"id": 2, "customer": "Bob", "amount": 250, "category": "medium"},
+        {"id": 3, "customer": "Charlie", "amount": 750, "category": "high"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "map_005",
+  "category": "map",
+  "difficulty": "medium",
+  "description": "Column with null handling using COALESCE",
+  "prompt": "Add a new column 'display_name' to the users table that uses nickname if available, otherwise uses name. Use COALESCE to handle null nicknames.",
+  "input_schema": {
+    "users": {
+      "columns": ["id", "name", "nickname"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"id": 1, "name": "Robert", "nickname": "Bob"},
+          {"id": 2, "name": "Elizabeth", "nickname": null},
+          {"id": 3, "name": "William", "nickname": "Bill"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Robert", "nickname": "Bob", "display_name": "Bob"},
+        {"id": 2, "name": "Elizabeth", "nickname": null, "display_name": "Elizabeth"},
+        {"id": 3, "name": "William", "nickname": "Bill", "display_name": "Bill"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "agg_009",
+  "category": "aggregate",
+  "difficulty": "hard",
+  "description": "Aggregation after filter",
+  "prompt": "Filter the orders to only include those with status 'completed', then calculate the total amount. Return a list with one record containing 'total' field.",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "customer", "amount", "status"],
+      "types": ["INT", "STRING", "DECIMAL", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "customer": "Alice", "amount": 100, "status": "completed"},
+          {"id": 2, "customer": "Bob", "amount": 200, "status": "pending"},
+          {"id": 3, "customer": "Charlie", "amount": 150, "status": "completed"},
+          {"id": 4, "customer": "Diana", "amount": 300, "status": "cancelled"}
+        ]
+      },
+      "expected": [{"total": 250}]
+    }
+  ]
+}

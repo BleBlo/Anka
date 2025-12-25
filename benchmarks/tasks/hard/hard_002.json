@@ -1,0 +1,34 @@
+{
+  "id": "hard_002",
+  "category": "hard",
+  "difficulty": "hard",
+  "operations_required": 4,
+  "domain": "general",
+  "description": "Sales analysis with category grouping",
+  "prompt": "Given sales data: 1) Filter to sales from 2024 (date starts with '2024'), 2) Calculate revenue (quantity * unit_price), 3) Aggregate by category to get total_revenue and sale_count, 4) Sort by total_revenue descending",
+  "input_schema": {
+    "sales": {
+      "columns": ["sale_id", "date", "category", "quantity", "unit_price"],
+      "types": ["INT", "STRING", "STRING", "INT", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "sales": [
+          {"sale_id": 1, "date": "2024-01-15", "category": "Electronics", "quantity": 2, "unit_price": 500.0},
+          {"sale_id": 2, "date": "2024-02-20", "category": "Electronics", "quantity": 1, "unit_price": 800.0},
+          {"sale_id": 3, "date": "2023-12-01", "category": "Electronics", "quantity": 5, "unit_price": 200.0},
+          {"sale_id": 4, "date": "2024-01-05", "category": "Clothing", "quantity": 10, "unit_price": 50.0},
+          {"sale_id": 5, "date": "2024-03-10", "category": "Clothing", "quantity": 5, "unit_price": 80.0},
+          {"sale_id": 6, "date": "2024-02-28", "category": "Books", "quantity": 20, "unit_price": 25.0}
+        ]
+      },
+      "expected": [
+        {"category": "Electronics", "total_revenue": 1800.0, "sale_count": 2},
+        {"category": "Clothing", "total_revenue": 900.0, "sale_count": 2},
+        {"category": "Books", "total_revenue": 500.0, "sale_count": 1}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "pipeline_007",
+  "category": "pipeline",
+  "description": "Filter employees where salary > 50000, add bonus column as salary * 0.1, select name and bonus",
+  "input_schema": {
+    "employees": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "salary", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "employees": [
+          {"id": 1, "name": "Alice", "salary": 60000},
+          {"id": 2, "name": "Bob", "salary": 45000},
+          {"id": 3, "name": "Charlie", "salary": 75000}
+        ]
+      },
+      "expected_output": [
+        {"name": "Alice", "bonus": 6000.0},
+        {"name": "Charlie", "bonus": 7500.0}
+      ]
+    },
+    {
+      "input": {
+        "employees": [
+          {"id": 1, "name": "X", "salary": 50000}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "employees": [
+          {"id": 1, "name": "A", "salary": 100000}
+        ]
+      },
+      "expected_output": [
+        {"name": "A", "bonus": 10000.0}
+      ]
+    }
+  ]
+}

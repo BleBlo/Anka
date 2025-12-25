@@ -1,0 +1,29 @@
+{
+  "id": "map_010",
+  "category": "map",
+  "difficulty": "hard",
+  "description": "Complex expression combining multiple functions",
+  "prompt": "Add a new column 'discount_price' to the products table using IF(price > 100, price * 0.8, price * 0.9) and round to 2 decimal places with ROUND",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "price"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 50.0},
+          {"id": 2, "name": "Gadget", "price": 150.0},
+          {"id": 3, "name": "Sprocket", "price": 100.0}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Widget", "price": 50.0, "discount_price": 45.0},
+        {"id": 2, "name": "Gadget", "price": 150.0, "discount_price": 120.0},
+        {"id": 3, "name": "Sprocket", "price": 100.0, "discount_price": 90.0}
+      ]
+    }
+  ]
+}

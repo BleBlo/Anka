@@ -1,0 +1,35 @@
+{
+  "id": "filter_004",
+  "category": "filter",
+  "difficulty": "medium",
+  "description": "Filter rows where a field is not null",
+  "prompt": "Filter the orders to only include those where the discount field is not null",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "amount", "discount"],
+      "types": ["INT", "DECIMAL", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 100, "discount": 10},
+          {"id": 2, "amount": 200, "discount": null},
+          {"id": 3, "amount": 150, "discount": 0},
+          {"id": 4, "amount": 300, "discount": null}
+        ]
+      },
+      "expected": [
+        {"id": 1, "amount": 100, "discount": 10},
+        {"id": 3, "amount": 150, "discount": 0}
+      ]
+    },
+    {
+      "input": {
+        "orders": [{"id": 1, "amount": 100, "discount": null}]
+      },
+      "expected": []
+    }
+  ]
+}

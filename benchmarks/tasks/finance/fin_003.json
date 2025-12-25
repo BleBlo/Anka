@@ -1,0 +1,33 @@
+{
+  "id": "fin_003",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 2,
+  "description": "Filter profitable trades",
+  "prompt": "Given trades with pnl column, filter to only profitable trades (pnl > 0) and sort by pnl descending",
+  "input_schema": {
+    "trades": {
+      "columns": ["trade_id", "ticker", "pnl"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "trades": [
+          {"trade_id": 1, "ticker": "AAPL", "pnl": 500.0},
+          {"trade_id": 2, "ticker": "GOOGL", "pnl": -200.0},
+          {"trade_id": 3, "ticker": "MSFT", "pnl": 300.0},
+          {"trade_id": 4, "ticker": "AMZN", "pnl": -100.0},
+          {"trade_id": 5, "ticker": "META", "pnl": 800.0}
+        ]
+      },
+      "expected": [
+        {"trade_id": 5, "ticker": "META", "pnl": 800.0},
+        {"trade_id": 1, "ticker": "AAPL", "pnl": 500.0},
+        {"trade_id": 3, "ticker": "MSFT", "pnl": 300.0}
+      ]
+    }
+  ]
+}

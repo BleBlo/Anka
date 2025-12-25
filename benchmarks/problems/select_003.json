@@ -1,0 +1,43 @@
+{
+  "id": "select_003",
+  "category": "select",
+  "description": "Select only the id and price columns from the products table",
+  "input_schema": {
+    "products": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "price", "type": "DECIMAL"},
+      {"name": "category", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 10.0, "category": "Tools"},
+          {"id": 2, "name": "Gadget", "price": 25.0, "category": "Electronics"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "price": 10.0},
+        {"id": 2, "price": 25.0}
+      ]
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "A", "price": 5.0, "category": "B"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "price": 5.0}
+      ]
+    },
+    {
+      "input": {
+        "products": []
+      },
+      "expected_output": []
+    }
+  ]
+}

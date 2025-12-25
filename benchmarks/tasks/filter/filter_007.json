@@ -1,0 +1,29 @@
+{
+  "id": "filter_007",
+  "category": "filter",
+  "difficulty": "medium",
+  "description": "Filter rows with NOT condition",
+  "prompt": "Filter the users to only include those where the role is NOT 'admin'",
+  "input_schema": {
+    "users": {
+      "columns": ["id", "name", "role"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"id": 1, "name": "Alice", "role": "admin"},
+          {"id": 2, "name": "Bob", "role": "user"},
+          {"id": 3, "name": "Charlie", "role": "moderator"},
+          {"id": 4, "name": "Diana", "role": "admin"}
+        ]
+      },
+      "expected": [
+        {"id": 2, "name": "Bob", "role": "user"},
+        {"id": 3, "name": "Charlie", "role": "moderator"}
+      ]
+    }
+  ]
+}

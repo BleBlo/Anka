@@ -1,0 +1,43 @@
+{
+  "id": "limit_005",
+  "category": "limit",
+  "description": "Take only the first 2 rows from the list",
+  "input_schema": {
+    "list": [
+      {"name": "id", "type": "INT"},
+      {"name": "item", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "list": [
+          {"id": 1, "item": "First"},
+          {"id": 2, "item": "Second"},
+          {"id": 3, "item": "Third"},
+          {"id": 4, "item": "Fourth"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "item": "First"},
+        {"id": 2, "item": "Second"}
+      ]
+    },
+    {
+      "input": {
+        "list": [
+          {"id": 1, "item": "Only"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "item": "Only"}
+      ]
+    },
+    {
+      "input": {
+        "list": []
+      },
+      "expected_output": []
+    }
+  ]
+}

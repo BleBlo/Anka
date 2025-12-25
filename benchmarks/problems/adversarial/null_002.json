@@ -1,0 +1,44 @@
+{
+  "id": "null_002",
+  "category": "adversarial",
+  "description": "Select name and email columns, keeping rows even if email is null",
+  "input_schema": {
+    "users": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "email", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"id": 1, "name": "Alice", "email": "alice@test.com"},
+          {"id": 2, "name": "Bob", "email": null},
+          {"id": 3, "name": "Charlie", "email": "charlie@test.com"}
+        ]
+      },
+      "expected_output": [
+        {"name": "Alice", "email": "alice@test.com"},
+        {"name": "Bob", "email": null},
+        {"name": "Charlie", "email": "charlie@test.com"}
+      ]
+    },
+    {
+      "input": {
+        "users": [
+          {"id": 1, "name": "Test", "email": null}
+        ]
+      },
+      "expected_output": [
+        {"name": "Test", "email": null}
+      ]
+    },
+    {
+      "input": {
+        "users": []
+      },
+      "expected_output": []
+    }
+  ]
+}

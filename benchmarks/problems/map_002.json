@@ -1,0 +1,50 @@
+{
+  "id": "map_002",
+  "category": "map",
+  "description": "Add a new column 'adjusted_salary' calculated as salary plus 500 (bonus)",
+  "input_schema": {
+    "employees": [
+      {"name": "emp_id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "salary", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "employees": [
+          {"emp_id": 1, "name": "Alice", "salary": 50000},
+          {"emp_id": 2, "name": "Bob", "salary": 60000}
+        ]
+      },
+      "expected_output": [
+        {"emp_id": 1, "name": "Alice", "salary": 50000, "adjusted_salary": 50500},
+        {"emp_id": 2, "name": "Bob", "salary": 60000, "adjusted_salary": 60500}
+      ]
+    },
+    {
+      "input": {
+        "employees": [
+          {"emp_id": 1, "name": "Charlie", "salary": 0}
+        ]
+      },
+      "expected_output": [
+        {"emp_id": 1, "name": "Charlie", "salary": 0, "adjusted_salary": 500}
+      ]
+    },
+    {
+      "input": {
+        "employees": [
+          {"emp_id": 1, "name": "A", "salary": 100},
+          {"emp_id": 2, "name": "B", "salary": 200},
+          {"emp_id": 3, "name": "C", "salary": 300}
+        ]
+      },
+      "expected_output": [
+        {"emp_id": 1, "name": "A", "salary": 100, "adjusted_salary": 600},
+        {"emp_id": 2, "name": "B", "salary": 200, "adjusted_salary": 700},
+        {"emp_id": 3, "name": "C", "salary": 300, "adjusted_salary": 800}
+      ]
+    }
+  ]
+}

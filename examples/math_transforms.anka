@@ -1,0 +1,69 @@
+-- Mathematical Transformations Pipeline
+-- Demonstrates: math functions, type casting, complex expressions
+
+PIPELINE math_transforms:
+    INPUT measurements: TABLE[id: INT, value: DECIMAL, category: STRING]
+
+    -- Calculate absolute values
+    STEP add_absolute:
+        MAP measurements
+        WITH abs_value => ABS(value)
+        INTO with_abs
+
+    -- Round to 2 decimal places
+    STEP round_values:
+        MAP with_abs
+        WITH rounded => ROUND(value, 2)
+        INTO with_rounded
+
+    -- Add floor and ceiling
+    STEP add_floor:
+        MAP with_rounded
+        WITH floor_val => FLOOR(value)
+        INTO with_floor
+
+    STEP add_ceil:
+        MAP with_floor
+        WITH ceil_val => CEIL(value)
+        INTO with_ceil
+
+    -- Calculate square root (only for positive)
+    STEP add_sqrt:
+        MAP with_ceil
+        WITH sqrt_val => SQRT(ABS(value))
+        INTO with_sqrt
+
+    -- Calculate modulo and power
+    STEP add_modulo:
+        MAP with_sqrt
+        WITH mod_10 => MOD(TO_INT(ABS(value)), 10)
+        INTO with_mod
+
+    STEP add_squared:
+        MAP with_mod
+        WITH squared => POWER(value, 2)
+        INTO with_squared
+
+    -- Get sign of value
+    STEP add_sign:
+        MAP with_squared
+        WITH sign_val => SIGN(value)
+        INTO with_sign
+
+    -- Use MIN_VAL and MAX_VAL for bounds
+    STEP add_bounded:
+        MAP with_sign
+        WITH bounded => MIN_VAL(MAX_VAL(value, -100), 100)
+        INTO with_bounded
+
+    -- Filter out zero values to avoid division issues
+    STEP filter_nonzero:
+        FILTER with_bounded WHERE value != 0 INTO nonzero
+
+    -- Calculate percentage of max
+    STEP calculate_pct:
+        MAP nonzero
+        WITH pct_of_max => ROUND((value / 100) * 100, 1)
+        INTO with_pct
+
+    OUTPUT with_pct

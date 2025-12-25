@@ -1,0 +1,30 @@
+{
+  "id": "fin_007",
+  "category": "finance",
+  "difficulty": "medium",
+  "domain": "finance",
+  "operations_required": 1,
+  "description": "Filter high value positions",
+  "prompt": "Filter positions to only include those where market_value is greater than 8000",
+  "input_schema": {
+    "positions": {
+      "columns": ["ticker", "market_value"],
+      "types": ["STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "positions": [
+          {"ticker": "AAPL", "market_value": 15000.0},
+          {"ticker": "GOOGL", "market_value": 7000.0},
+          {"ticker": "MSFT", "market_value": 10000.0}
+        ]
+      },
+      "expected": [
+        {"ticker": "AAPL", "market_value": 15000.0},
+        {"ticker": "MSFT", "market_value": 10000.0}
+      ]
+    }
+  ]
+}

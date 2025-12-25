@@ -1,0 +1,37 @@
+{
+  "id": "multi_004",
+  "category": "multi_step",
+  "difficulty": "hard",
+  "description": "Join two tables",
+  "prompt": "Join the orders table with the customers table on customer_id to add customer_name to each order",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "customer_id", "amount"],
+      "types": ["INT", "INT", "DECIMAL"]
+    },
+    "customers": {
+      "columns": ["id", "name", "email"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "customer_id": 1, "amount": 100},
+          {"id": 2, "customer_id": 2, "amount": 200},
+          {"id": 3, "customer_id": 1, "amount": 150}
+        ],
+        "customers": [
+          {"id": 1, "name": "Alice", "email": "alice@example.com"},
+          {"id": 2, "name": "Bob", "email": "bob@example.com"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "customer_id": 1, "amount": 100, "name": "Alice", "email": "alice@example.com"},
+        {"id": 2, "customer_id": 2, "amount": 200, "name": "Bob", "email": "bob@example.com"},
+        {"id": 3, "customer_id": 1, "amount": 150, "name": "Alice", "email": "alice@example.com"}
+      ]
+    }
+  ]
+}

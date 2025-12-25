@@ -1,0 +1,35 @@
+{
+  "id": "filter_008",
+  "category": "filter",
+  "difficulty": "medium",
+  "description": "Filter rows by string contains",
+  "prompt": "Filter the products to only include those where the name contains 'Pro'",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "price"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "iPhone Pro", "price": 999},
+          {"id": 2, "name": "Galaxy Basic", "price": 599},
+          {"id": 3, "name": "MacBook Pro", "price": 1999},
+          {"id": 4, "name": "iPad Air", "price": 799}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "iPhone Pro", "price": 999},
+        {"id": 3, "name": "MacBook Pro", "price": 1999}
+      ]
+    },
+    {
+      "input": {
+        "products": [{"id": 1, "name": "Basic Model", "price": 100}]
+      },
+      "expected": []
+    }
+  ]
+}

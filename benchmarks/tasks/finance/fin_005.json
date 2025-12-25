@@ -1,0 +1,31 @@
+{
+  "id": "fin_005",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 2,
+  "description": "Currency conversion",
+  "prompt": "Given positions with value_usd and an exchange_rate to EUR (0.85), calculate value_eur (value_usd * 0.85)",
+  "input_schema": {
+    "positions": {
+      "columns": ["ticker", "value_usd"],
+      "types": ["STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "positions": [
+          {"ticker": "AAPL", "value_usd": 10000.0},
+          {"ticker": "GOOGL", "value_usd": 5000.0},
+          {"ticker": "MSFT", "value_usd": 7500.0}
+        ]
+      },
+      "expected": [
+        {"ticker": "AAPL", "value_usd": 10000.0, "value_eur": 8500.0},
+        {"ticker": "GOOGL", "value_usd": 5000.0, "value_eur": 4250.0},
+        {"ticker": "MSFT", "value_usd": 7500.0, "value_eur": 6375.0}
+      ]
+    }
+  ]
+}

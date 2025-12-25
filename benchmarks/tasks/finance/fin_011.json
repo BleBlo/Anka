@@ -1,0 +1,34 @@
+{
+  "id": "fin_011",
+  "category": "finance",
+  "difficulty": "medium",
+  "domain": "finance",
+  "operations_required": 3,
+  "description": "Trade P&L by ticker",
+  "prompt": "Given trades with pnl: 1) Aggregate by ticker to get total_pnl, trade_count, and avg_pnl, 2) Sort by total_pnl descending",
+  "input_schema": {
+    "trades": {
+      "columns": ["trade_id", "ticker", "pnl"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "trades": [
+          {"trade_id": 1, "ticker": "AAPL", "pnl": 500.0},
+          {"trade_id": 2, "ticker": "AAPL", "pnl": -200.0},
+          {"trade_id": 3, "ticker": "AAPL", "pnl": 300.0},
+          {"trade_id": 4, "ticker": "GOOGL", "pnl": 800.0},
+          {"trade_id": 5, "ticker": "GOOGL", "pnl": 400.0},
+          {"trade_id": 6, "ticker": "MSFT", "pnl": -100.0}
+        ]
+      },
+      "expected": [
+        {"ticker": "GOOGL", "total_pnl": 1200.0, "trade_count": 2, "avg_pnl": 600.0},
+        {"ticker": "AAPL", "total_pnl": 600.0, "trade_count": 3, "avg_pnl": 200.0},
+        {"ticker": "MSFT", "total_pnl": -100.0, "trade_count": 1, "avg_pnl": -100.0}
+      ]
+    }
+  ]
+}

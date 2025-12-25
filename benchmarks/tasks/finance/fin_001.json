@@ -1,0 +1,31 @@
+{
+  "id": "fin_001",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 1,
+  "description": "Calculate position market value",
+  "prompt": "Given portfolio positions with shares and price, calculate market_value (shares * price) for each position",
+  "input_schema": {
+    "positions": {
+      "columns": ["ticker", "shares", "price"],
+      "types": ["STRING", "INT", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "positions": [
+          {"ticker": "AAPL", "shares": 100, "price": 150.0},
+          {"ticker": "GOOGL", "shares": 50, "price": 140.0},
+          {"ticker": "MSFT", "shares": 200, "price": 50.0}
+        ]
+      },
+      "expected": [
+        {"ticker": "AAPL", "shares": 100, "price": 150.0, "market_value": 15000.0},
+        {"ticker": "GOOGL", "shares": 50, "price": 140.0, "market_value": 7000.0},
+        {"ticker": "MSFT", "shares": 200, "price": 50.0, "market_value": 10000.0}
+      ]
+    }
+  ]
+}

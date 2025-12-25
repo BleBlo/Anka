@@ -1,0 +1,48 @@
+{
+  "id": "filter_001",
+  "category": "filter",
+  "description": "Filter orders where the amount is greater than 1000",
+  "input_schema": {
+    "orders": [
+      {"name": "order_id", "type": "INT"},
+      {"name": "customer", "type": "STRING"},
+      {"name": "amount", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "Alice", "amount": 500},
+          {"order_id": 2, "customer": "Bob", "amount": 1500},
+          {"order_id": 3, "customer": "Charlie", "amount": 2000}
+        ]
+      },
+      "expected_output": [
+        {"order_id": 2, "customer": "Bob", "amount": 1500},
+        {"order_id": 3, "customer": "Charlie", "amount": 2000}
+      ]
+    },
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "Alice", "amount": 1001},
+          {"order_id": 2, "customer": "Bob", "amount": 999},
+          {"order_id": 3, "customer": "Charlie", "amount": 1000}
+        ]
+      },
+      "expected_output": [
+        {"order_id": 1, "customer": "Alice", "amount": 1001}
+      ]
+    },
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "Alice", "amount": 100},
+          {"order_id": 2, "customer": "Bob", "amount": 200}
+        ]
+      },
+      "expected_output": []
+    }
+  ]
+}

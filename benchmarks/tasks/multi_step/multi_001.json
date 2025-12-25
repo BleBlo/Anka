@@ -1,0 +1,28 @@
+{
+  "id": "multi_001",
+  "category": "multi_step",
+  "difficulty": "medium",
+  "description": "Filter then select columns",
+  "prompt": "Filter the orders to only include those where amount > 100, then select only the id and customer columns",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "customer", "amount", "status"],
+      "types": ["INT", "STRING", "DECIMAL", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "customer": "Alice", "amount": 150, "status": "pending"},
+          {"id": 2, "customer": "Bob", "amount": 50, "status": "completed"},
+          {"id": 3, "customer": "Charlie", "amount": 200, "status": "pending"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "customer": "Alice"},
+        {"id": 3, "customer": "Charlie"}
+      ]
+    }
+  ]
+}

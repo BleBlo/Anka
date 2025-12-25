@@ -1,0 +1,29 @@
+{
+  "id": "str_009",
+  "category": "strings",
+  "difficulty": "hard",
+  "description": "Filter by string starts with",
+  "prompt": "Filter the products to only include those where the SKU starts with 'PRO-'",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "sku"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "sku": "PRO-001"},
+          {"id": 2, "name": "Gadget", "sku": "BAS-002"},
+          {"id": 3, "name": "Sprocket", "sku": "PRO-003"},
+          {"id": 4, "name": "Gear", "sku": "STD-004"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Widget", "sku": "PRO-001"},
+        {"id": 3, "name": "Sprocket", "sku": "PRO-003"}
+      ]
+    }
+  ]
+}

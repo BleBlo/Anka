@@ -1,0 +1,36 @@
+{
+  "id": "multi_005",
+  "category": "multi_step",
+  "difficulty": "hard",
+  "description": "Join then filter",
+  "prompt": "Join orders with customers on customer_id, then filter to only include orders where amount > 100",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "customer_id", "amount"],
+      "types": ["INT", "INT", "DECIMAL"]
+    },
+    "customers": {
+      "columns": ["id", "name"],
+      "types": ["INT", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "customer_id": 1, "amount": 50},
+          {"id": 2, "customer_id": 2, "amount": 200},
+          {"id": 3, "customer_id": 1, "amount": 150}
+        ],
+        "customers": [
+          {"id": 1, "name": "Alice"},
+          {"id": 2, "name": "Bob"}
+        ]
+      },
+      "expected": [
+        {"id": 2, "customer_id": 2, "amount": 200, "name": "Bob"},
+        {"id": 3, "customer_id": 1, "amount": 150, "name": "Alice"}
+      ]
+    }
+  ]
+}

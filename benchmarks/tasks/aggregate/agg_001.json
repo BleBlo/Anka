@@ -1,0 +1,33 @@
+{
+  "id": "agg_001",
+  "category": "aggregate",
+  "difficulty": "easy",
+  "description": "Simple SUM aggregation",
+  "prompt": "Calculate the total sum of the amount column from the orders table. Return a list with one record containing 'total' field.",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "customer", "amount"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "customer": "Alice", "amount": 100},
+          {"id": 2, "customer": "Bob", "amount": 250},
+          {"id": 3, "customer": "Charlie", "amount": 175}
+        ]
+      },
+      "expected": [{"total": 525}]
+    },
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "customer": "Alice", "amount": 50.5}
+        ]
+      },
+      "expected": [{"total": 50.5}]
+    }
+  ]
+}

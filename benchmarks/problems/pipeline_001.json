@@ -1,0 +1,51 @@
+{
+  "id": "pipeline_001",
+  "category": "pipeline",
+  "description": "Filter sales where quantity > 0, calculate total as quantity * price, sort by total descending, take top 3, then select only product and total columns",
+  "input_schema": {
+    "sales": [
+      {"name": "product", "type": "STRING"},
+      {"name": "quantity", "type": "INT"},
+      {"name": "price", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "sales": [
+          {"product": "Widget", "quantity": 5, "price": 10.0},
+          {"product": "Gadget", "quantity": 3, "price": 25.0},
+          {"product": "Gizmo", "quantity": 0, "price": 15.0},
+          {"product": "Doohickey", "quantity": 10, "price": 5.0},
+          {"product": "Thingamajig", "quantity": 2, "price": 50.0}
+        ]
+      },
+      "expected_output": [
+        {"product": "Thingamajig", "total": 100.0},
+        {"product": "Gadget", "total": 75.0},
+        {"product": "Widget", "total": 50.0}
+      ]
+    },
+    {
+      "input": {
+        "sales": [
+          {"product": "A", "quantity": 1, "price": 100.0},
+          {"product": "B", "quantity": 2, "price": 30.0}
+        ]
+      },
+      "expected_output": [
+        {"product": "A", "total": 100.0},
+        {"product": "B", "total": 60.0}
+      ]
+    },
+    {
+      "input": {
+        "sales": [
+          {"product": "X", "quantity": 0, "price": 1000.0},
+          {"product": "Y", "quantity": 0, "price": 500.0}
+        ]
+      },
+      "expected_output": []
+    }
+  ]
+}

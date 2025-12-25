@@ -1,0 +1,46 @@
+{
+  "id": "offbyone_003",
+  "category": "adversarial",
+  "description": "Filter items where quantity is strictly less than 10 (exclude 10)",
+  "input_schema": {
+    "items": [
+      {"name": "id", "type": "INT"},
+      {"name": "quantity", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "items": [
+          {"id": 1, "quantity": 9},
+          {"id": 2, "quantity": 10},
+          {"id": 3, "quantity": 11},
+          {"id": 4, "quantity": 0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "quantity": 9},
+        {"id": 4, "quantity": 0}
+      ]
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "quantity": 10}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "quantity": 5},
+          {"id": 2, "quantity": 15}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "quantity": 5}
+      ]
+    }
+  ]
+}

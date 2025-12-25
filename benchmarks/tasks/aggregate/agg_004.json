@@ -1,0 +1,25 @@
+{
+  "id": "agg_004",
+  "category": "aggregate",
+  "difficulty": "easy",
+  "description": "MIN and MAX aggregation",
+  "prompt": "Find the minimum and maximum price from the products table. Return a list with one record containing 'min_price' and 'max_price' fields.",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "price"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 15},
+          {"id": 2, "name": "Gadget", "price": 45},
+          {"id": 3, "name": "Sprocket", "price": 25}
+        ]
+      },
+      "expected": [{"min_price": 15, "max_price": 45}]
+    }
+  ]
+}

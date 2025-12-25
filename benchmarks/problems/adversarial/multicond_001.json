@@ -1,0 +1,47 @@
+{
+  "id": "multicond_001",
+  "category": "adversarial",
+  "description": "Filter orders where amount > 100, then from those results filter where status equals 'completed'",
+  "input_schema": {
+    "orders": [
+      {"name": "id", "type": "INT"},
+      {"name": "amount", "type": "DECIMAL"},
+      {"name": "status", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 150.0, "status": "completed"},
+          {"id": 2, "amount": 50.0, "status": "completed"},
+          {"id": 3, "amount": 200.0, "status": "pending"},
+          {"id": 4, "amount": 300.0, "status": "completed"},
+          {"id": 5, "amount": 80.0, "status": "pending"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "amount": 150.0, "status": "completed"},
+        {"id": 4, "amount": 300.0, "status": "completed"}
+      ]
+    },
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 500.0, "status": "pending"}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 200.0, "status": "completed"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "amount": 200.0, "status": "completed"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "sort_002",
+  "category": "sort",
+  "description": "Sort employees by salary in ascending order (lowest first)",
+  "input_schema": {
+    "employees": [
+      {"name": "emp_id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "salary", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "employees": [
+          {"emp_id": 1, "name": "Alice", "salary": 70000},
+          {"emp_id": 2, "name": "Bob", "salary": 50000},
+          {"emp_id": 3, "name": "Charlie", "salary": 60000}
+        ]
+      },
+      "expected_output": [
+        {"emp_id": 2, "name": "Bob", "salary": 50000},
+        {"emp_id": 3, "name": "Charlie", "salary": 60000},
+        {"emp_id": 1, "name": "Alice", "salary": 70000}
+      ]
+    },
+    {
+      "input": {
+        "employees": [
+          {"emp_id": 1, "name": "A", "salary": 100}
+        ]
+      },
+      "expected_output": [
+        {"emp_id": 1, "name": "A", "salary": 100}
+      ]
+    },
+    {
+      "input": {
+        "employees": [
+          {"emp_id": 1, "name": "A", "salary": 50},
+          {"emp_id": 2, "name": "B", "salary": 50}
+        ]
+      },
+      "expected_output": [
+        {"emp_id": 1, "name": "A", "salary": 50},
+        {"emp_id": 2, "name": "B", "salary": 50}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "name": "anka-language",
+  "displayName": "Anka Language",
+  "description": "Language support for Anka - the LLM-optimized data transformation DSL",
+  "version": "0.1.0",
+  "publisher": "bleblo",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "anka",
+    "dsl",
+    "data transformation",
+    "etl",
+    "pipeline",
+    "llm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BleBlo/Anka"
+  },
+  "activationEvents": [
+    "onLanguage:anka"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "anka",
+        "aliases": ["Anka", "anka"],
+        "extensions": [".anka"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "anka",
+        "scopeName": "source.anka",
+        "path": "./syntaxes/anka.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "anka",
+        "path": "./snippets/anka.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "anka.run",
+        "title": "Run Anka Pipeline",
+        "category": "Anka"
+      },
+      {
+        "command": "anka.check",
+        "title": "Check Anka Syntax",
+        "category": "Anka"
+      },
+      {
+        "command": "anka.format",
+        "title": "Format Anka File",
+        "category": "Anka"
+      },
+      {
+        "command": "anka.checkSyntax",
+        "title": "Check Syntax",
+        "category": "Anka"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "anka.run",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r",
+        "when": "editorLangId == anka"
+      },
+      {
+        "command": "anka.check",
+        "key": "ctrl+shift+c",
+        "mac": "cmd+shift+c",
+        "when": "editorLangId == anka"
+      }
+    ],
+    "configuration": {
+      "title": "Anka",
+      "properties": {
+        "anka.pythonPath": {
+          "type": "string",
+          "default": "python",
+          "description": "Path to Python executable"
+        },
+        "anka.checkOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run syntax check on file save"
+        },
+        "anka.showHoverDocumentation": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show documentation on hover"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^2.22.0"
+  }
+}

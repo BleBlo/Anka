@@ -1,0 +1,29 @@
+{
+  "id": "filter_009",
+  "category": "filter",
+  "difficulty": "medium",
+  "description": "Filter rows using IN clause",
+  "prompt": "Filter the orders to only include those where the status is in the list ('pending', 'processing')",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "amount", "status"],
+      "types": ["INT", "DECIMAL", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 100, "status": "pending"},
+          {"id": 2, "amount": 200, "status": "completed"},
+          {"id": 3, "amount": 150, "status": "processing"},
+          {"id": 4, "amount": 300, "status": "cancelled"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "amount": 100, "status": "pending"},
+        {"id": 3, "amount": 150, "status": "processing"}
+      ]
+    }
+  ]
+}

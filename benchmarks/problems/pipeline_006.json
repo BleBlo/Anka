@@ -1,0 +1,45 @@
+{
+  "id": "pipeline_006",
+  "category": "pipeline",
+  "description": "Add a column 'commission' as amount * 0.05, filter where commission > 10, select name and commission",
+  "input_schema": {
+    "sales": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "amount", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "sales": [
+          {"id": 1, "name": "Alice", "amount": 100.0},
+          {"id": 2, "name": "Bob", "amount": 500.0},
+          {"id": 3, "name": "Charlie", "amount": 300.0}
+        ]
+      },
+      "expected_output": [
+        {"name": "Bob", "commission": 25.0},
+        {"name": "Charlie", "commission": 15.0}
+      ]
+    },
+    {
+      "input": {
+        "sales": [
+          {"id": 1, "name": "X", "amount": 200.0}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "sales": [
+          {"id": 1, "name": "A", "amount": 1000.0}
+        ]
+      },
+      "expected_output": [
+        {"name": "A", "commission": 50.0}
+      ]
+    }
+  ]
+}

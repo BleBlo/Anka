@@ -1,0 +1,44 @@
+{
+  "id": "sort_005",
+  "category": "sort",
+  "description": "Sort students by grade in descending order",
+  "input_schema": {
+    "students": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "grade", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "students": [
+          {"id": 1, "name": "Alice", "grade": 85},
+          {"id": 2, "name": "Bob", "grade": 92},
+          {"id": 3, "name": "Charlie", "grade": 78}
+        ]
+      },
+      "expected_output": [
+        {"id": 2, "name": "Bob", "grade": 92},
+        {"id": 1, "name": "Alice", "grade": 85},
+        {"id": 3, "name": "Charlie", "grade": 78}
+      ]
+    },
+    {
+      "input": {
+        "students": [
+          {"id": 1, "name": "X", "grade": 100}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "X", "grade": 100}
+      ]
+    },
+    {
+      "input": {
+        "students": []
+      },
+      "expected_output": []
+    }
+  ]
+}

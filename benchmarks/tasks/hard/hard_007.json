@@ -1,0 +1,31 @@
+{
+  "id": "hard_007",
+  "category": "hard",
+  "difficulty": "easy",
+  "operations_required": 1,
+  "domain": "general",
+  "description": "Calculate product margin",
+  "prompt": "Add a column margin that calculates price - cost",
+  "input_schema": {
+    "products": {
+      "columns": ["product_id", "name", "cost", "price"],
+      "types": ["INT", "STRING", "DECIMAL", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"product_id": 1, "name": "Widget A", "cost": 80.0, "price": 100.0},
+          {"product_id": 2, "name": "Widget B", "cost": 50.0, "price": 100.0},
+          {"product_id": 3, "name": "Gadget X", "cost": 90.0, "price": 100.0}
+        ]
+      },
+      "expected": [
+        {"product_id": 1, "name": "Widget A", "cost": 80.0, "price": 100.0, "margin": 20.0},
+        {"product_id": 2, "name": "Widget B", "cost": 50.0, "price": 100.0, "margin": 50.0},
+        {"product_id": 3, "name": "Gadget X", "cost": 90.0, "price": 100.0, "margin": 10.0}
+      ]
+    }
+  ]
+}

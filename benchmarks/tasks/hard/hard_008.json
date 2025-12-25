@@ -1,0 +1,37 @@
+{
+  "id": "hard_008",
+  "category": "hard",
+  "difficulty": "hard",
+  "operations_required": 4,
+  "domain": "general",
+  "description": "User engagement analysis",
+  "prompt": "Given user_sessions: 1) Filter to sessions longer than 60 seconds, 2) Aggregate by user_id to get total_sessions and total_time, 3) Calculate avg_session_time (total_time / total_sessions), 4) Filter to users with 3+ sessions",
+  "input_schema": {
+    "user_sessions": {
+      "columns": ["session_id", "user_id", "duration_seconds"],
+      "types": ["INT", "INT", "INT"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "user_sessions": [
+          {"session_id": 1, "user_id": 1, "duration_seconds": 120},
+          {"session_id": 2, "user_id": 1, "duration_seconds": 180},
+          {"session_id": 3, "user_id": 1, "duration_seconds": 90},
+          {"session_id": 4, "user_id": 2, "duration_seconds": 45},
+          {"session_id": 5, "user_id": 2, "duration_seconds": 200},
+          {"session_id": 6, "user_id": 2, "duration_seconds": 150},
+          {"session_id": 7, "user_id": 3, "duration_seconds": 300},
+          {"session_id": 8, "user_id": 3, "duration_seconds": 240},
+          {"session_id": 9, "user_id": 3, "duration_seconds": 180},
+          {"session_id": 10, "user_id": 4, "duration_seconds": 100}
+        ]
+      },
+      "expected": [
+        {"user_id": 1, "total_sessions": 3, "total_time": 390, "avg_session_time": 130.0},
+        {"user_id": 3, "total_sessions": 3, "total_time": 720, "avg_session_time": 240.0}
+      ]
+    }
+  ]
+}

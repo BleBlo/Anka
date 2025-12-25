@@ -1,0 +1,27 @@
+{
+  "id": "multi_002",
+  "category": "multi_step",
+  "difficulty": "medium",
+  "description": "Add column then filter",
+  "prompt": "Add a column 'total' that equals price * quantity, then filter to only include rows where total > 500",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "product", "price", "quantity"],
+      "types": ["INT", "STRING", "DECIMAL", "INT"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "product": "Widget", "price": 50, "quantity": 5},
+          {"id": 2, "product": "Gadget", "price": 100, "quantity": 10},
+          {"id": 3, "product": "Sprocket", "price": 25, "quantity": 8}
+        ]
+      },
+      "expected": [
+        {"id": 2, "product": "Gadget", "price": 100, "quantity": 10, "total": 1000}
+      ]
+    }
+  ]
+}

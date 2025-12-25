@@ -1,0 +1,43 @@
+{
+  "id": "select_005",
+  "category": "select",
+  "description": "Select title column from the books table",
+  "input_schema": {
+    "books": [
+      {"name": "isbn", "type": "STRING"},
+      {"name": "title", "type": "STRING"},
+      {"name": "author", "type": "STRING"},
+      {"name": "price", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "books": [
+          {"isbn": "123", "title": "The Great Book", "author": "Author A", "price": 20.0},
+          {"isbn": "456", "title": "Another Book", "author": "Author B", "price": 15.0}
+        ]
+      },
+      "expected_output": [
+        {"title": "The Great Book"},
+        {"title": "Another Book"}
+      ]
+    },
+    {
+      "input": {
+        "books": [
+          {"isbn": "789", "title": "Single", "author": "X", "price": 10.0}
+        ]
+      },
+      "expected_output": [
+        {"title": "Single"}
+      ]
+    },
+    {
+      "input": {
+        "books": []
+      },
+      "expected_output": []
+    }
+  ]
+}

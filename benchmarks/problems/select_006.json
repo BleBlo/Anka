@@ -1,0 +1,44 @@
+{
+  "id": "select_006",
+  "category": "select",
+  "description": "Select product_name and category columns from inventory",
+  "input_schema": {
+    "inventory": [
+      {"name": "sku", "type": "STRING"},
+      {"name": "product_name", "type": "STRING"},
+      {"name": "category", "type": "STRING"},
+      {"name": "quantity", "type": "INT"},
+      {"name": "price", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "inventory": [
+          {"sku": "A001", "product_name": "Widget", "category": "Tools", "quantity": 100, "price": 10.0},
+          {"sku": "A002", "product_name": "Gadget", "category": "Electronics", "quantity": 50, "price": 25.0}
+        ]
+      },
+      "expected_output": [
+        {"product_name": "Widget", "category": "Tools"},
+        {"product_name": "Gadget", "category": "Electronics"}
+      ]
+    },
+    {
+      "input": {
+        "inventory": [
+          {"sku": "B001", "product_name": "Item", "category": "General", "quantity": 10, "price": 5.0}
+        ]
+      },
+      "expected_output": [
+        {"product_name": "Item", "category": "General"}
+      ]
+    },
+    {
+      "input": {
+        "inventory": []
+      },
+      "expected_output": []
+    }
+  ]
+}

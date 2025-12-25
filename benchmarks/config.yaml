@@ -1,0 +1,25 @@
+# Anka Benchmark Configuration
+
+models:
+  - name: claude-haiku
+    provider: anthropic
+    model_id: claude-3-5-haiku-20241022
+
+  - name: gpt-4o-mini
+    provider: openai
+    model_id: gpt-4o-mini
+
+languages:
+  anka:
+    prompt_file: benchmarks/prompts/anka_prompt.md
+    fewshot_file: benchmarks/prompts/anka_fewshot.md
+
+  python:
+    prompt_file: benchmarks/prompts/python_prompt.md
+    fewshot_file: benchmarks/prompts/python_fewshot.md
+
+settings:
+  samples_per_task: 10
+  temperature: 0.8
+  timeout_seconds: 30
+  parallel_workers: 4

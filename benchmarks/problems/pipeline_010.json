@@ -1,0 +1,49 @@
+{
+  "id": "pipeline_010",
+  "category": "pipeline",
+  "description": "Filter items where quantity > 0, select id and quantity, limit to first 3",
+  "input_schema": {
+    "items": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "quantity", "type": "INT"},
+      {"name": "price", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "items": [
+          {"id": 1, "name": "A", "quantity": 5, "price": 10.0},
+          {"id": 2, "name": "B", "quantity": 0, "price": 20.0},
+          {"id": 3, "name": "C", "quantity": 3, "price": 15.0},
+          {"id": 4, "name": "D", "quantity": 8, "price": 25.0},
+          {"id": 5, "name": "E", "quantity": 2, "price": 30.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "quantity": 5},
+        {"id": 3, "quantity": 3},
+        {"id": 4, "quantity": 8}
+      ]
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "name": "X", "quantity": 0, "price": 100.0}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "name": "Y", "quantity": 1, "price": 50.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "quantity": 1}
+      ]
+    }
+  ]
+}

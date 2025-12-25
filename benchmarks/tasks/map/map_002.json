@@ -1,0 +1,29 @@
+{
+  "id": "map_002",
+  "category": "map",
+  "difficulty": "easy",
+  "description": "Add column with string transformation",
+  "prompt": "Add a new column 'name_upper' to the users table that contains the uppercase version of the name column",
+  "input_schema": {
+    "users": {
+      "columns": ["id", "name", "email"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"id": 1, "name": "alice", "email": "alice@example.com"},
+          {"id": 2, "name": "Bob", "email": "bob@example.com"},
+          {"id": 3, "name": "CHARLIE", "email": "charlie@example.com"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "alice", "email": "alice@example.com", "name_upper": "ALICE"},
+        {"id": 2, "name": "Bob", "email": "bob@example.com", "name_upper": "BOB"},
+        {"id": 3, "name": "CHARLIE", "email": "charlie@example.com", "name_upper": "CHARLIE"}
+      ]
+    }
+  ]
+}

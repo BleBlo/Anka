@@ -1,0 +1,27 @@
+{
+  "id": "multi_007",
+  "category": "multi_step",
+  "difficulty": "hard",
+  "description": "Rename columns then select",
+  "prompt": "Rename the 'amt' column to 'amount' and 'cust' column to 'customer', then select only id, customer, and amount",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "cust", "amt", "status"],
+      "types": ["INT", "STRING", "DECIMAL", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "cust": "Alice", "amt": 100, "status": "pending"},
+          {"id": 2, "cust": "Bob", "amt": 200, "status": "completed"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "customer": "Alice", "amount": 100},
+        {"id": 2, "customer": "Bob", "amount": 200}
+      ]
+    }
+  ]
+}

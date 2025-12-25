@@ -1,0 +1,9 @@
+{
+    "sales": [
+        {"product": "Widget", "quantity": 5, "price": 10.0},
+        {"product": "Gadget", "quantity": 3, "price": 25.0},
+        {"product": "Gizmo", "quantity": 0, "price": 15.0},
+        {"product": "Doohickey", "quantity": 10, "price": 5.0},
+        {"product": "Thingamajig", "quantity": 2, "price": 50.0}
+    ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "fin_013",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 1,
+  "description": "Daily P&L calculation",
+  "prompt": "Add a column daily_pnl that calculates today_value - yesterday_value",
+  "input_schema": {
+    "positions": {
+      "columns": ["ticker", "yesterday_value", "today_value"],
+      "types": ["STRING", "DECIMAL", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "positions": [
+          {"ticker": "AAPL", "yesterday_value": 10000.0, "today_value": 10200.0},
+          {"ticker": "GOOGL", "yesterday_value": 5000.0, "today_value": 4900.0},
+          {"ticker": "MSFT", "yesterday_value": 7500.0, "today_value": 7650.0}
+        ]
+      },
+      "expected": [
+        {"ticker": "AAPL", "yesterday_value": 10000.0, "today_value": 10200.0, "daily_pnl": 200.0},
+        {"ticker": "GOOGL", "yesterday_value": 5000.0, "today_value": 4900.0, "daily_pnl": -100.0},
+        {"ticker": "MSFT", "yesterday_value": 7500.0, "today_value": 7650.0, "daily_pnl": 150.0}
+      ]
+    }
+  ]
+}

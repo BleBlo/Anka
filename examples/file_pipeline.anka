@@ -1,0 +1,19 @@
+PIPELINE process_sales:
+    INPUT placeholder: TABLE[x: INT]
+
+    STEP load:
+        READ "tests/fixtures/sample.json"
+        FORMAT JSON
+        INTO sales
+
+    STEP filter_high:
+        FILTER sales
+        WHERE amount > 1000
+        INTO high_value
+
+    STEP save:
+        WRITE high_value
+        TO "output/high_value_sales.json"
+        FORMAT JSON
+
+    OUTPUT high_value

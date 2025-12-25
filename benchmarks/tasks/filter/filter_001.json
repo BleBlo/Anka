@@ -1,0 +1,33 @@
+{
+  "id": "filter_001",
+  "category": "filter",
+  "difficulty": "easy",
+  "description": "Filter rows by numeric greater-than comparison",
+  "prompt": "Filter the orders to only include those where the amount is greater than 1000",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "amount", "status"],
+      "types": ["INT", "DECIMAL", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 500, "status": "active"},
+          {"id": 2, "amount": 1500, "status": "active"},
+          {"id": 3, "amount": 2000, "status": "pending"},
+          {"id": 4, "amount": 1000, "status": "active"}
+        ]
+      },
+      "expected": [
+        {"id": 2, "amount": 1500, "status": "active"},
+        {"id": 3, "amount": 2000, "status": "pending"}
+      ]
+    },
+    {
+      "input": {"orders": []},
+      "expected": []
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "str_006",
+  "category": "strings",
+  "difficulty": "medium",
+  "description": "Substring extraction",
+  "prompt": "Add a column 'area_code' that extracts the first 3 characters from the phone column",
+  "input_schema": {
+    "contacts": {
+      "columns": ["id", "name", "phone"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "contacts": [
+          {"id": 1, "name": "Alice", "phone": "555-123-4567"},
+          {"id": 2, "name": "Bob", "phone": "212-999-8888"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Alice", "phone": "555-123-4567", "area_code": "555"},
+        {"id": 2, "name": "Bob", "phone": "212-999-8888", "area_code": "212"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "sort_001",
+  "category": "sort",
+  "description": "Sort transactions by amount in descending order (highest first)",
+  "input_schema": {
+    "transactions": [
+      {"name": "txn_id", "type": "INT"},
+      {"name": "description", "type": "STRING"},
+      {"name": "amount", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "transactions": [
+          {"txn_id": 1, "description": "Coffee", "amount": 5.0},
+          {"txn_id": 2, "description": "Rent", "amount": 1500.0},
+          {"txn_id": 3, "description": "Groceries", "amount": 75.0}
+        ]
+      },
+      "expected_output": [
+        {"txn_id": 2, "description": "Rent", "amount": 1500.0},
+        {"txn_id": 3, "description": "Groceries", "amount": 75.0},
+        {"txn_id": 1, "description": "Coffee", "amount": 5.0}
+      ]
+    },
+    {
+      "input": {
+        "transactions": [
+          {"txn_id": 1, "description": "A", "amount": 100.0},
+          {"txn_id": 2, "description": "B", "amount": 100.0}
+        ]
+      },
+      "expected_output": [
+        {"txn_id": 1, "description": "A", "amount": 100.0},
+        {"txn_id": 2, "description": "B", "amount": 100.0}
+      ]
+    },
+    {
+      "input": {
+        "transactions": [
+          {"txn_id": 1, "description": "Single", "amount": 50.0}
+        ]
+      },
+      "expected_output": [
+        {"txn_id": 1, "description": "Single", "amount": 50.0}
+      ]
+    }
+  ]
+}

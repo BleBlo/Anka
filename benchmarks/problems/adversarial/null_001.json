@@ -1,0 +1,47 @@
+{
+  "id": "null_001",
+  "category": "adversarial",
+  "description": "Filter orders where amount is greater than 100, skipping rows where amount is null",
+  "input_schema": {
+    "orders": [
+      {"name": "id", "type": "INT"},
+      {"name": "amount", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 150.0},
+          {"id": 2, "amount": null},
+          {"id": 3, "amount": 50.0},
+          {"id": 4, "amount": 200.0},
+          {"id": 5, "amount": null}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "amount": 150.0},
+        {"id": 4, "amount": 200.0}
+      ]
+    },
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": null},
+          {"id": 2, "amount": null}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 500.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "amount": 500.0}
+      ]
+    }
+  ]
+}

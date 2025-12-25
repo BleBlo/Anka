@@ -1,0 +1,38 @@
+{
+  "id": "fin_015",
+  "category": "finance",
+  "difficulty": "hard",
+  "domain": "finance",
+  "operations_required": 4,
+  "description": "Top quintile momentum strategy",
+  "prompt": "Given stock returns: 1) Filter to returns > 0.05 (5%), 2) Sort by return descending, 3) Limit to top 5 stocks, 4) Calculate equal_weight (1 / count) for each position",
+  "input_schema": {
+    "returns": {
+      "columns": ["ticker", "return"],
+      "types": ["STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "returns": [
+          {"ticker": "AAPL", "return": 0.15},
+          {"ticker": "GOOGL", "return": 0.12},
+          {"ticker": "MSFT", "return": 0.08},
+          {"ticker": "AMZN", "return": 0.20},
+          {"ticker": "META", "return": 0.03},
+          {"ticker": "NVDA", "return": 0.25},
+          {"ticker": "TSLA", "return": 0.10},
+          {"ticker": "AMD", "return": 0.06}
+        ]
+      },
+      "expected": [
+        {"ticker": "NVDA", "return": 0.25, "equal_weight": 0.20},
+        {"ticker": "AMZN", "return": 0.20, "equal_weight": 0.20},
+        {"ticker": "AAPL", "return": 0.15, "equal_weight": 0.20},
+        {"ticker": "GOOGL", "return": 0.12, "equal_weight": 0.20},
+        {"ticker": "TSLA", "return": 0.10, "equal_weight": 0.20}
+      ]
+    }
+  ]
+}

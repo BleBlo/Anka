@@ -1,0 +1,46 @@
+{
+  "id": "pipeline_004",
+  "category": "pipeline",
+  "description": "Filter products where price >= 20, then select name and price columns",
+  "input_schema": {
+    "products": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "price", "type": "DECIMAL"},
+      {"name": "stock", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 15.0, "stock": 100},
+          {"id": 2, "name": "Gadget", "price": 25.0, "stock": 50},
+          {"id": 3, "name": "Gizmo", "price": 20.0, "stock": 75}
+        ]
+      },
+      "expected_output": [
+        {"name": "Gadget", "price": 25.0},
+        {"name": "Gizmo", "price": 20.0}
+      ]
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "A", "price": 19.99, "stock": 10}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "X", "price": 50.0, "stock": 5}
+        ]
+      },
+      "expected_output": [
+        {"name": "X", "price": 50.0}
+      ]
+    }
+  ]
+}

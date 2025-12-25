@@ -1,0 +1,43 @@
+{
+  "id": "select_001",
+  "category": "select",
+  "description": "Select only the name and email columns from the users table",
+  "input_schema": {
+    "users": [
+      {"name": "user_id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "email", "type": "STRING"},
+      {"name": "phone", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"user_id": 1, "name": "Alice", "email": "alice@example.com", "phone": "555-0001"},
+          {"user_id": 2, "name": "Bob", "email": "bob@example.com", "phone": "555-0002"}
+        ]
+      },
+      "expected_output": [
+        {"name": "Alice", "email": "alice@example.com"},
+        {"name": "Bob", "email": "bob@example.com"}
+      ]
+    },
+    {
+      "input": {
+        "users": [
+          {"user_id": 1, "name": "Charlie", "email": "charlie@test.com", "phone": "555-0003"}
+        ]
+      },
+      "expected_output": [
+        {"name": "Charlie", "email": "charlie@test.com"}
+      ]
+    },
+    {
+      "input": {
+        "users": []
+      },
+      "expected_output": []
+    }
+  ]
+}

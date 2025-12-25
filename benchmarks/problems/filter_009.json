@@ -1,0 +1,45 @@
+{
+  "id": "filter_009",
+  "category": "filter",
+  "description": "Filter records where score is greater than 80",
+  "input_schema": {
+    "records": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "score", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "records": [
+          {"id": 1, "name": "Alice", "score": 95},
+          {"id": 2, "name": "Bob", "score": 75},
+          {"id": 3, "name": "Charlie", "score": 85}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "Alice", "score": 95},
+        {"id": 3, "name": "Charlie", "score": 85}
+      ]
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "name": "X", "score": 80}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "name": "A", "score": 81}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "A", "score": 81}
+      ]
+    }
+  ]
+}

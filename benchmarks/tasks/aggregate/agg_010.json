@@ -1,0 +1,30 @@
+{
+  "id": "agg_010",
+  "category": "aggregate",
+  "difficulty": "hard",
+  "description": "Complex aggregation with HAVING-like filter",
+  "prompt": "Group orders by customer, calculate total amount per customer, then filter to only include customers with total amount > 200. Name the sum column 'total'.",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "customer", "amount"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "customer": "Alice", "amount": 100},
+          {"id": 2, "customer": "Alice", "amount": 150},
+          {"id": 3, "customer": "Bob", "amount": 50},
+          {"id": 4, "customer": "Charlie", "amount": 300},
+          {"id": 5, "customer": "Bob", "amount": 100}
+        ]
+      },
+      "expected": [
+        {"customer": "Alice", "total": 250},
+        {"customer": "Charlie", "total": 300}
+      ]
+    }
+  ]
+}

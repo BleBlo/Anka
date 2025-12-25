@@ -1,0 +1,35 @@
+{
+  "id": "filter_005",
+  "category": "filter",
+  "difficulty": "medium",
+  "description": "Filter rows with AND condition",
+  "prompt": "Filter the orders to only include those where the amount is greater than 100 AND the status is 'completed'",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "amount", "status"],
+      "types": ["INT", "DECIMAL", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 150, "status": "completed"},
+          {"id": 2, "amount": 50, "status": "completed"},
+          {"id": 3, "amount": 200, "status": "pending"},
+          {"id": 4, "amount": 300, "status": "completed"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "amount": 150, "status": "completed"},
+        {"id": 4, "amount": 300, "status": "completed"}
+      ]
+    },
+    {
+      "input": {
+        "orders": [{"id": 1, "amount": 50, "status": "completed"}]
+      },
+      "expected": []
+    }
+  ]
+}

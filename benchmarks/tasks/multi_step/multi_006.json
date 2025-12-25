@@ -1,0 +1,25 @@
+{
+  "id": "multi_006",
+  "category": "multi_step",
+  "difficulty": "hard",
+  "description": "Filter, add column, then aggregate",
+  "prompt": "Filter orders to status='completed', add a discount column (amount * 0.1), then calculate the total discount",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "customer", "amount", "status"],
+      "types": ["INT", "STRING", "DECIMAL", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "customer": "Alice", "amount": 100, "status": "completed"},
+          {"id": 2, "customer": "Bob", "amount": 200, "status": "pending"},
+          {"id": 3, "customer": "Charlie", "amount": 300, "status": "completed"}
+        ]
+      },
+      "expected": [{"total_discount": 40}]
+    }
+  ]
+}

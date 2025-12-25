@@ -1,0 +1,47 @@
+{
+  "id": "select_002",
+  "category": "select",
+  "description": "Filter orders where amount > 500, then select only order_id and amount columns",
+  "input_schema": {
+    "orders": [
+      {"name": "order_id", "type": "INT"},
+      {"name": "customer", "type": "STRING"},
+      {"name": "amount", "type": "DECIMAL"},
+      {"name": "date", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "Alice", "amount": 300, "date": "2024-01-01"},
+          {"order_id": 2, "customer": "Bob", "amount": 750, "date": "2024-01-02"},
+          {"order_id": 3, "customer": "Charlie", "amount": 1200, "date": "2024-01-03"}
+        ]
+      },
+      "expected_output": [
+        {"order_id": 2, "amount": 750},
+        {"order_id": 3, "amount": 1200}
+      ]
+    },
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "Alice", "amount": 501, "date": "2024-01-01"}
+        ]
+      },
+      "expected_output": [
+        {"order_id": 1, "amount": 501}
+      ]
+    },
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "Alice", "amount": 500, "date": "2024-01-01"},
+          {"order_id": 2, "customer": "Bob", "amount": 100, "date": "2024-01-02"}
+        ]
+      },
+      "expected_output": []
+    }
+  ]
+}

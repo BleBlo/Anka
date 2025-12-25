@@ -1,0 +1,31 @@
+{
+  "id": "fin_020",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 1,
+  "description": "Calculate trade value",
+  "prompt": "Add a column trade_value that calculates shares * executed_price",
+  "input_schema": {
+    "trades": {
+      "columns": ["trade_id", "ticker", "shares", "executed_price"],
+      "types": ["INT", "STRING", "INT", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "trades": [
+          {"trade_id": 1, "ticker": "AAPL", "shares": 100, "executed_price": 151.0},
+          {"trade_id": 2, "ticker": "GOOGL", "shares": 50, "executed_price": 140.5},
+          {"trade_id": 3, "ticker": "MSFT", "shares": 200, "executed_price": 50.1}
+        ]
+      },
+      "expected": [
+        {"trade_id": 1, "ticker": "AAPL", "shares": 100, "executed_price": 151.0, "trade_value": 15100.0},
+        {"trade_id": 2, "ticker": "GOOGL", "shares": 50, "executed_price": 140.5, "trade_value": 7025.0},
+        {"trade_id": 3, "ticker": "MSFT", "shares": 200, "executed_price": 50.1, "trade_value": 10020.0}
+      ]
+    }
+  ]
+}

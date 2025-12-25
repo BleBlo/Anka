@@ -1,0 +1,33 @@
+{
+  "id": "hard_005",
+  "category": "hard",
+  "difficulty": "easy",
+  "operations_required": 1,
+  "domain": "general",
+  "description": "Aggregate customer spending",
+  "prompt": "Aggregate orders by customer_id to calculate total_spent (sum of amount)",
+  "input_schema": {
+    "orders": {
+      "columns": ["order_id", "customer_id", "amount"],
+      "types": ["INT", "INT", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer_id": 1, "amount": 500.0},
+          {"order_id": 2, "customer_id": 1, "amount": 600.0},
+          {"order_id": 3, "customer_id": 2, "amount": 300.0},
+          {"order_id": 4, "customer_id": 2, "amount": 250.0},
+          {"order_id": 5, "customer_id": 3, "amount": 800.0}
+        ]
+      },
+      "expected": [
+        {"customer_id": 1, "total_spent": 1100.0},
+        {"customer_id": 2, "total_spent": 550.0},
+        {"customer_id": 3, "total_spent": 800.0}
+      ]
+    }
+  ]
+}

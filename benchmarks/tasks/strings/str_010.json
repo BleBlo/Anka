@@ -1,0 +1,29 @@
+{
+  "id": "str_010",
+  "category": "strings",
+  "difficulty": "hard",
+  "description": "Complex string manipulation",
+  "prompt": "Extract the domain from email addresses. Add a column 'domain' that contains everything after the '@' symbol, converted to lowercase.",
+  "input_schema": {
+    "users": {
+      "columns": ["id", "name", "email"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"id": 1, "name": "Alice", "email": "alice@Example.COM"},
+          {"id": 2, "name": "Bob", "email": "bob@test.org"},
+          {"id": 3, "name": "Charlie", "email": "charlie@ACME.co"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Alice", "email": "alice@Example.COM", "domain": "example.com"},
+        {"id": 2, "name": "Bob", "email": "bob@test.org", "domain": "test.org"},
+        {"id": 3, "name": "Charlie", "email": "charlie@ACME.co", "domain": "acme.co"}
+      ]
+    }
+  ]
+}

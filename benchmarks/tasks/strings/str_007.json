@@ -1,0 +1,27 @@
+{
+  "id": "str_007",
+  "category": "strings",
+  "difficulty": "medium",
+  "description": "String replace",
+  "prompt": "Add a column 'phone_clean' that removes all dashes from the phone column (replace '-' with '')",
+  "input_schema": {
+    "contacts": {
+      "columns": ["id", "name", "phone"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "contacts": [
+          {"id": 1, "name": "Alice", "phone": "555-123-4567"},
+          {"id": 2, "name": "Bob", "phone": "212-999-8888"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Alice", "phone": "555-123-4567", "phone_clean": "5551234567"},
+        {"id": 2, "name": "Bob", "phone": "212-999-8888", "phone_clean": "2129998888"}
+      ]
+    }
+  ]
+}

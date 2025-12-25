@@ -1,0 +1,36 @@
+{
+  "id": "multi_008",
+  "category": "multi_step",
+  "difficulty": "hard",
+  "description": "Union then deduplicate",
+  "prompt": "Combine the active_users and inactive_users tables into one, then remove duplicate rows based on email",
+  "input_schema": {
+    "active_users": {
+      "columns": ["id", "name", "email"],
+      "types": ["INT", "STRING", "STRING"]
+    },
+    "inactive_users": {
+      "columns": ["id", "name", "email"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "active_users": [
+          {"id": 1, "name": "Alice", "email": "alice@example.com"},
+          {"id": 2, "name": "Bob", "email": "bob@example.com"}
+        ],
+        "inactive_users": [
+          {"id": 3, "name": "Charlie", "email": "charlie@example.com"},
+          {"id": 4, "name": "Alice Smith", "email": "alice@example.com"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Alice", "email": "alice@example.com"},
+        {"id": 2, "name": "Bob", "email": "bob@example.com"},
+        {"id": 3, "name": "Charlie", "email": "charlie@example.com"}
+      ]
+    }
+  ]
+}

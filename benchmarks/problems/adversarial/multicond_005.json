@@ -1,0 +1,48 @@
+{
+  "id": "multicond_005",
+  "category": "adversarial",
+  "description": "Filter transactions where type equals 'credit', then filter where amount >= 1000, then limit to first 2, then select id and amount",
+  "input_schema": {
+    "transactions": [
+      {"name": "id", "type": "INT"},
+      {"name": "type", "type": "STRING"},
+      {"name": "amount", "type": "DECIMAL"},
+      {"name": "date", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "transactions": [
+          {"id": 1, "type": "credit", "amount": 1500.0, "date": "2024-01-01"},
+          {"id": 2, "type": "debit", "amount": 2000.0, "date": "2024-01-02"},
+          {"id": 3, "type": "credit", "amount": 500.0, "date": "2024-01-03"},
+          {"id": 4, "type": "credit", "amount": 1000.0, "date": "2024-01-04"},
+          {"id": 5, "type": "credit", "amount": 3000.0, "date": "2024-01-05"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "amount": 1500.0},
+        {"id": 4, "amount": 1000.0}
+      ]
+    },
+    {
+      "input": {
+        "transactions": [
+          {"id": 1, "type": "debit", "amount": 5000.0, "date": "2024-01-01"}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "transactions": [
+          {"id": 1, "type": "credit", "amount": 2000.0, "date": "2024-01-01"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "amount": 2000.0}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+PIPELINE summarize_orders:
+    INPUT orders: TABLE[order_id: INT, customer: STRING, amount: DECIMAL, status: STRING]
+
+    STEP filter_large:
+        FILTER orders
+        WHERE amount > 1000
+        INTO large_orders
+
+    STEP pick_columns:
+        SELECT customer, amount
+        FROM large_orders
+        INTO summary
+
+    OUTPUT summary

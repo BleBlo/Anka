@@ -1,0 +1,29 @@
+{
+  "id": "map_001",
+  "category": "map",
+  "difficulty": "easy",
+  "description": "Add computed column with arithmetic",
+  "prompt": "Add a new column 'total' to the orders table that equals price * quantity",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "price", "quantity"],
+      "types": ["INT", "DECIMAL", "INT"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "price": 10.0, "quantity": 5},
+          {"id": 2, "price": 25.0, "quantity": 2},
+          {"id": 3, "price": 8.5, "quantity": 10}
+        ]
+      },
+      "expected": [
+        {"id": 1, "price": 10.0, "quantity": 5, "total": 50.0},
+        {"id": 2, "price": 25.0, "quantity": 2, "total": 50.0},
+        {"id": 3, "price": 8.5, "quantity": 10, "total": 85.0}
+      ]
+    }
+  ]
+}

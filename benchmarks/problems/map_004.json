@@ -1,0 +1,47 @@
+{
+  "id": "map_004",
+  "category": "map",
+  "description": "Add a new column 'doubled' calculated as value multiplied by 2",
+  "input_schema": {
+    "numbers": [
+      {"name": "id", "type": "INT"},
+      {"name": "value", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "numbers": [
+          {"id": 1, "value": 5},
+          {"id": 2, "value": 10},
+          {"id": 3, "value": 15}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "value": 5, "doubled": 10},
+        {"id": 2, "value": 10, "doubled": 20},
+        {"id": 3, "value": 15, "doubled": 30}
+      ]
+    },
+    {
+      "input": {
+        "numbers": [
+          {"id": 1, "value": 0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "value": 0, "doubled": 0}
+      ]
+    },
+    {
+      "input": {
+        "numbers": [
+          {"id": 1, "value": 100}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "value": 100, "doubled": 200}
+      ]
+    }
+  ]
+}

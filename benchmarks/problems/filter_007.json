@@ -1,0 +1,45 @@
+{
+  "id": "filter_007",
+  "category": "filter",
+  "description": "Filter orders where customer equals 'VIP'",
+  "input_schema": {
+    "orders": [
+      {"name": "order_id", "type": "INT"},
+      {"name": "customer", "type": "STRING"},
+      {"name": "total", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "VIP", "total": 500.0},
+          {"order_id": 2, "customer": "Regular", "total": 100.0},
+          {"order_id": 3, "customer": "VIP", "total": 1000.0}
+        ]
+      },
+      "expected_output": [
+        {"order_id": 1, "customer": "VIP", "total": 500.0},
+        {"order_id": 3, "customer": "VIP", "total": 1000.0}
+      ]
+    },
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "Regular", "total": 50.0}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "VIP", "total": 200.0}
+        ]
+      },
+      "expected_output": [
+        {"order_id": 1, "customer": "VIP", "total": 200.0}
+      ]
+    }
+  ]
+}
