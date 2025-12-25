@@ -139,7 +139,7 @@ python -m benchmarks.runner --provider anthropic --model claude-3-5-haiku-202410
 
 ```bash
 # Clone and install in development mode
-git clone https://github.com/yourusername/anka.git
+git clone https://github.com/BleBlo/anka.git
 cd anka
 pip install -e ".[dev]"
 
