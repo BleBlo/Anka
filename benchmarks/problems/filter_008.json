@@ -1,0 +1,45 @@
+{
+  "id": "filter_008",
+  "category": "filter",
+  "description": "Filter items where stock is greater than 100",
+  "input_schema": {
+    "items": [
+      {"name": "sku", "type": "STRING"},
+      {"name": "name", "type": "STRING"},
+      {"name": "stock", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "items": [
+          {"sku": "A001", "name": "Widget", "stock": 150},
+          {"sku": "A002", "name": "Gadget", "stock": 50},
+          {"sku": "A003", "name": "Gizmo", "stock": 200}
+        ]
+      },
+      "expected_output": [
+        {"sku": "A001", "name": "Widget", "stock": 150},
+        {"sku": "A003", "name": "Gizmo", "stock": 200}
+      ]
+    },
+    {
+      "input": {
+        "items": [
+          {"sku": "B001", "name": "Item", "stock": 100}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "items": [
+          {"sku": "C001", "name": "Thing", "stock": 101}
+        ]
+      },
+      "expected_output": [
+        {"sku": "C001", "name": "Thing", "stock": 101}
+      ]
+    }
+  ]
+}

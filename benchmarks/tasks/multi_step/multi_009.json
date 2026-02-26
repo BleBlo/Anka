@@ -1,0 +1,31 @@
+{
+  "id": "multi_009",
+  "category": "multi_step",
+  "difficulty": "hard",
+  "description": "Sort and slice (pagination)",
+  "prompt": "Sort the products by price in descending order, then return only the top 3 items",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "price"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 50},
+          {"id": 2, "name": "Gadget", "price": 100},
+          {"id": 3, "name": "Sprocket", "price": 75},
+          {"id": 4, "name": "Gear", "price": 200},
+          {"id": 5, "name": "Bolt", "price": 25}
+        ]
+      },
+      "expected": [
+        {"id": 4, "name": "Gear", "price": 200},
+        {"id": 2, "name": "Gadget", "price": 100},
+        {"id": 3, "name": "Sprocket", "price": 75}
+      ]
+    }
+  ]
+}

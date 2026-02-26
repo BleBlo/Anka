@@ -1,0 +1,45 @@
+{
+  "id": "select_008",
+  "category": "select",
+  "description": "Select only the id column from the records",
+  "input_schema": {
+    "records": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "value", "type": "DECIMAL"},
+      {"name": "category", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "records": [
+          {"id": 1, "name": "A", "value": 100.0, "category": "X"},
+          {"id": 2, "name": "B", "value": 200.0, "category": "Y"},
+          {"id": 3, "name": "C", "value": 300.0, "category": "Z"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1},
+        {"id": 2},
+        {"id": 3}
+      ]
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 100, "name": "Test", "value": 50.0, "category": "T"}
+        ]
+      },
+      "expected_output": [
+        {"id": 100}
+      ]
+    },
+    {
+      "input": {
+        "records": []
+      },
+      "expected_output": []
+    }
+  ]
+}

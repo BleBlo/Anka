@@ -1,0 +1,30 @@
+{
+  "id": "agg_006",
+  "category": "aggregate",
+  "difficulty": "medium",
+  "description": "GROUP BY with COUNT",
+  "prompt": "Group the orders by status and count how many orders are in each status. Name the count column 'count'.",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "customer", "status"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "customer": "Alice", "status": "pending"},
+          {"id": 2, "customer": "Bob", "status": "completed"},
+          {"id": 3, "customer": "Charlie", "status": "pending"},
+          {"id": 4, "customer": "Diana", "status": "pending"},
+          {"id": 5, "customer": "Eve", "status": "completed"}
+        ]
+      },
+      "expected": [
+        {"status": "pending", "count": 3},
+        {"status": "completed", "count": 2}
+      ]
+    }
+  ]
+}

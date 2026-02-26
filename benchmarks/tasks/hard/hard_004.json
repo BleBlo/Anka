@@ -1,0 +1,41 @@
+{
+  "id": "hard_004",
+  "category": "hard",
+  "difficulty": "hard",
+  "operations_required": 4,
+  "domain": "general",
+  "description": "Product inventory analysis with low stock alert",
+  "prompt": "Given products and inventory: 1) Join products with inventory on product_id, 2) Calculate days_of_stock (quantity / avg_daily_sales), 3) Filter to products with days_of_stock < 30, 4) Sort by days_of_stock ascending (most urgent first)",
+  "input_schema": {
+    "products": {
+      "columns": ["product_id", "name", "category"],
+      "types": ["INT", "STRING", "STRING"]
+    },
+    "inventory": {
+      "columns": ["product_id", "quantity", "avg_daily_sales"],
+      "types": ["INT", "INT", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"product_id": 1, "name": "Widget A", "category": "Widgets"},
+          {"product_id": 2, "name": "Widget B", "category": "Widgets"},
+          {"product_id": 3, "name": "Gadget X", "category": "Gadgets"},
+          {"product_id": 4, "name": "Gadget Y", "category": "Gadgets"}
+        ],
+        "inventory": [
+          {"product_id": 1, "quantity": 100, "avg_daily_sales": 5.0},
+          {"product_id": 2, "quantity": 500, "avg_daily_sales": 10.0},
+          {"product_id": 3, "quantity": 50, "avg_daily_sales": 5.0},
+          {"product_id": 4, "quantity": 200, "avg_daily_sales": 2.0}
+        ]
+      },
+      "expected": [
+        {"product_id": 3, "name": "Gadget X", "category": "Gadgets", "quantity": 50, "avg_daily_sales": 5.0, "days_of_stock": 10.0},
+        {"product_id": 1, "name": "Widget A", "category": "Widgets", "quantity": 100, "avg_daily_sales": 5.0, "days_of_stock": 20.0}
+      ]
+    }
+  ]
+}

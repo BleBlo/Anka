@@ -1,0 +1,35 @@
+{
+  "id": "fin_009",
+  "category": "finance",
+  "difficulty": "medium",
+  "domain": "finance",
+  "operations_required": 3,
+  "description": "Top performers by sector",
+  "prompt": "Given stock returns with sector: 1) Filter to positive returns (return > 0), 2) Aggregate by sector to get avg_return and stock_count, 3) Sort by avg_return descending",
+  "input_schema": {
+    "returns": {
+      "columns": ["ticker", "sector", "return"],
+      "types": ["STRING", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "returns": [
+          {"ticker": "AAPL", "sector": "Technology", "return": 0.15},
+          {"ticker": "GOOGL", "sector": "Technology", "return": 0.12},
+          {"ticker": "MSFT", "sector": "Technology", "return": -0.05},
+          {"ticker": "JPM", "sector": "Financials", "return": 0.08},
+          {"ticker": "BAC", "sector": "Financials", "return": 0.06},
+          {"ticker": "XOM", "sector": "Energy", "return": 0.20},
+          {"ticker": "CVX", "sector": "Energy", "return": -0.03}
+        ]
+      },
+      "expected": [
+        {"sector": "Energy", "avg_return": 0.20, "stock_count": 1},
+        {"sector": "Technology", "avg_return": 0.135, "stock_count": 2},
+        {"sector": "Financials", "avg_return": 0.07, "stock_count": 2}
+      ]
+    }
+  ]
+}

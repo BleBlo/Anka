@@ -1,0 +1,27 @@
+{
+  "id": "fin_017",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 1,
+  "description": "Aggregate portfolio beta",
+  "prompt": "Calculate the average beta across all positions using AGGREGATE",
+  "input_schema": {
+    "positions": {
+      "columns": ["ticker", "market_value", "beta"],
+      "types": ["STRING", "DECIMAL", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "positions": [
+          {"ticker": "AAPL", "market_value": 10000.0, "beta": 1.2},
+          {"ticker": "GOOGL", "market_value": 5000.0, "beta": 1.1},
+          {"ticker": "MSFT", "market_value": 5000.0, "beta": 0.9}
+        ]
+      },
+      "expected": [{"avg_beta": 1.0666666666666667}]
+    }
+  ]
+}

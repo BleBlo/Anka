@@ -1,0 +1,32 @@
+{
+  "id": "hard_001",
+  "category": "hard",
+  "difficulty": "medium",
+  "operations_required": 2,
+  "domain": "general",
+  "description": "Filter and aggregate orders",
+  "prompt": "Filter orders to only include those where price is greater than 100, then aggregate by customer_id to calculate total_spent (sum of price) and order_count",
+  "input_schema": {
+    "orders": {
+      "columns": ["order_id", "customer_id", "price"],
+      "types": ["INT", "INT", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer_id": 1, "price": 150.0},
+          {"order_id": 2, "customer_id": 1, "price": 200.0},
+          {"order_id": 3, "customer_id": 1, "price": 50.0},
+          {"order_id": 4, "customer_id": 2, "price": 300.0},
+          {"order_id": 5, "customer_id": 2, "price": 80.0}
+        ]
+      },
+      "expected": [
+        {"customer_id": 1, "total_spent": 350.0, "order_count": 2},
+        {"customer_id": 2, "total_spent": 300.0, "order_count": 1}
+      ]
+    }
+  ]
+}

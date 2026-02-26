@@ -1,0 +1,44 @@
+{
+  "id": "sort_007",
+  "category": "sort",
+  "description": "Sort records by value in ascending order",
+  "input_schema": {
+    "records": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "value", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "records": [
+          {"id": 1, "name": "A", "value": 30.0},
+          {"id": 2, "name": "B", "value": 10.0},
+          {"id": 3, "name": "C", "value": 20.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 2, "name": "B", "value": 10.0},
+        {"id": 3, "name": "C", "value": 20.0},
+        {"id": 1, "name": "A", "value": 30.0}
+      ]
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "name": "X", "value": 5.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "X", "value": 5.0}
+      ]
+    },
+    {
+      "input": {
+        "records": []
+      },
+      "expected_output": []
+    }
+  ]
+}

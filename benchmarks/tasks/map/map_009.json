@@ -1,0 +1,29 @@
+{
+  "id": "map_009",
+  "category": "map",
+  "difficulty": "hard",
+  "description": "Column with date calculation",
+  "prompt": "Add a new column 'days_until_due' to the invoices table using DIFF_DAYS to calculate due_date minus the reference date '2024-01-15' (use PARSE_DATE for the reference date)",
+  "input_schema": {
+    "invoices": {
+      "columns": ["id", "customer", "amount", "due_date"],
+      "types": ["INT", "STRING", "DECIMAL", "DATE"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "invoices": [
+          {"id": 1, "customer": "Acme", "amount": 1000, "due_date": "2024-01-20"},
+          {"id": 2, "customer": "GlobalCorp", "amount": 2500, "due_date": "2024-01-10"},
+          {"id": 3, "customer": "TechInc", "amount": 500, "due_date": "2024-02-01"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "customer": "Acme", "amount": 1000, "due_date": "2024-01-20", "days_until_due": 5},
+        {"id": 2, "customer": "GlobalCorp", "amount": 2500, "due_date": "2024-01-10", "days_until_due": -5},
+        {"id": 3, "customer": "TechInc", "amount": 500, "due_date": "2024-02-01", "days_until_due": 17}
+      ]
+    }
+  ]
+}

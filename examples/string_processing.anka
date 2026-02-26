@@ -1,0 +1,49 @@
+-- String Processing Pipeline
+-- Demonstrates: string functions, pattern matching, type casting
+
+PIPELINE string_processing:
+    INPUT users: TABLE[id: INT, name: STRING, email: STRING, phone: STRING, age: STRING]
+
+    -- Normalize name: trim whitespace and capitalize
+    STEP normalize_names:
+        MAP users
+        WITH clean_name => UPPER(TRIM(name))
+        INTO normalized
+
+    -- Extract email domain
+    STEP extract_domain:
+        MAP normalized
+        WITH domain => LOWER(RIGHT(email, LENGTH(email) - INDEX_OF(email, "@") - 1))
+        INTO with_domain
+
+    -- Pad ID for consistent formatting
+    STEP format_id:
+        MAP with_domain
+        WITH formatted_id => PAD_LEFT(TO_STRING(id), 6, "0")
+        INTO with_formatted_id
+
+    -- Convert age to integer
+    STEP convert_age:
+        MAP with_formatted_id
+        WITH age_num => TO_INT(age)
+        INTO with_age_num
+
+    -- Filter valid emails (must contain @ and .)
+    STEP validate_emails:
+        FILTER with_age_num
+        WHERE CONTAINS(email, "@") AND CONTAINS(email, ".")
+        INTO valid_users
+
+    -- Filter by domain pattern
+    STEP filter_company_emails:
+        FILTER valid_users
+        WHERE ENDS_WITH(email, ".com") OR ENDS_WITH(email, ".org")
+        INTO company_users
+
+    -- Add full greeting
+    STEP add_greeting:
+        MAP company_users
+        WITH greeting => CONCAT("Hello, ", name, "!")
+        INTO with_greeting
+
+    OUTPUT with_greeting

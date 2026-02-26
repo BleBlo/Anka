@@ -1,0 +1,52 @@
+{
+  "id": "null_004",
+  "category": "adversarial",
+  "description": "Sort products by price ascending, putting null prices at the end",
+  "input_schema": {
+    "products": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "price", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "A", "price": 30.0},
+          {"id": 2, "name": "B", "price": null},
+          {"id": 3, "name": "C", "price": 10.0},
+          {"id": 4, "name": "D", "price": 20.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 3, "name": "C", "price": 10.0},
+        {"id": 4, "name": "D", "price": 20.0},
+        {"id": 1, "name": "A", "price": 30.0},
+        {"id": 2, "name": "B", "price": null}
+      ]
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "X", "price": null},
+          {"id": 2, "name": "Y", "price": null}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "X", "price": null},
+        {"id": 2, "name": "Y", "price": null}
+      ]
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Z", "price": 5.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "Z", "price": 5.0}
+      ]
+    }
+  ]
+}

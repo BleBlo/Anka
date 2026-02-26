@@ -1,0 +1,47 @@
+{
+  "id": "limit_001",
+  "category": "limit",
+  "description": "Take only the first 3 rows from the data",
+  "input_schema": {
+    "items": [
+      {"name": "id", "type": "INT"},
+      {"name": "value", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "items": [
+          {"id": 1, "value": "A"},
+          {"id": 2, "value": "B"},
+          {"id": 3, "value": "C"},
+          {"id": 4, "value": "D"},
+          {"id": 5, "value": "E"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "value": "A"},
+        {"id": 2, "value": "B"},
+        {"id": 3, "value": "C"}
+      ]
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "value": "X"},
+          {"id": 2, "value": "Y"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "value": "X"},
+        {"id": 2, "value": "Y"}
+      ]
+    },
+    {
+      "input": {
+        "items": []
+      },
+      "expected_output": []
+    }
+  ]
+}

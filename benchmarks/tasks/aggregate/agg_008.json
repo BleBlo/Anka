@@ -1,0 +1,30 @@
+{
+  "id": "agg_008",
+  "category": "aggregate",
+  "difficulty": "hard",
+  "description": "GROUP BY with multiple columns",
+  "prompt": "Group the sales by region and category, and calculate the total revenue for each combination. Name the sum column 'total_revenue'.",
+  "input_schema": {
+    "sales": {
+      "columns": ["id", "region", "category", "revenue"],
+      "types": ["INT", "STRING", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "sales": [
+          {"id": 1, "region": "North", "category": "Electronics", "revenue": 1000},
+          {"id": 2, "region": "North", "category": "Clothing", "revenue": 500},
+          {"id": 3, "region": "South", "category": "Electronics", "revenue": 800},
+          {"id": 4, "region": "North", "category": "Electronics", "revenue": 1200}
+        ]
+      },
+      "expected": [
+        {"region": "North", "category": "Electronics", "total_revenue": 2200},
+        {"region": "North", "category": "Clothing", "total_revenue": 500},
+        {"region": "South", "category": "Electronics", "total_revenue": 800}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "str_001",
+  "category": "strings",
+  "difficulty": "easy",
+  "description": "Convert to uppercase",
+  "prompt": "Add a column 'name_upper' that contains the uppercase version of the name column",
+  "input_schema": {
+    "users": {
+      "columns": ["id", "name", "email"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"id": 1, "name": "alice", "email": "alice@example.com"},
+          {"id": 2, "name": "Bob Smith", "email": "bob@example.com"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "alice", "email": "alice@example.com", "name_upper": "ALICE"},
+        {"id": 2, "name": "Bob Smith", "email": "bob@example.com", "name_upper": "BOB SMITH"}
+      ]
+    }
+  ]
+}

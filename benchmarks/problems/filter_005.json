@@ -1,0 +1,47 @@
+{
+  "id": "filter_005",
+  "category": "filter",
+  "description": "Filter employees where salary is less than or equal to 60000",
+  "input_schema": {
+    "employees": [
+      {"name": "emp_id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "salary", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "employees": [
+          {"emp_id": 1, "name": "Alice", "salary": 55000},
+          {"emp_id": 2, "name": "Bob", "salary": 60000},
+          {"emp_id": 3, "name": "Charlie", "salary": 75000}
+        ]
+      },
+      "expected_output": [
+        {"emp_id": 1, "name": "Alice", "salary": 55000},
+        {"emp_id": 2, "name": "Bob", "salary": 60000}
+      ]
+    },
+    {
+      "input": {
+        "employees": [
+          {"emp_id": 1, "name": "A", "salary": 60001}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "employees": [
+          {"emp_id": 1, "name": "A", "salary": 40000},
+          {"emp_id": 2, "name": "B", "salary": 50000}
+        ]
+      },
+      "expected_output": [
+        {"emp_id": 1, "name": "A", "salary": 40000},
+        {"emp_id": 2, "name": "B", "salary": 50000}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "fin_018",
+  "category": "finance",
+  "difficulty": "hard",
+  "domain": "finance",
+  "operations_required": 4,
+  "description": "Sector rotation strategy",
+  "prompt": "Given sector_returns: 1) Filter to returns from last month (date starts with '2024-06'), 2) Aggregate by sector to get avg_return, 3) Sort by avg_return descending, 4) Limit to top 3 sectors",
+  "input_schema": {
+    "sector_returns": {
+      "columns": ["date", "sector", "return"],
+      "types": ["STRING", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "sector_returns": [
+          {"date": "2024-06-01", "sector": "Technology", "return": 0.02},
+          {"date": "2024-06-15", "sector": "Technology", "return": 0.03},
+          {"date": "2024-06-01", "sector": "Financials", "return": 0.01},
+          {"date": "2024-06-15", "sector": "Financials", "return": 0.02},
+          {"date": "2024-06-01", "sector": "Energy", "return": 0.04},
+          {"date": "2024-06-15", "sector": "Energy", "return": 0.03},
+          {"date": "2024-06-01", "sector": "Healthcare", "return": 0.01},
+          {"date": "2024-06-15", "sector": "Healthcare", "return": 0.00},
+          {"date": "2024-05-01", "sector": "Technology", "return": 0.10}
+        ]
+      },
+      "expected": [
+        {"sector": "Energy", "avg_return": 0.035},
+        {"sector": "Technology", "avg_return": 0.025},
+        {"sector": "Financials", "avg_return": 0.015}
+      ]
+    }
+  ]
+}

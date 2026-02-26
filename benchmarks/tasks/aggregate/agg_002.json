@@ -1,0 +1,32 @@
+{
+  "id": "agg_002",
+  "category": "aggregate",
+  "difficulty": "easy",
+  "description": "Simple COUNT aggregation",
+  "prompt": "Count the total number of rows in the users table. Return a list with one record containing 'count' field.",
+  "input_schema": {
+    "users": {
+      "columns": ["id", "name", "email"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"id": 1, "name": "Alice", "email": "alice@example.com"},
+          {"id": 2, "name": "Bob", "email": "bob@example.com"},
+          {"id": 3, "name": "Charlie", "email": "charlie@example.com"},
+          {"id": 4, "name": "Diana", "email": "diana@example.com"}
+        ]
+      },
+      "expected": [{"count": 4}]
+    },
+    {
+      "input": {
+        "users": []
+      },
+      "expected": [{"count": 0}]
+    }
+  ]
+}

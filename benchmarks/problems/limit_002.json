@@ -1,0 +1,51 @@
+{
+  "id": "limit_002",
+  "category": "limit",
+  "description": "Take only the first 5 rows from the records",
+  "input_schema": {
+    "records": [
+      {"name": "id", "type": "INT"},
+      {"name": "data", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "records": [
+          {"id": 1, "data": "A"},
+          {"id": 2, "data": "B"},
+          {"id": 3, "data": "C"},
+          {"id": 4, "data": "D"},
+          {"id": 5, "data": "E"},
+          {"id": 6, "data": "F"},
+          {"id": 7, "data": "G"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "data": "A"},
+        {"id": 2, "data": "B"},
+        {"id": 3, "data": "C"},
+        {"id": 4, "data": "D"},
+        {"id": 5, "data": "E"}
+      ]
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "data": "X"},
+          {"id": 2, "data": "Y"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "data": "X"},
+        {"id": 2, "data": "Y"}
+      ]
+    },
+    {
+      "input": {
+        "records": []
+      },
+      "expected_output": []
+    }
+  ]
+}

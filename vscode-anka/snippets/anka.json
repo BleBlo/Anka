@@ -1,0 +1,280 @@
+{
+  "Pipeline": {
+    "prefix": "pipeline",
+    "body": [
+      "PIPELINE ${1:pipeline_name}:",
+      "  INPUT ${2:data}: TABLE[${3:id}: INT, ${4:name}: STRING]",
+      "",
+      "  STEP ${5:process}:",
+      "    ${6:FILTER $2}",
+      "    ${7:WHERE $3 > 0}",
+      "    ${8:INTO result}",
+      "",
+      "  OUTPUT ${9:result}"
+    ],
+    "description": "Create a new Anka pipeline"
+  },
+  "Step": {
+    "prefix": "step",
+    "body": [
+      "STEP ${1:step_name}:",
+      "  ${2:operation}",
+      "  INTO ${3:result}"
+    ],
+    "description": "Create a pipeline step"
+  },
+  "Filter": {
+    "prefix": "filter",
+    "body": [
+      "FILTER ${1:source}",
+      "WHERE ${2:condition}",
+      "INTO ${3:target}"
+    ],
+    "description": "FILTER operation with WHERE clause"
+  },
+  "Select": {
+    "prefix": "select",
+    "body": [
+      "SELECT ${1:column1}, ${2:column2}",
+      "FROM ${3:source}",
+      "INTO ${4:target}"
+    ],
+    "description": "SELECT columns from a table"
+  },
+  "Map": {
+    "prefix": "map",
+    "body": [
+      "MAP ${1:source}",
+      "WITH ${2:new_column} => ${3:expression}",
+      "INTO ${4:target}"
+    ],
+    "description": "MAP operation to add computed columns"
+  },
+  "Sort": {
+    "prefix": "sort",
+    "body": [
+      "SORT ${1:source}",
+      "BY ${2:column} ${3|ASC,DESC|}",
+      "INTO ${4:target}"
+    ],
+    "description": "SORT operation"
+  },
+  "Sort with Nulls": {
+    "prefix": "sortnulls",
+    "body": [
+      "SORT ${1:source}",
+      "BY ${2:column} ${3|ASC,DESC|} ${4|NULLS_FIRST,NULLS_LAST|}",
+      "INTO ${5:target}"
+    ],
+    "description": "SORT operation with null handling"
+  },
+  "Limit": {
+    "prefix": "limit",
+    "body": [
+      "LIMIT ${1:source}",
+      "COUNT ${2:10}",
+      "INTO ${3:target}"
+    ],
+    "description": "LIMIT operation to take N rows"
+  },
+  "Skip": {
+    "prefix": "skip",
+    "body": [
+      "SKIP ${1:source}",
+      "COUNT ${2:10}",
+      "INTO ${3:target}"
+    ],
+    "description": "SKIP operation for pagination"
+  },
+  "Distinct": {
+    "prefix": "distinct",
+    "body": [
+      "DISTINCT ${1:source}",
+      "BY ${2:column1}, ${3:column2}",
+      "INTO ${4:target}"
+    ],
+    "description": "DISTINCT operation to remove duplicates"
+  },
+  "Aggregate": {
+    "prefix": "aggregate",
+    "body": [
+      "AGGREGATE ${1:source}",
+      "GROUP_BY ${2:category}",
+      "COMPUTE SUM(${3:amount}) AS ${4:total}, COUNT() AS ${5:count}",
+      "INTO ${6:target}"
+    ],
+    "description": "AGGREGATE with GROUP_BY and COMPUTE"
+  },
+  "If-Else": {
+    "prefix": "if",
+    "body": [
+      "IF ${1:condition}:",
+      "  ${2:-- then block}",
+      "ELSE:",
+      "  ${3:-- else block}",
+      "END"
+    ],
+    "description": "IF-ELSE conditional block"
+  },
+  "If": {
+    "prefix": "ifonly",
+    "body": [
+      "IF ${1:condition}:",
+      "  ${2:-- then block}",
+      "END"
+    ],
+    "description": "IF conditional (no else)"
+  },
+  "For Each": {
+    "prefix": "foreach",
+    "body": [
+      "FOR_EACH ${1:item} IN ${2:collection}:",
+      "  ${3:-- loop body}",
+      "END"
+    ],
+    "description": "FOR_EACH loop"
+  },
+  "While": {
+    "prefix": "while",
+    "body": [
+      "WHILE ${1:condition}:",
+      "  ${2:-- loop body}",
+      "END"
+    ],
+    "description": "WHILE loop"
+  },
+  "Try-Catch": {
+    "prefix": "try",
+    "body": [
+      "TRY:",
+      "  ${1:-- try block}",
+      "ON_ERROR:",
+      "  ${2:-- error handling}",
+      "END"
+    ],
+    "description": "TRY-ON_ERROR block for error handling"
+  },
+  "Match": {
+    "prefix": "match",
+    "body": [
+      "MATCH ${1:variable}:",
+      "  CASE ${2:\"value1\"}:",
+      "    ${3:-- handle case 1}",
+      "  CASE ${4:\"value2\"}:",
+      "    ${5:-- handle case 2}",
+      "  DEFAULT:",
+      "    ${6:-- default case}",
+      "END"
+    ],
+    "description": "MATCH pattern matching block"
+  },
+  "Fetch GET": {
+    "prefix": "fetch",
+    "body": [
+      "FETCH \"${1:https://api.example.com/data}\"",
+      "METHOD GET",
+      "INTO ${2:response}"
+    ],
+    "description": "HTTP GET request"
+  },
+  "Fetch with Headers": {
+    "prefix": "fetchheaders",
+    "body": [
+      "FETCH \"${1:https://api.example.com/data}\"",
+      "METHOD GET",
+      "HEADERS {\"Authorization\": \"${2:Bearer token}\"}",
+      "INTO ${3:response}"
+    ],
+    "description": "HTTP GET request with headers"
+  },
+  "Post": {
+    "prefix": "post",
+    "body": [
+      "POST \"${1:https://api.example.com/data}\"",
+      "BODY ${2:payload}",
+      "INTO ${3:response}"
+    ],
+    "description": "HTTP POST request"
+  },
+  "Post with Headers": {
+    "prefix": "postheaders",
+    "body": [
+      "POST \"${1:https://api.example.com/data}\"",
+      "BODY ${2:payload}",
+      "HEADERS {\"Content-Type\": \"application/json\", \"Authorization\": \"${3:Bearer token}\"}",
+      "INTO ${4:response}"
+    ],
+    "description": "HTTP POST request with headers"
+  },
+  "Read JSON": {
+    "prefix": "readjson",
+    "body": [
+      "READ \"${1:path/to/file.json}\"",
+      "FORMAT JSON",
+      "INTO ${2:data}"
+    ],
+    "description": "Read data from JSON file"
+  },
+  "Read CSV": {
+    "prefix": "readcsv",
+    "body": [
+      "READ \"${1:path/to/file.csv}\"",
+      "FORMAT CSV",
+      "INTO ${2:data}"
+    ],
+    "description": "Read data from CSV file"
+  },
+  "Write JSON": {
+    "prefix": "writejson",
+    "body": [
+      "WRITE ${1:data}",
+      "TO \"${2:path/to/output.json}\"",
+      "FORMAT JSON"
+    ],
+    "description": "Write data to JSON file"
+  },
+  "Write CSV": {
+    "prefix": "writecsv",
+    "body": [
+      "WRITE ${1:data}",
+      "TO \"${2:path/to/output.csv}\"",
+      "FORMAT CSV"
+    ],
+    "description": "Write data to CSV file"
+  },
+  "Set Variable": {
+    "prefix": "set",
+    "body": [
+      "SET ${1:variable} = ${2:value}"
+    ],
+    "description": "SET variable assignment"
+  },
+  "Append": {
+    "prefix": "append",
+    "body": [
+      "APPEND ${1:item} TO ${2:collection}"
+    ],
+    "description": "APPEND item to collection"
+  },
+  "Assert": {
+    "prefix": "assert",
+    "body": [
+      "ASSERT ${1:condition} MESSAGE \"${2:Error message}\""
+    ],
+    "description": "ASSERT validation statement"
+  },
+  "Input Declaration": {
+    "prefix": "input",
+    "body": [
+      "INPUT ${1:name}: TABLE[${2:id}: INT, ${3:value}: STRING]"
+    ],
+    "description": "INPUT table declaration"
+  },
+  "Table Type": {
+    "prefix": "table",
+    "body": [
+      "TABLE[${1:id}: INT, ${2:name}: STRING, ${3:amount}: DECIMAL]"
+    ],
+    "description": "TABLE type definition"
+  }
+}

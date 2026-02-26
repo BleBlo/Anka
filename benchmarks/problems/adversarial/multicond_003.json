@@ -1,0 +1,47 @@
+{
+  "id": "multicond_003",
+  "category": "adversarial",
+  "description": "Filter employees where department equals 'Sales', then filter where salary > 50000, then sort by salary descending",
+  "input_schema": {
+    "employees": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "department", "type": "STRING"},
+      {"name": "salary", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "employees": [
+          {"id": 1, "name": "Alice", "department": "Sales", "salary": 60000.0},
+          {"id": 2, "name": "Bob", "department": "Engineering", "salary": 80000.0},
+          {"id": 3, "name": "Charlie", "department": "Sales", "salary": 45000.0},
+          {"id": 4, "name": "Diana", "department": "Sales", "salary": 70000.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 4, "name": "Diana", "department": "Sales", "salary": 70000.0},
+        {"id": 1, "name": "Alice", "department": "Sales", "salary": 60000.0}
+      ]
+    },
+    {
+      "input": {
+        "employees": [
+          {"id": 1, "name": "Eve", "department": "Sales", "salary": 40000.0}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "employees": [
+          {"id": 1, "name": "Frank", "department": "Sales", "salary": 55000.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "Frank", "department": "Sales", "salary": 55000.0}
+      ]
+    }
+  ]
+}

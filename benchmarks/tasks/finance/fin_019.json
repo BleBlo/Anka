@@ -1,0 +1,31 @@
+{
+  "id": "fin_019",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 1,
+  "description": "Calculate inverse volatility",
+  "prompt": "Add a column inverse_vol that calculates 1 / volatility",
+  "input_schema": {
+    "positions": {
+      "columns": ["ticker", "volatility"],
+      "types": ["STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "positions": [
+          {"ticker": "AAPL", "volatility": 0.25},
+          {"ticker": "GOOGL", "volatility": 0.20},
+          {"ticker": "MSFT", "volatility": 0.50}
+        ]
+      },
+      "expected": [
+        {"ticker": "AAPL", "volatility": 0.25, "inverse_vol": 4.0},
+        {"ticker": "GOOGL", "volatility": 0.20, "inverse_vol": 5.0},
+        {"ticker": "MSFT", "volatility": 0.50, "inverse_vol": 2.0}
+      ]
+    }
+  ]
+}

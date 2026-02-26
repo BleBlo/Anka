@@ -1,0 +1,183 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Anka",
+  "scopeName": "source.anka",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#keywords" },
+    { "include": "#functions" },
+    { "include": "#types" },
+    { "include": "#operators" },
+    { "include": "#identifiers" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-dash.anka",
+          "match": "--.*$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.anka",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.anka",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.anka",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.anka",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.decimal.anka",
+          "match": "\\b\\d+\\.\\d+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.anka",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.pipeline.anka",
+          "match": "\\b(PIPELINE|INPUT|OUTPUT|STEP)\\b"
+        },
+        {
+          "name": "keyword.control.flow.anka",
+          "match": "\\b(IF|ELSE|END|FOR_EACH|WHILE|TRY|ON_ERROR|MATCH|CASE|DEFAULT|RETURN|BREAK|CONTINUE)\\b"
+        },
+        {
+          "name": "keyword.operator.data.anka",
+          "match": "\\b(FILTER|SELECT|MAP|SORT|LIMIT|SKIP|DISTINCT|AGGREGATE)\\b"
+        },
+        {
+          "name": "keyword.operator.io.anka",
+          "match": "\\b(READ|WRITE|FETCH|POST|FORMAT|METHOD|HEADERS|BODY)\\b"
+        },
+        {
+          "name": "keyword.operator.http.anka",
+          "match": "\\b(GET|PUT|DELETE)\\b"
+        },
+        {
+          "name": "keyword.other.clause.anka",
+          "match": "\\b(WHERE|INTO|FROM|BY|WITH|AS|TO|IN|DO|COUNT|GROUP_BY|COMPUTE)\\b"
+        },
+        {
+          "name": "keyword.other.sort.anka",
+          "match": "\\b(ASC|DESC|NULLS_FIRST|NULLS_LAST)\\b"
+        },
+        {
+          "name": "keyword.other.format.anka",
+          "match": "\\b(JSON|CSV|TEXT)\\b"
+        },
+        {
+          "name": "keyword.operator.logical.anka",
+          "match": "\\b(AND|OR|NOT|BETWEEN)\\b"
+        },
+        {
+          "name": "keyword.other.statement.anka",
+          "match": "\\b(SET|APPEND|ASSERT|MESSAGE)\\b"
+        },
+        {
+          "name": "constant.language.boolean.anka",
+          "match": "\\b(true|false|NULL)\\b"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "support.function.string.anka",
+          "match": "\\b(UPPER|LOWER|TRIM|LTRIM|RTRIM|CAPITALIZE|TITLE_CASE|LENGTH|REVERSE|SUBSTRING|LEFT|RIGHT|INDEX_OF|LAST_INDEX_OF|REPLACE|REPLACE_ALL|PAD_LEFT|PAD_RIGHT|REPEAT|CONCAT|SPLIT|JOIN)\\b"
+        },
+        {
+          "name": "support.function.string.check.anka",
+          "match": "\\b(CONTAINS|STARTS_WITH|ENDS_WITH|MATCHES)\\b"
+        },
+        {
+          "name": "support.function.date.anka",
+          "match": "\\b(NOW|TODAY|UTC_NOW|YEAR|MONTH|DAY|HOUR|MINUTE|SECOND|DAY_OF_WEEK|DAY_OF_YEAR|WEEK_OF_YEAR|ADD_DAYS|ADD_MONTHS|ADD_YEARS|ADD_HOURS|ADD_MINUTES|DIFF_DAYS|DIFF_HOURS|DIFF_SECONDS|PARSE_DATE|PARSE_DATETIME|FORMAT_DATE|FORMAT_DATETIME)\\b"
+        },
+        {
+          "name": "support.function.date.check.anka",
+          "match": "\\b(IS_BEFORE|IS_AFTER|IS_WEEKEND|IS_TODAY)\\b"
+        },
+        {
+          "name": "support.function.aggregate.anka",
+          "match": "\\b(SUM|AVG|MIN|MAX)\\b"
+        },
+        {
+          "name": "support.function.null.anka",
+          "match": "\\b(COALESCE|SAFE_DIV|IS_NULL|IS_NOT_NULL|IFNULL)\\b"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "entity.name.type.anka",
+          "match": "\\b(TABLE|LIST|INT|STRING|DECIMAL|BOOL|DATE|DATETIME)\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.comparison.anka",
+          "match": "(==|!=|>=|<=|>|<)"
+        },
+        {
+          "name": "keyword.operator.arithmetic.anka",
+          "match": "(\\+|\\-|\\*|/)"
+        },
+        {
+          "name": "keyword.operator.assignment.anka",
+          "match": "="
+        },
+        {
+          "name": "keyword.operator.arrow.anka",
+          "match": "=>"
+        }
+      ]
+    },
+    "identifiers": {
+      "patterns": [
+        {
+          "name": "entity.name.function.pipeline.anka",
+          "match": "(?<=PIPELINE\\s+)[a-zA-Z_][a-zA-Z0-9_]*"
+        },
+        {
+          "name": "entity.name.function.step.anka",
+          "match": "(?<=STEP\\s+)[a-zA-Z_][a-zA-Z0-9_]*"
+        },
+        {
+          "name": "variable.other.anka",
+          "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
+        }
+      ]
+    }
+  }
+}

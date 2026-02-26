@@ -1,0 +1,45 @@
+{
+  "id": "operator_001",
+  "category": "adversarial",
+  "description": "Filter records where value equals exactly 100 (use == not =)",
+  "input_schema": {
+    "records": [
+      {"name": "id", "type": "INT"},
+      {"name": "value", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "records": [
+          {"id": 1, "value": 99},
+          {"id": 2, "value": 100},
+          {"id": 3, "value": 101},
+          {"id": 4, "value": 100}
+        ]
+      },
+      "expected_output": [
+        {"id": 2, "value": 100},
+        {"id": 4, "value": 100}
+      ]
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "value": 50}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "value": 100}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "value": 100}
+      ]
+    }
+  ]
+}

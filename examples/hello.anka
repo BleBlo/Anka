@@ -1,0 +1,9 @@
+PIPELINE hello:
+  INPUT data: TABLE[x: INT, y: INT]
+
+  STEP filter_positive:
+    FILTER data
+    WHERE x > 0
+    INTO positive_data
+
+  OUTPUT positive_data

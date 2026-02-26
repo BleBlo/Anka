@@ -1,0 +1,46 @@
+{
+  "id": "pipeline_005",
+  "category": "pipeline",
+  "description": "Sort transactions by amount ascending, take first 3, then select id and amount",
+  "input_schema": {
+    "transactions": [
+      {"name": "id", "type": "INT"},
+      {"name": "description", "type": "STRING"},
+      {"name": "amount", "type": "DECIMAL"},
+      {"name": "date", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "transactions": [
+          {"id": 1, "description": "A", "amount": 500.0, "date": "2024-01-01"},
+          {"id": 2, "description": "B", "amount": 100.0, "date": "2024-01-02"},
+          {"id": 3, "description": "C", "amount": 300.0, "date": "2024-01-03"},
+          {"id": 4, "description": "D", "amount": 200.0, "date": "2024-01-04"}
+        ]
+      },
+      "expected_output": [
+        {"id": 2, "amount": 100.0},
+        {"id": 4, "amount": 200.0},
+        {"id": 3, "amount": 300.0}
+      ]
+    },
+    {
+      "input": {
+        "transactions": [
+          {"id": 1, "description": "X", "amount": 50.0, "date": "2024-01-01"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "amount": 50.0}
+      ]
+    },
+    {
+      "input": {
+        "transactions": []
+      },
+      "expected_output": []
+    }
+  ]
+}

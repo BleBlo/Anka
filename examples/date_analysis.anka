@@ -1,0 +1,51 @@
+-- Date Analysis Pipeline
+-- Demonstrates: date functions, date arithmetic, date filtering
+
+PIPELINE date_analysis:
+    INPUT events: TABLE[id: INT, event_name: STRING, event_date: STRING, duration_hours: INT]
+
+    -- Extract date components
+    STEP extract_dates:
+        MAP events
+        WITH event_year => YEAR(event_date)
+        INTO with_year
+
+    STEP add_month:
+        MAP with_year
+        WITH event_month => MONTH(event_date)
+        INTO with_month
+
+    STEP add_day_of_week:
+        MAP with_month
+        WITH weekday => DAY_OF_WEEK(event_date)
+        INTO with_weekday
+
+    -- Calculate end date
+    STEP add_end_time:
+        MAP with_weekday
+        WITH end_date => ADD_HOURS(event_date, duration_hours)
+        INTO with_end_date
+
+    -- Calculate days from today
+    STEP days_away:
+        MAP with_end_date
+        WITH days_until => DIFF_DAYS(event_date, TODAY())
+        INTO with_days_until
+
+    -- Filter upcoming events (in the future)
+    STEP filter_upcoming:
+        FILTER with_days_until
+        WHERE IS_AFTER(event_date, TODAY())
+        INTO upcoming_events
+
+    -- Filter out weekend events
+    STEP filter_weekdays:
+        FILTER upcoming_events
+        WHERE NOT IS_WEEKEND(event_date)
+        INTO weekday_events
+
+    -- Sort by date
+    STEP sort_by_date:
+        SORT weekday_events BY event_date ASC INTO sorted_events
+
+    OUTPUT sorted_events

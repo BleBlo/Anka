@@ -1,0 +1,29 @@
+{
+  "id": "map_007",
+  "category": "map",
+  "difficulty": "medium",
+  "description": "Column with math function",
+  "prompt": "Add a new column 'price_rounded' to the products table that contains the price rounded to 0 decimal places using ROUND(price, 0)",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "price"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 99.49},
+          {"id": 2, "name": "Gadget", "price": 149.51},
+          {"id": 3, "name": "Sprocket", "price": 25.50}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Widget", "price": 99.49, "price_rounded": 99},
+        {"id": 2, "name": "Gadget", "price": 149.51, "price_rounded": 150},
+        {"id": 3, "name": "Sprocket", "price": 25.50, "price_rounded": 26}
+      ]
+    }
+  ]
+}

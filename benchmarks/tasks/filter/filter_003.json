@@ -1,0 +1,35 @@
+{
+  "id": "filter_003",
+  "category": "filter",
+  "difficulty": "easy",
+  "description": "Filter rows by string equality",
+  "prompt": "Filter the users to only include those where the status is 'active'",
+  "input_schema": {
+    "users": {
+      "columns": ["id", "name", "status"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"id": 1, "name": "Alice", "status": "active"},
+          {"id": 2, "name": "Bob", "status": "inactive"},
+          {"id": 3, "name": "Charlie", "status": "active"},
+          {"id": 4, "name": "Diana", "status": "pending"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Alice", "status": "active"},
+        {"id": 3, "name": "Charlie", "status": "active"}
+      ]
+    },
+    {
+      "input": {
+        "users": [{"id": 1, "name": "Eve", "status": "inactive"}]
+      },
+      "expected": []
+    }
+  ]
+}

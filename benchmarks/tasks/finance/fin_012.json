@@ -1,0 +1,31 @@
+{
+  "id": "fin_012",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 1,
+  "description": "Calculate weight difference",
+  "prompt": "Add a column weight_diff that calculates target_weight - current_weight",
+  "input_schema": {
+    "positions": {
+      "columns": ["ticker", "current_weight", "target_weight"],
+      "types": ["STRING", "DECIMAL", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "positions": [
+          {"ticker": "AAPL", "current_weight": 0.30, "target_weight": 0.25},
+          {"ticker": "GOOGL", "current_weight": 0.20, "target_weight": 0.25},
+          {"ticker": "MSFT", "current_weight": 0.25, "target_weight": 0.25}
+        ]
+      },
+      "expected": [
+        {"ticker": "AAPL", "current_weight": 0.30, "target_weight": 0.25, "weight_diff": -0.05},
+        {"ticker": "GOOGL", "current_weight": 0.20, "target_weight": 0.25, "weight_diff": 0.05},
+        {"ticker": "MSFT", "current_weight": 0.25, "target_weight": 0.25, "weight_diff": 0.0}
+      ]
+    }
+  ]
+}

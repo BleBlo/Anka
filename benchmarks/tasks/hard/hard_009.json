@@ -1,0 +1,33 @@
+{
+  "id": "hard_009",
+  "category": "hard",
+  "difficulty": "easy",
+  "operations_required": 1,
+  "domain": "general",
+  "description": "Aggregate vendor orders",
+  "prompt": "Aggregate purchase_orders by vendor_id to calculate total_orders (count) and total_value (sum of amount)",
+  "input_schema": {
+    "purchase_orders": {
+      "columns": ["po_id", "vendor_id", "amount"],
+      "types": ["INT", "INT", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "purchase_orders": [
+          {"po_id": 1, "vendor_id": 1, "amount": 1000.0},
+          {"po_id": 2, "vendor_id": 1, "amount": 1500.0},
+          {"po_id": 3, "vendor_id": 2, "amount": 2000.0},
+          {"po_id": 4, "vendor_id": 2, "amount": 500.0},
+          {"po_id": 5, "vendor_id": 3, "amount": 750.0}
+        ]
+      },
+      "expected": [
+        {"vendor_id": 1, "total_orders": 2, "total_value": 2500.0},
+        {"vendor_id": 2, "total_orders": 2, "total_value": 2500.0},
+        {"vendor_id": 3, "total_orders": 1, "total_value": 750.0}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "str_002",
+  "category": "strings",
+  "difficulty": "easy",
+  "description": "Convert to lowercase",
+  "prompt": "Add a column 'email_lower' that contains the lowercase version of the email column",
+  "input_schema": {
+    "users": {
+      "columns": ["id", "name", "email"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"id": 1, "name": "Alice", "email": "Alice@Example.COM"},
+          {"id": 2, "name": "Bob", "email": "BOB@Test.ORG"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Alice", "email": "Alice@Example.COM", "email_lower": "alice@example.com"},
+        {"id": 2, "name": "Bob", "email": "BOB@Test.ORG", "email_lower": "bob@test.org"}
+      ]
+    }
+  ]
+}

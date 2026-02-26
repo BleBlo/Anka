@@ -1,0 +1,29 @@
+PIPELINE sales_report:
+    INPUT sales: TABLE[product: STRING, quantity: INT, price: DECIMAL]
+
+    STEP filter_valid:
+        FILTER sales
+        WHERE quantity > 0
+        INTO valid_sales
+
+    STEP add_total:
+        MAP valid_sales
+        WITH total => quantity * price
+        INTO with_totals
+
+    STEP order_by_total:
+        SORT with_totals
+        BY total DESC
+        INTO sorted_sales
+
+    STEP top_three:
+        LIMIT sorted_sales
+        COUNT 3
+        INTO top_sales
+
+    STEP pick_columns:
+        SELECT product, total
+        FROM top_sales
+        INTO summary
+
+    OUTPUT summary

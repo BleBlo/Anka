@@ -1,0 +1,48 @@
+{
+  "id": "multicond_004",
+  "category": "adversarial",
+  "description": "Calculate profit as revenue - cost, then filter where profit > 0, then filter where category equals 'Electronics'",
+  "input_schema": {
+    "products": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "category", "type": "STRING"},
+      {"name": "revenue", "type": "DECIMAL"},
+      {"name": "cost", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Phone", "category": "Electronics", "revenue": 500.0, "cost": 300.0},
+          {"id": 2, "name": "Shirt", "category": "Clothing", "revenue": 50.0, "cost": 20.0},
+          {"id": 3, "name": "TV", "category": "Electronics", "revenue": 800.0, "cost": 900.0},
+          {"id": 4, "name": "Laptop", "category": "Electronics", "revenue": 1200.0, "cost": 800.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "Phone", "category": "Electronics", "revenue": 500.0, "cost": 300.0, "profit": 200.0},
+        {"id": 4, "name": "Laptop", "category": "Electronics", "revenue": 1200.0, "cost": 800.0, "profit": 400.0}
+      ]
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Item", "category": "Electronics", "revenue": 100.0, "cost": 150.0}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Gadget", "category": "Electronics", "revenue": 200.0, "cost": 100.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "Gadget", "category": "Electronics", "revenue": 200.0, "cost": 100.0, "profit": 100.0}
+      ]
+    }
+  ]
+}

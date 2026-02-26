@@ -1,0 +1,47 @@
+
+================================================================================
+KEY CLAIMS (with supporting evidence)
+================================================================================
+
+CLAIM 1: "LLMs can learn novel DSLs from prompts alone"
+  Evidence: 99.9% parse success with zero training data
+  The model had never seen Anka syntax before, yet generated
+  valid Anka code in 99.9% of attempts.
+
+CLAIM 2: "Constrained syntax reduces multi-step pipeline errors"
+  Evidence: 40% accuracy advantage on multi-step tasks (100% vs 60%)
+  Python's flexibility allows errors that Anka's explicit syntax prevents:
+  - Variable shadowing: Anka requires explicit INTO clauses
+  - Operation order: Anka enforces step-by-step declarations
+  - State management: Each Anka step produces named output
+
+CLAIM 3: "Anka outperforms Python overall despite Python training advantage"
+  Evidence: 95.8% vs 91.2% (+4.6 percentage points)
+  The LLM has billions of Python examples in training, yet
+  performs better on a language learned from a single prompt.
+
+CLAIM 4: "Advantage increases with task complexity"
+  Evidence:
+  - Simple tasks (1-2 ops): ~0% advantage
+  - Medium tasks (3-4 ops): +5% advantage
+  - Complex tasks (5+ ops): +40% advantage
+  Anka's explicit structure becomes more valuable as complexity increases.
+
+================================================================================
+IMPLICATIONS
+================================================================================
+
+1. DSL DESIGN FOR LLMs:
+   Languages can be designed specifically for LLM generation.
+   Constraints that might annoy humans (verbose keywords, explicit types)
+   actually help LLMs generate correct code.
+
+2. PROMPT-BASED LANGUAGE LEARNING:
+   In-context learning is sufficient to teach complex DSLs.
+   No fine-tuning or additional training required.
+
+3. RELIABLE CODE GENERATION:
+   For critical applications, using a constrained DSL may be
+   more reliable than using general-purpose languages.
+
+================================================================================

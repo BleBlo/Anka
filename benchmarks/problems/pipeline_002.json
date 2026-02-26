@@ -1,0 +1,47 @@
+{
+  "id": "pipeline_002",
+  "category": "pipeline",
+  "description": "Filter orders where amount > 100, sort by amount descending, then select only customer and amount columns",
+  "input_schema": {
+    "orders": [
+      {"name": "order_id", "type": "INT"},
+      {"name": "customer", "type": "STRING"},
+      {"name": "amount", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "Alice", "amount": 50.0},
+          {"order_id": 2, "customer": "Bob", "amount": 200.0},
+          {"order_id": 3, "customer": "Charlie", "amount": 150.0}
+        ]
+      },
+      "expected_output": [
+        {"customer": "Bob", "amount": 200.0},
+        {"customer": "Charlie", "amount": 150.0}
+      ]
+    },
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "X", "amount": 100.0}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "customer": "A", "amount": 300.0},
+          {"order_id": 2, "customer": "B", "amount": 101.0}
+        ]
+      },
+      "expected_output": [
+        {"customer": "A", "amount": 300.0},
+        {"customer": "B", "amount": 101.0}
+      ]
+    }
+  ]
+}

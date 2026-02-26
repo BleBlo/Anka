@@ -1,0 +1,28 @@
+{
+  "id": "str_008",
+  "category": "strings",
+  "difficulty": "medium",
+  "description": "Filter by string contains",
+  "prompt": "Filter the products to only include those where the description contains the word 'premium'",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "description"],
+      "types": ["INT", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "description": "A premium quality widget"},
+          {"id": 2, "name": "Gadget", "description": "Basic gadget for everyday use"},
+          {"id": 3, "name": "Sprocket", "description": "premium sprocket with warranty"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Widget", "description": "A premium quality widget"},
+        {"id": 3, "name": "Sprocket", "description": "premium sprocket with warranty"}
+      ]
+    }
+  ]
+}

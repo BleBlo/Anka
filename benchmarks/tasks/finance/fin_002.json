@@ -1,0 +1,31 @@
+{
+  "id": "fin_002",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 1,
+  "description": "Calculate P&L from trades",
+  "prompt": "Given trades with buy_price and sell_price, add a column pnl that calculates profit/loss (sell_price - buy_price)",
+  "input_schema": {
+    "trades": {
+      "columns": ["trade_id", "ticker", "shares", "buy_price", "sell_price"],
+      "types": ["INT", "STRING", "INT", "DECIMAL", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "trades": [
+          {"trade_id": 1, "ticker": "AAPL", "shares": 100, "buy_price": 100.0, "sell_price": 120.0},
+          {"trade_id": 2, "ticker": "GOOGL", "shares": 50, "buy_price": 150.0, "sell_price": 140.0},
+          {"trade_id": 3, "ticker": "MSFT", "shares": 200, "buy_price": 50.0, "sell_price": 55.0}
+        ]
+      },
+      "expected": [
+        {"trade_id": 1, "ticker": "AAPL", "shares": 100, "buy_price": 100.0, "sell_price": 120.0, "pnl": 20.0},
+        {"trade_id": 2, "ticker": "GOOGL", "shares": 50, "buy_price": 150.0, "sell_price": 140.0, "pnl": -10.0},
+        {"trade_id": 3, "ticker": "MSFT", "shares": 200, "buy_price": 50.0, "sell_price": 55.0, "pnl": 5.0}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "filter_003",
+  "category": "filter",
+  "description": "Filter inventory items where quantity is less than 5",
+  "input_schema": {
+    "inventory": [
+      {"name": "item_id", "type": "INT"},
+      {"name": "product", "type": "STRING"},
+      {"name": "quantity", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "inventory": [
+          {"item_id": 1, "product": "Widget", "quantity": 3},
+          {"item_id": 2, "product": "Gadget", "quantity": 10},
+          {"item_id": 3, "product": "Gizmo", "quantity": 4}
+        ]
+      },
+      "expected_output": [
+        {"item_id": 1, "product": "Widget", "quantity": 3},
+        {"item_id": 3, "product": "Gizmo", "quantity": 4}
+      ]
+    },
+    {
+      "input": {
+        "inventory": [
+          {"item_id": 1, "product": "Widget", "quantity": 5},
+          {"item_id": 2, "product": "Gadget", "quantity": 6}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "inventory": [
+          {"item_id": 1, "product": "Widget", "quantity": 0},
+          {"item_id": 2, "product": "Gadget", "quantity": 1},
+          {"item_id": 3, "product": "Gizmo", "quantity": 2}
+        ]
+      },
+      "expected_output": [
+        {"item_id": 1, "product": "Widget", "quantity": 0},
+        {"item_id": 2, "product": "Gadget", "quantity": 1},
+        {"item_id": 3, "product": "Gizmo", "quantity": 2}
+      ]
+    }
+  ]
+}

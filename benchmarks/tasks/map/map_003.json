@@ -1,0 +1,27 @@
+{
+  "id": "map_003",
+  "category": "map",
+  "difficulty": "medium",
+  "description": "Add multiple columns",
+  "prompt": "Add two new columns to the products table: 'tax' (price * 0.1) and 'total_price' (price + tax)",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "price"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 100.0},
+          {"id": 2, "name": "Gadget", "price": 50.0}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Widget", "price": 100.0, "tax": 10.0, "total_price": 110.0},
+        {"id": 2, "name": "Gadget", "price": 50.0, "tax": 5.0, "total_price": 55.0}
+      ]
+    }
+  ]
+}

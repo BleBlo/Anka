@@ -1,0 +1,30 @@
+{
+  "id": "filter_010",
+  "category": "filter",
+  "difficulty": "hard",
+  "description": "Filter rows with complex nested conditions",
+  "prompt": "Filter the orders to only include those where (amount > 100 AND status is 'active') OR (amount > 500 AND status is 'pending')",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "amount", "status"],
+      "types": ["INT", "DECIMAL", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 150, "status": "active"},
+          {"id": 2, "amount": 50, "status": "active"},
+          {"id": 3, "amount": 600, "status": "pending"},
+          {"id": 4, "amount": 200, "status": "pending"},
+          {"id": 5, "amount": 800, "status": "completed"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "amount": 150, "status": "active"},
+        {"id": 3, "amount": 600, "status": "pending"}
+      ]
+    }
+  ]
+}

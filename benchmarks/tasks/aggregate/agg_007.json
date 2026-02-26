@@ -1,0 +1,28 @@
+{
+  "id": "agg_007",
+  "category": "aggregate",
+  "difficulty": "medium",
+  "description": "GROUP BY with multiple aggregations",
+  "prompt": "Group the orders by customer and calculate the total amount, average amount, and count of orders for each customer. Name the columns 'total', 'average', and 'count'.",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "customer", "amount"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "customer": "Alice", "amount": 100},
+          {"id": 2, "customer": "Alice", "amount": 200},
+          {"id": 3, "customer": "Bob", "amount": 150}
+        ]
+      },
+      "expected": [
+        {"customer": "Alice", "total": 300, "average": 150, "count": 2},
+        {"customer": "Bob", "total": 150, "average": 150, "count": 1}
+      ]
+    }
+  ]
+}

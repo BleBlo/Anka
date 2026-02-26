@@ -1,0 +1,27 @@
+{
+  "id": "str_004",
+  "category": "strings",
+  "difficulty": "medium",
+  "description": "String concatenation",
+  "prompt": "Add a column 'full_address' that concatenates street, city, and country with ', ' between them",
+  "input_schema": {
+    "addresses": {
+      "columns": ["id", "street", "city", "country"],
+      "types": ["INT", "STRING", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "addresses": [
+          {"id": 1, "street": "123 Main St", "city": "New York", "country": "USA"},
+          {"id": 2, "street": "456 Oak Ave", "city": "London", "country": "UK"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "street": "123 Main St", "city": "New York", "country": "USA", "full_address": "123 Main St, New York, USA"},
+        {"id": 2, "street": "456 Oak Ave", "city": "London", "country": "UK", "full_address": "456 Oak Ave, London, UK"}
+      ]
+    }
+  ]
+}

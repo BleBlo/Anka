@@ -1,0 +1,41 @@
+{
+  "id": "limit_003",
+  "category": "limit",
+  "description": "Take only the first 1 row from the data",
+  "input_schema": {
+    "data": [
+      {"name": "id", "type": "INT"},
+      {"name": "value", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "data": [
+          {"id": 1, "value": 100},
+          {"id": 2, "value": 200},
+          {"id": 3, "value": 300}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "value": 100}
+      ]
+    },
+    {
+      "input": {
+        "data": [
+          {"id": 1, "value": 50}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "value": 50}
+      ]
+    },
+    {
+      "input": {
+        "data": []
+      },
+      "expected_output": []
+    }
+  ]
+}

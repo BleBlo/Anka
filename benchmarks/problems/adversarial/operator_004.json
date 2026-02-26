@@ -1,0 +1,45 @@
+{
+  "id": "operator_004",
+  "category": "adversarial",
+  "description": "Filter records where value is not equal to 0 (use != or <>)",
+  "input_schema": {
+    "records": [
+      {"name": "id", "type": "INT"},
+      {"name": "value", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "records": [
+          {"id": 1, "value": 10.0},
+          {"id": 2, "value": 0.0},
+          {"id": 3, "value": -5.0},
+          {"id": 4, "value": 0.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "value": 10.0},
+        {"id": 3, "value": -5.0}
+      ]
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "value": 0.0}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "value": 0.001}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "value": 0.001}
+      ]
+    }
+  ]
+}

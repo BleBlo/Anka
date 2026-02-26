@@ -1,0 +1,30 @@
+{
+  "id": "multi_003",
+  "category": "multi_step",
+  "difficulty": "medium",
+  "description": "Filter then sort",
+  "prompt": "Filter the products to only include those where price > 50, then sort by price in descending order",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "price"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 30},
+          {"id": 2, "name": "Gadget", "price": 100},
+          {"id": 3, "name": "Sprocket", "price": 75},
+          {"id": 4, "name": "Gear", "price": 60}
+        ]
+      },
+      "expected": [
+        {"id": 2, "name": "Gadget", "price": 100},
+        {"id": 3, "name": "Sprocket", "price": 75},
+        {"id": 4, "name": "Gear", "price": 60}
+      ]
+    }
+  ]
+}

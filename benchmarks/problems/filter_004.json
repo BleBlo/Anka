@@ -1,0 +1,46 @@
+{
+  "id": "filter_004",
+  "category": "filter",
+  "description": "Filter products where price is greater than or equal to 50",
+  "input_schema": {
+    "products": [
+      {"name": "product_id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "price", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"product_id": 1, "name": "Widget", "price": 49.99},
+          {"product_id": 2, "name": "Gadget", "price": 50.0},
+          {"product_id": 3, "name": "Gizmo", "price": 75.0}
+        ]
+      },
+      "expected_output": [
+        {"product_id": 2, "name": "Gadget", "price": 50.0},
+        {"product_id": 3, "name": "Gizmo", "price": 75.0}
+      ]
+    },
+    {
+      "input": {
+        "products": [
+          {"product_id": 1, "name": "A", "price": 100.0}
+        ]
+      },
+      "expected_output": [
+        {"product_id": 1, "name": "A", "price": 100.0}
+      ]
+    },
+    {
+      "input": {
+        "products": [
+          {"product_id": 1, "name": "A", "price": 25.0},
+          {"product_id": 2, "name": "B", "price": 30.0}
+        ]
+      },
+      "expected_output": []
+    }
+  ]
+}

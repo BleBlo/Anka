@@ -1,0 +1,44 @@
+{
+  "id": "select_007",
+  "category": "select",
+  "description": "Select date and amount columns from transactions",
+  "input_schema": {
+    "transactions": [
+      {"name": "txn_id", "type": "INT"},
+      {"name": "date", "type": "STRING"},
+      {"name": "description", "type": "STRING"},
+      {"name": "amount", "type": "DECIMAL"},
+      {"name": "category", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "transactions": [
+          {"txn_id": 1, "date": "2024-01-01", "description": "Purchase", "amount": 100.0, "category": "Expense"},
+          {"txn_id": 2, "date": "2024-01-02", "description": "Refund", "amount": -50.0, "category": "Income"}
+        ]
+      },
+      "expected_output": [
+        {"date": "2024-01-01", "amount": 100.0},
+        {"date": "2024-01-02", "amount": -50.0}
+      ]
+    },
+    {
+      "input": {
+        "transactions": [
+          {"txn_id": 1, "date": "2024-06-15", "description": "X", "amount": 25.0, "category": "Y"}
+        ]
+      },
+      "expected_output": [
+        {"date": "2024-06-15", "amount": 25.0}
+      ]
+    },
+    {
+      "input": {
+        "transactions": []
+      },
+      "expected_output": []
+    }
+  ]
+}

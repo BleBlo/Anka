@@ -1,0 +1,46 @@
+{
+  "id": "map_008",
+  "category": "map",
+  "description": "Add a new column 'half_price' calculated as price divided by 2",
+  "input_schema": {
+    "items": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "price", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "items": [
+          {"id": 1, "name": "A", "price": 100.0},
+          {"id": 2, "name": "B", "price": 50.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "A", "price": 100.0, "half_price": 50.0},
+        {"id": 2, "name": "B", "price": 50.0, "half_price": 25.0}
+      ]
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "name": "X", "price": 0.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "X", "price": 0.0, "half_price": 0.0}
+      ]
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "name": "Y", "price": 33.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "Y", "price": 33.0, "half_price": 16.5}
+      ]
+    }
+  ]
+}

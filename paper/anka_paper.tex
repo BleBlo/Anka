@@ -1,0 +1,633 @@
+\documentclass[11pt,a4paper]{article}
+
+% ============================================================================
+% PACKAGES
+% ============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+%\usepackage{multirow}  % Remove if not installed
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{listings}
+%\usepackage{algorithm}  % Remove if not installed
+%\usepackage{algpseudocode}  % Remove if not installed
+\usepackage{hyperref}
+%\usepackage{cleveref}  % Remove if not installed
+\usepackage{natbib}
+%\usepackage{microtype}  % Remove if not installed
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% ============================================================================
+% CONFIGURATION
+% ============================================================================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    citecolor=green!50!black,
+    urlcolor=blue!70!black
+}
+
+% Code listing style for Anka
+\lstdefinelanguage{Anka}{
+    keywords={PIPELINE, INPUT, OUTPUT, STEP, FILTER, WHERE, INTO, SELECT, FROM, MAP, WITH, AGGREGATE, GROUP_BY, COMPUTE, COUNT, SUM, AVG, MIN, MAX, AS, SORT, BY, ASC, DESC, LIMIT, JOIN, ON, TABLE, INT, STRING, DECIMAL, BOOL, DATE, AND, OR, NOT},
+    keywordstyle=\color{blue}\bfseries,
+    ndkeywords={},
+    ndkeywordstyle=\color{darkgray}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=true,
+    comment=[l]{--},
+    commentstyle=\color{gray}\ttfamily,
+    stringstyle=\color{red!70!black}\ttfamily,
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinelanguage{AnkaCode}{
+    keywords={PIPELINE, INPUT, OUTPUT, STEP, FILTER, WHERE, INTO, SELECT, FROM, MAP, WITH, AGGREGATE, GROUP_BY, COMPUTE, COUNT, SUM, AVG, MIN, MAX, AS, SORT, BY, ASC, DESC, LIMIT, JOIN, ON, TABLE, INT, STRING, DECIMAL, BOOL, DATE, AND, OR, NOT, IF, ELSE, END, FOR_EACH, IN, WHILE, TRY, ON_ERROR, MATCH, CASE, DEFAULT, ROUND, UPPER, LOWER},
+    keywordstyle=\color{blue}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=true,
+    comment=[l]{--},
+    commentstyle=\color{gray}\ttfamily,
+    stringstyle=\color{red!70!black}\ttfamily,
+    morestring=[b]",
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!5}
+}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!5},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    xleftmargin=2em,
+    framexleftmargin=1.5em
+}
+
+% ============================================================================
+% TITLE AND AUTHORS
+% ============================================================================
+\title{\textbf{Anka: A Domain-Specific Language for Reliable LLM Code Generation}}
+
+\author{
+    Saif Khalfan Saif Al Mazrouei\\
+    University of Wisconsin-Madison\\
+    \texttt{saif6265@outlook.com}
+    % ----------------------------------------------------------------
+    % POTENTIAL CO-AUTHOR (uncomment when confirmed):
+    % \and
+    % [ADVISOR NAME]\\
+    % Abu Dhabi Investment Authority\\
+    % \texttt{email@adia.ae}
+    % ----------------------------------------------------------------
+}
+
+\date{}
+
+% ============================================================================
+% DOCUMENT
+% ============================================================================
+\begin{document}
+
+\maketitle
+
+% ============================================================================
+% ABSTRACT
+% ============================================================================
+\begin{abstract}
+Large Language Models (LLMs) have demonstrated remarkable capabilities in code generation, yet they exhibit systematic errors on complex, multi-step programming tasks. We hypothesize that these errors stem from the flexibility of general-purpose languages, which permits multiple valid approaches and requires implicit state management. To test this hypothesis, we introduce \textbf{Anka}, a domain-specific language (DSL) for data transformation pipelines designed with explicit, constrained syntax that reduces ambiguity in code generation.
+
+Despite having zero prior training exposure to Anka, Claude 3.5 Haiku achieves 99.9\% parse success and 95.8\% overall task accuracy across 100 benchmark problems. Critically, Anka demonstrates a \textbf{40 percentage point accuracy advantage} over Python on multi-step pipeline tasks (100\% vs.\ 60\%), where Python's flexible syntax leads to frequent errors in operation sequencing and variable management. Cross-model validation with GPT-4o-mini confirms this advantage (+26.7 percentage points on multi-step tasks).
+
+Our results demonstrate that: (1) LLMs can learn novel DSLs entirely from in-context prompts, achieving near-native accuracy; (2) constrained syntax significantly reduces errors on complex tasks; and (3) domain-specific languages purposefully designed for LLM generation can outperform general-purpose languages on which the LLM has extensive training. We release the complete language implementation, benchmark suite, and evaluation framework to facilitate further research.
+\end{abstract}
+
+\vspace{1em}
+\noindent\textbf{Keywords:} Large Language Models, Domain-Specific Languages, Code Generation, Data Transformation, Prompt Engineering, Constrained Generation
+
+% ============================================================================
+% 1. INTRODUCTION
+% ============================================================================
+\section{Introduction}
+\label{sec:introduction}
+
+Large Language Models (LLMs) have transformed software development through their ability to generate code from natural language descriptions \citep{chen2021codex, nijkamp2023codegen, li2023starcoder}. Modern code-generation systems power developer tools used by millions, from autocomplete suggestions to fully autonomous coding agents \citep{github2022copilot}. However, despite impressive performance on isolated programming tasks, LLMs exhibit systematic failures when generating complex, multi-step code \citep{austin2021program, hendrycks2021measuring}.
+
+These failures are not random. Prior work has identified consistent error patterns: incorrect variable scoping, off-by-one errors in iteration, and state management bugs in sequential operations \citep{pearce2022examining, jesse2023large}. We observe that many of these errors share a common root cause: the \emph{flexibility} of general-purpose programming languages. When multiple syntactically valid approaches exist for expressing the same computation, LLMs must implicitly choose among them, introducing opportunities for inconsistency and error accumulation across sequential steps.
+
+This observation motivates a counterintuitive hypothesis: \textbf{constraining} the target language may \textbf{improve} LLM code generation accuracy. Rather than allowing the model to choose from Python's many valid patterns for filtering, mapping, and aggregating data, we can design a language where each operation has exactly one canonical form. Such constraints, while potentially limiting for human programmers, may provide the structural guidance that LLMs need to generate reliable code.
+
+To test this hypothesis, we introduce \textbf{Anka}, a domain-specific language for data transformation pipelines. Anka enforces explicit syntax through several design principles:
+\begin{itemize}
+    \item \textbf{One canonical form per operation}: FILTER always uses WHERE...INTO syntax
+    \item \textbf{Named intermediate results}: Every operation produces a named output via INTO clauses
+    \item \textbf{Explicit step structure}: Sequential operations are organized into named STEP blocks
+    \item \textbf{Verbose keywords over symbols}: FILTER, MAP, AGGREGATE rather than operators
+\end{itemize}
+
+Our evaluation addresses two research questions:
+
+\begin{enumerate}
+    \item[\textbf{RQ1:}] Can LLMs learn novel DSLs entirely from in-context prompts, without fine-tuning?
+    \item[\textbf{RQ2:}] Does constrained syntax reduce errors on complex, multi-step code generation tasks?
+\end{enumerate}
+
+We evaluate Anka against Python on a benchmark suite of 100 data transformation tasks spanning eight categories, from simple filtering to complex multi-step pipelines. Our key findings are:
+
+\begin{itemize}
+    \item \textbf{Novel DSL acquisition:} Despite zero training exposure to Anka, Claude 3.5 Haiku achieves 99.9\% parse success, demonstrating that LLMs can effectively learn new programming languages from prompts alone.
+
+    \item \textbf{Multi-step advantage:} Anka achieves 100\% accuracy on multi-step pipeline tasks compared to 60\% for Python---a 40 percentage point improvement. This advantage is confirmed across models: GPT-4o-mini shows a +26.7 percentage point improvement.
+
+    \item \textbf{Overall improvement:} Anka achieves 95.8\% overall accuracy compared to 91.2\% for Python (+4.6 percentage points), despite Python's substantial training data advantage.
+\end{itemize}
+
+These results suggest that \textbf{purposeful DSL design} can meaningfully improve LLM reliability for domain-specific tasks. The contribution is not Anka itself, but the demonstration that constrained syntax---features that might annoy human programmers---can substantially improve LLM code generation accuracy.
+
+\paragraph{Contributions.} We make the following contributions:
+\begin{enumerate}
+    \item We introduce Anka, a DSL for data transformations designed with explicit syntax to reduce LLM errors.
+    \item We present a benchmark suite of 100 tasks across 8 categories for evaluating code generation on data transformation.
+    \item We demonstrate that LLMs can learn novel DSLs from prompts, achieving 99.9\% parse success with zero training data.
+    \item We show a 40\% accuracy improvement on multi-step tasks, validated across two model families.
+    \item We release all code, benchmarks, and evaluation infrastructure for reproducibility.
+\end{enumerate}
+
+% ============================================================================
+% 2. RELATED WORK
+% ============================================================================
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{LLM Code Generation.}
+The emergence of large-scale code generation models has transformed program synthesis. Codex \citep{chen2021codex} demonstrated that language models trained on code repositories could solve programming challenges with human-level competence. Subsequent work scaled these approaches: CodeGen \citep{nijkamp2023codegen} introduced multi-turn synthesis, and StarCoder \citep{li2023starcoder} achieved state-of-the-art performance through training on permissively licensed code. Commercial deployments such as GitHub Copilot \citep{github2022copilot} and Amazon CodeWhisperer now assist millions of developers.
+
+Despite these advances, systematic evaluations reveal consistent failure modes. HumanEval \citep{chen2021codex} and MBPP \citep{austin2021program} benchmark functional correctness, while APPS \citep{hendrycks2021measuring} tests on competitive programming problems. These benchmarks demonstrate that accuracy degrades substantially as task complexity increases. Our work complements these efforts by demonstrating that language design, not just model scale, can address complexity-related failures.
+
+\paragraph{Domain-Specific Languages.}
+Domain-specific languages (DSLs) trade generality for expressiveness within a narrow domain \citep{fowler2010domain, mernik2005and}. In data processing, SQL remains the dominant DSL for structured queries, while dataframe libraries (pandas, dplyr) provide programmatic alternatives. Recent work has explored DSLs specifically designed for program synthesis: FlashFill \citep{gulwani2011automating} uses a DSL for string transformations, and DreamCoder \citep{ellis2021dreamcoder} learns DSL primitives during synthesis.
+
+Our work differs in designing a DSL specifically for \emph{LLM} generation rather than human use. Where traditional DSL design prioritizes human ergonomics, Anka prioritizes features that reduce LLM errors: explicit naming, verbose keywords, and canonical forms.
+
+\paragraph{Prompt Engineering and Constrained Generation.}
+Prompt engineering techniques can substantially improve LLM performance without model modification. Chain-of-thought prompting \citep{wei2022chain} improves reasoning through intermediate steps. Self-consistency \citep{wang2023selfconsistency} aggregates multiple samples. For code generation, \citet{jiang2023selfplanning} demonstrate that planning before coding improves accuracy.
+
+Constrained decoding approaches guide generation toward valid outputs. Grammar-constrained decoding \citep{scholak2021picard, poesia2022synchromesh} ensures syntactic validity by masking invalid tokens. JSON mode in commercial APIs enforces structural constraints. Our approach is complementary: rather than constraining the \emph{decoding process}, we constrain the \emph{target language} itself, allowing standard decoding while reducing error probability.
+
+\paragraph{LLM Evaluation for Code.}
+Rigorous evaluation of code generation requires executing generated code and checking functional correctness \citep{chen2021codex}. Beyond single-function synthesis, recent work evaluates repository-level tasks \citep{zhang2023repocoder}, multi-file edits \citep{jimenez2024swebench}, and agent-based coding \citep{yang2024sweagent}. Our benchmark focuses on data transformation pipelines, providing fine-grained analysis of where constrained syntax helps.
+
+% ============================================================================
+% 3. THE ANKA LANGUAGE
+% ============================================================================
+\section{The Anka Language}
+\label{sec:language}
+
+Anka is a domain-specific language for data transformation pipelines. Its design prioritizes features that reduce LLM code generation errors rather than features that improve human developer experience. In this section, we describe Anka's design principles, syntax, and the rationale connecting each design decision to error prevention.
+
+\subsection{Design Principles}
+
+We designed Anka around four principles, each motivated by observed LLM error patterns:
+
+\paragraph{Principle 1: One Canonical Form.}
+In Python, filtering a dataframe can be expressed multiple ways: \texttt{df[df.x > 5]}, \texttt{df.query("x > 5")}, \texttt{df.loc[df.x > 5]}, or comprehension-based approaches. This flexibility forces LLMs to choose among equivalent options, introducing inconsistency. In Anka, filtering has exactly one form:
+
+\begin{lstlisting}[language=AnkaCode]
+FILTER source WHERE condition INTO target
+\end{lstlisting}
+
+\paragraph{Principle 2: Named Intermediate Results.}
+Multi-step pipelines require managing intermediate state. In Python, developers may reuse variable names, chain operations, or use anonymous intermediates. These patterns cause LLM errors when the model loses track of which variable holds which data. Anka requires explicit \texttt{INTO} clauses:
+
+\begin{lstlisting}[language=AnkaCode]
+STEP filter_large:
+    FILTER orders WHERE amount > 1000 INTO large_orders
+STEP summarize:
+    AGGREGATE large_orders COMPUTE SUM(amount) AS total INTO summary
+\end{lstlisting}
+
+\paragraph{Principle 3: Explicit Step Structure.}
+Anka organizes operations into named \texttt{STEP} blocks. This structure serves as ``scaffolding'' that guides the LLM through sequential operations, making the pipeline structure explicit rather than implicit in code flow.
+
+\paragraph{Principle 4: Verbose Keywords.}
+Where Python uses operators and method chains, Anka uses English keywords: \texttt{FILTER}, \texttt{MAP}, \texttt{AGGREGATE}, \texttt{WHERE}, \texttt{INTO}. Verbose syntax trades brevity for clarity, which aligns well with LLM capabilities---these models excel at natural language, and keyword-heavy syntax leverages this strength.
+
+\subsection{Syntax Overview}
+
+A complete Anka pipeline consists of a name, typed inputs, a sequence of steps, and an output declaration:
+
+\begin{lstlisting}[language=AnkaCode]
+PIPELINE transform_sales:
+    INPUT orders: TABLE[order_id: INT, customer: STRING,
+                        amount: DECIMAL, date: DATE]
+
+    STEP filter_large:
+        FILTER orders WHERE amount > 1000 INTO large_orders
+
+    STEP add_tax:
+        MAP large_orders WITH tax => amount * 0.08 INTO with_tax
+
+    STEP summarize:
+        AGGREGATE with_tax
+        GROUP_BY customer
+        COMPUTE SUM(amount) AS total, COUNT() AS num_orders
+        INTO summary
+
+    OUTPUT summary
+\end{lstlisting}
+
+\paragraph{Type Declarations.}
+Input tables declare their schema using \texttt{TABLE[field: TYPE, ...]} syntax. Supported types include \texttt{INT}, \texttt{STRING}, \texttt{DECIMAL}, \texttt{BOOL}, \texttt{DATE}, and \texttt{DATETIME}. Explicit types enable both validation and serve as documentation in the prompt.
+
+\paragraph{Operations.}
+Anka supports 18 data operations organized into categories:
+\begin{itemize}
+    \item \textbf{Selection:} FILTER, SELECT, DISTINCT
+    \item \textbf{Transformation:} MAP, RENAME, DROP, ADD\_COLUMN
+    \item \textbf{Aggregation:} AGGREGATE with COUNT, SUM, AVG, MIN, MAX
+    \item \textbf{Ordering:} SORT (ASC/DESC), LIMIT, SKIP, SLICE
+    \item \textbf{Combination:} JOIN, LEFT\_JOIN, UNION
+    \item \textbf{I/O:} READ, WRITE (JSON/CSV), FETCH, POST (HTTP)
+\end{itemize}
+
+\paragraph{Expressions.}
+Within operations, Anka supports arithmetic (\texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}), comparisons (\texttt{>}, \texttt{<}, \texttt{>=}, \texttt{<=}, \texttt{==}, \texttt{!=}), boolean logic (\texttt{AND}, \texttt{OR}, \texttt{NOT}), and functions including string operations (\texttt{UPPER}, \texttt{LOWER}, \texttt{CONCAT}), date functions (\texttt{YEAR}, \texttt{MONTH}, \texttt{DIFF\_DAYS}), and math functions (\texttt{ROUND}, \texttt{ABS}, \texttt{FLOOR}).
+
+\subsection{Connection to Error Prevention}
+
+Each design principle addresses specific LLM error patterns:
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{3.5cm}p{4cm}p{4.5cm}}
+\toprule
+\textbf{Design Feature} & \textbf{Error Prevented} & \textbf{Mechanism} \\
+\midrule
+Canonical forms & Inconsistent syntax choices & Eliminates decision points \\
+INTO clauses & Variable shadowing, lost state & Explicit naming enforced \\
+STEP structure & Operation ordering errors & Visual/structural scaffolding \\
+Verbose keywords & Operator confusion & Leverages LLM language strength \\
+Typed inputs & Schema mismatches & Documentation in prompt \\
+\bottomrule
+\end{tabular}
+\caption{Connection between Anka design features and LLM error prevention.}
+\label{tab:design_errors}
+\end{table}
+
+\subsection{Implementation}
+
+Anka is implemented in Python using Lark \citep{lark2017} for parsing. The implementation comprises approximately 6,400 lines of code including:
+\begin{itemize}
+    \item A formal grammar (98 production rules)
+    \item 68 AST node types as immutable dataclasses with source location tracking
+    \item A tree-walking interpreter supporting all 18 operations
+    \item Control flow constructs (IF/ELSE, FOR\_EACH, WHILE, TRY/ON\_ERROR)
+    \item 322 unit tests achieving comprehensive coverage
+\end{itemize}
+
+The complete implementation is available at \url{https://github.com/BleBlo/Anka}.
+
+% ============================================================================
+% 4. METHODOLOGY
+% ============================================================================
+\section{Methodology}
+\label{sec:methodology}
+
+We evaluate whether Anka's constrained syntax improves LLM code generation accuracy compared to Python. This section describes our benchmark design, evaluation protocol, and metrics.
+
+\subsection{Benchmark Suite}
+
+We constructed a benchmark of 100 data transformation tasks organized into eight categories:
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{llp{6cm}}
+\toprule
+\textbf{Category} & \textbf{Tasks} & \textbf{Description} \\
+\midrule
+filter & 10 & Single-condition and compound filtering \\
+map & 10 & Column computation with arithmetic and functions \\
+aggregate & 10 & Grouping and aggregation (SUM, AVG, COUNT) \\
+strings & 10 & String manipulation (UPPER, CONCAT, SUBSTRING) \\
+multi\_step & 10 & Pipelines requiring 3--5 sequential operations \\
+finance & 20 & Domain-specific calculations (tax, interest, pricing) \\
+hard & 10 & Complex logic with edge cases \\
+adversarial & 20 & Tasks designed to trigger common LLM errors \\
+\bottomrule
+\end{tabular}
+\caption{Benchmark categories and task distribution.}
+\label{tab:benchmark_categories}
+\end{table}
+
+Each task specifies:
+\begin{itemize}
+    \item A natural language description of the desired transformation
+    \item An input schema with field names and types
+    \item Test cases with input data and expected output
+\end{itemize}
+
+The multi-step category is particularly important for our hypothesis: these tasks require maintaining state across 3--5 operations, precisely where we expect constrained syntax to help most. An example multi-step task:
+
+\begin{quote}
+\textit{``Filter orders to those over \$1000, add a 10\% discount column, then group by customer and compute the total discounted amount per customer.''}
+\end{quote}
+
+This requires FILTER $\rightarrow$ MAP $\rightarrow$ AGGREGATE sequencing with correct intermediate variable handling.
+
+\subsection{Evaluation Protocol}
+
+For each task, we prompt the LLM to generate code in both Anka and Python. To ensure fair comparison:
+
+\paragraph{Prompt Structure.}
+Both prompts follow identical structure:
+\begin{enumerate}
+    \item Language specification (syntax reference)
+    \item Task description (identical for both)
+    \item Input schema (identical for both)
+    \item Expected output format specification
+\end{enumerate}
+
+The Anka prompt includes a concise syntax guide (approximately 100 lines) teaching the language from scratch. The Python prompt assumes pandas knowledge, consistent with training data distribution.
+
+\paragraph{Sampling.}
+We generate 10 samples per task per language using temperature 0.3. Multiple samples allow us to measure consistency (do repeated generations produce the same code?) and to distinguish systematic errors from sampling variance.
+
+\paragraph{Execution.}
+Generated code is executed in a sandboxed environment with 10-second timeout. For Anka, we use our interpreter; for Python, we execute in a restricted environment with pandas available.
+
+\paragraph{Models.}
+We evaluate on Claude 3.5 Haiku (Anthropic) as our primary model, with GPT-4o-mini (OpenAI) for cross-model validation. These models represent the ``small but capable'' tier suitable for production deployment where cost and latency matter.
+
+\subsection{Metrics}
+
+We report four metrics:
+
+\begin{itemize}
+    \item \textbf{Parse Success:} Does the generated code parse without syntax errors?
+    \item \textbf{Execution Success:} Does the code execute without runtime errors?
+    \item \textbf{Output Correctness:} Does the output match the expected result?
+    \item \textbf{Task Accuracy:} Fraction of tasks where $\geq$50\% of samples produce correct output (our primary metric)
+\end{itemize}
+
+Task accuracy uses a majority threshold to be robust to occasional sampling failures while still penalizing systematic errors.
+
+\subsection{Fair Comparison Considerations}
+
+Python has a substantial advantage: LLMs have seen billions of Python examples during training, while Anka is entirely novel. Any Anka advantage must overcome this training distribution gap through in-context learning alone. We view this as a conservative test of our hypothesis---if constrained syntax helps despite this disadvantage, the effect is likely robust.
+
+% ============================================================================
+% 5. RESULTS
+% ============================================================================
+\section{Results}
+\label{sec:results}
+
+\subsection{Main Results}
+
+Table~\ref{tab:main_results} presents task accuracy by category for Claude 3.5 Haiku.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Category} & \textbf{Anka} & \textbf{Python} & \textbf{$\Delta$} \\
+\midrule
+multi\_step & \textbf{100.0\%} & 60.0\% & \textbf{+40.0} \\
+finance & \textbf{90.0\%} & 85.0\% & +5.0 \\
+aggregate & 100.0\% & 100.0\% & 0.0 \\
+filter & 96.7\% & \textbf{100.0\%} & --3.3 \\
+map & 100.0\% & 100.0\% & 0.0 \\
+strings & 100.0\% & 100.0\% & 0.0 \\
+hard & 90.0\% & \textbf{100.0\%} & --10.0 \\
+\midrule
+\textbf{Overall} & \textbf{95.8\%} & 91.2\% & \textbf{+4.6} \\
+\bottomrule
+\end{tabular}
+\caption{Task accuracy by category (Claude 3.5 Haiku). Bold indicates the better-performing language for each row.}
+\label{tab:main_results}
+\end{table}
+
+\paragraph{Key Finding 1: Multi-step Advantage.}
+The most striking result is on multi-step tasks: Anka achieves \textbf{100\% accuracy} compared to Python's 60\%---a 40 percentage point improvement. This confirms our hypothesis that constrained syntax helps most where sequential operation management is required.
+
+\paragraph{Key Finding 2: Parse Success.}
+Despite having zero training exposure to Anka, the model achieves \textbf{99.9\% parse success}. This demonstrates that LLMs can effectively learn novel programming languages entirely from in-context prompts.
+
+\paragraph{Key Finding 3: Overall Improvement.}
+Anka achieves 95.8\% overall accuracy compared to 91.2\% for Python (+4.6 percentage points). This improvement is notable given Python's substantial training data advantage.
+
+\paragraph{Where Python Wins.}
+Python outperforms Anka on ``hard'' tasks (--10\%) and shows a slight advantage on filter tasks (--3.3\%). Inspection reveals that hard tasks often require complex conditional logic where Python's flexibility becomes an asset rather than a liability.
+
+\subsection{Cross-Model Validation}
+
+To verify that our findings generalize beyond a single model, we evaluated GPT-4o-mini on the multi-step category:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{Anka} & \textbf{Python} & \textbf{$\Delta$} \\
+\midrule
+Claude 3.5 Haiku & 100.0\% & 60.0\% & +40.0 \\
+GPT-4o-mini & 86.7\% & 60.0\% & +26.7 \\
+\bottomrule
+\end{tabular}
+\caption{Multi-step task accuracy across model families.}
+\label{tab:cross_model}
+\end{table}
+
+GPT-4o-mini shows a +26.7 percentage point advantage for Anka on multi-step tasks. While smaller than Claude's advantage, this confirms that the benefit of constrained syntax generalizes across model families. Notably, Python accuracy is identical (60\%) across both models, suggesting systematic difficulty with multi-step pipeline generation.
+
+\subsection{Analysis: Why Does Anka Help on Multi-Step Tasks?}
+
+We analyzed failing Python generations to understand the error patterns that Anka prevents:
+
+\paragraph{Variable Shadowing (42\% of errors).}
+Python generators frequently reuse variable names like \texttt{df} or \texttt{result} across operations, losing intermediate state:
+\begin{lstlisting}[language=Python]
+df = df[df.amount > 1000]  # Shadows original df
+df = df.groupby('customer').sum()  # Can't access filtered df
+\end{lstlisting}
+Anka's \texttt{INTO} clause prevents this by requiring unique names for each intermediate result.
+
+\paragraph{Operation Sequencing (31\% of errors).}
+Multi-step tasks require operations in a specific order. Python's flexibility allows operations to be combined or reordered in ways that change semantics:
+\begin{lstlisting}[language=Python]
+# Incorrect: aggregates before filtering
+result = df.groupby('customer').agg({'amount': 'sum'})
+result = result[result.amount > 1000]  # Wrong!
+\end{lstlisting}
+Anka's \texttt{STEP} structure makes ordering explicit and sequential.
+
+\paragraph{Chaining Confusion (27\% of errors).}
+Method chaining in pandas can obscure intermediate state and introduce subtle bugs:
+\begin{lstlisting}[language=Python]
+result = (df.query('amount > 1000')
+            .assign(tax=df.amount * 0.1)  # Bug: uses original df
+            .groupby('customer').sum())
+\end{lstlisting}
+Anka's step-by-step structure prevents such chaining-related errors.
+
+\subsection{Complexity Analysis}
+
+Figure~\ref{fig:complexity} shows Anka's advantage as a function of task complexity (number of operations):
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\columnwidth]{figures/complexity_advantage.png}
+\caption{Anka advantage grows with task complexity. Simple tasks (1--2 operations) show no advantage; complex tasks (5+ operations) show +40\% advantage.}
+\label{fig:complexity}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Simple (1--2 ops):} 0\% advantage---both languages perform well
+    \item \textbf{Medium (3--4 ops):} +5\% advantage---constrained syntax begins to help
+    \item \textbf{Complex (5+ ops):} +40\% advantage---constrained syntax critical
+\end{itemize}
+
+This pattern aligns with our hypothesis: constraint helps most when there are more opportunities for error accumulation.
+
+% ============================================================================
+% 6. DISCUSSION
+% ============================================================================
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Why Does Constrained Syntax Help?}
+
+Our results suggest three mechanisms by which constrained syntax improves LLM code generation:
+
+\paragraph{Reduced Decision Space.}
+Each syntactic choice point is an opportunity for error. By eliminating alternatives, Anka reduces the number of decisions the model must make. In a 5-step pipeline with 3 choice points per step, this represents a reduction from $3^5 = 243$ possible programs to 1.
+
+\paragraph{Explicit State Management.}
+Named intermediate results via \texttt{INTO} clauses make state explicit. Rather than tracking which variable holds which data through implicit Python semantics, the model can ``read off'' the current state from variable names.
+
+\paragraph{Structural Scaffolding.}
+The \texttt{STEP} structure provides a template that guides generation. The model fills in steps sequentially rather than generating a monolithic program, reducing cognitive load (in an anthropomorphic sense).
+
+\subsection{When Does Anka Not Help?}
+
+Anka shows no advantage on simple tasks and slight disadvantage on ``hard'' tasks. This suggests boundary conditions:
+
+\paragraph{Simple Tasks.}
+When only 1--2 operations are required, there is insufficient complexity for errors to accumulate. Python's training advantage may actually help here.
+
+\paragraph{Complex Conditional Logic.}
+``Hard'' tasks often require nested conditionals, edge case handling, and domain-specific reasoning. Here, Python's flexibility becomes an asset---the model can express complex logic more naturally.
+
+\paragraph{Recommendation.}
+Anka is best suited for structured pipelines with 3+ sequential operations and standard transformation patterns. For tasks requiring complex conditional logic, Python may remain preferable.
+
+\subsection{Implications for DSL Design}
+
+Our results suggest design principles for DSLs intended for LLM generation:
+
+\begin{enumerate}
+    \item \textbf{Canonicalization:} Provide exactly one way to express each operation
+    \item \textbf{Explicit Naming:} Require names for intermediate results
+    \item \textbf{Structural Templates:} Use block structure to guide sequential generation
+    \item \textbf{Verbose Keywords:} Prefer English keywords over symbols
+    \item \textbf{Type Documentation:} Include type information in prompts
+\end{enumerate}
+
+These principles may inform the design of DSLs for other domains where LLM code generation is desirable: configuration languages, query languages, workflow definitions, and automation scripts.
+
+\subsection{Implications for LLM Deployment}
+
+For practitioners deploying LLMs for code generation in production:
+
+\begin{enumerate}
+    \item \textbf{Consider domain-specific languages} for structured tasks, especially multi-step pipelines
+    \item \textbf{Prompt-based DSL teaching is viable}---fine-tuning is not required
+    \item \textbf{Evaluate on your complexity distribution}---benefits scale with task complexity
+    \item \textbf{Constrained syntax is complementary} to other techniques (chain-of-thought, self-consistency)
+\end{enumerate}
+
+% ============================================================================
+% 7. LIMITATIONS
+% ============================================================================
+\section{Limitations}
+\label{sec:limitations}
+
+We acknowledge several limitations of this work:
+
+\paragraph{Benchmark Scope.}
+Our benchmark focuses on data transformation pipelines. While this is an important domain, generalization to other programming tasks (web development, systems programming, scientific computing) is not established.
+
+\paragraph{Model Coverage.}
+We evaluate on two models (Claude 3.5 Haiku, GPT-4o-mini). While cross-model validation strengthens our findings, evaluation on additional model families (Llama, Gemini, Mistral) would improve confidence in generalization.
+
+\paragraph{No Fine-Tuning Comparison.}
+We compare prompt-based Anka learning against pre-trained Python generation. A comparison against an Anka-fine-tuned model would clarify whether prompt-based learning approaches the ceiling.
+
+\paragraph{No User Study.}
+We have not evaluated human developer experience with Anka. The design prioritizes LLM generation over human ergonomics; whether developers find the resulting code readable and maintainable is an open question.
+
+\paragraph{Single Benchmark Suite.}
+Despite efforts to include diverse tasks, our benchmark may contain biases that favor Anka. Independent benchmark construction would strengthen validity.
+
+\paragraph{Production Deployment.}
+We evaluate in controlled conditions with sandboxed execution. Production deployment introduces additional challenges (error handling, integration, monitoring) not addressed here.
+
+% ============================================================================
+% 8. CONCLUSION
+% ============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+We introduced Anka, a domain-specific language for data transformation designed to improve LLM code generation accuracy through constrained, explicit syntax. Our evaluation demonstrates three key findings:
+
+\begin{enumerate}
+    \item \textbf{LLMs can learn novel DSLs from prompts alone.} Despite zero training exposure, Claude 3.5 Haiku achieves 99.9\% parse success on Anka, demonstrating effective in-context language acquisition.
+
+    \item \textbf{Constrained syntax substantially reduces errors on complex tasks.} Anka achieves 100\% accuracy on multi-step pipelines compared to 60\% for Python---a 40 percentage point improvement confirmed across model families.
+
+    \item \textbf{Purpose-built DSLs can outperform general-purpose languages.} Despite Python's massive training data advantage, Anka achieves higher overall accuracy through deliberate design choices that reduce LLM error patterns.
+\end{enumerate}
+
+The broader contribution is methodological: we demonstrate that \textbf{language design} is a viable intervention for improving LLM reliability. Rather than solely improving models through scale, data, or fine-tuning, we can design \emph{languages} that play to LLM strengths and mitigate their weaknesses.
+
+\paragraph{Future Work.}
+Several directions merit investigation: (1) evaluation on additional model families and model sizes; (2) user studies on developer experience with LLM-generated Anka code; (3) production deployment evaluation in enterprise data workflows; (4) extension to other domains such as financial calculations, configuration management, and workflow automation; and (5) formal analysis of which language features most impact LLM accuracy.
+
+We release the complete Anka implementation, benchmark suite, and evaluation framework at \url{https://github.com/BleBlo/Anka} to facilitate reproducibility and further research.
+
+% ============================================================================
+% ACKNOWLEDGMENTS
+% ============================================================================
+\section*{Acknowledgments}
+
+[ACKNOWLEDGMENTS TO BE ADDED]
+
+% This work was supported by...
+% We thank [advisor/collaborators] for helpful discussions...
+% Compute resources were provided by...
+
+% ============================================================================
+% ETHICS STATEMENT
+% ============================================================================
+\section*{Ethics Statement}
+
+This work presents a domain-specific language and benchmark for evaluating LLM code generation. We do not foresee direct negative societal impacts from this research. The benchmark tasks involve synthetic data transformation scenarios without personally identifiable information. LLM-generated code should be reviewed before production deployment regardless of the target language.
+
+% ============================================================================
+% REFERENCES
+% ============================================================================
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

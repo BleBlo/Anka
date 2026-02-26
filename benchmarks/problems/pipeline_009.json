@@ -1,0 +1,46 @@
+{
+  "id": "pipeline_009",
+  "category": "pipeline",
+  "description": "Add revenue column as units * price, filter where revenue >= 100, sort by revenue descending",
+  "input_schema": {
+    "sales": [
+      {"name": "id", "type": "INT"},
+      {"name": "product", "type": "STRING"},
+      {"name": "units", "type": "INT"},
+      {"name": "price", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "sales": [
+          {"id": 1, "product": "A", "units": 5, "price": 30.0},
+          {"id": 2, "product": "B", "units": 2, "price": 40.0},
+          {"id": 3, "product": "C", "units": 10, "price": 15.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "product": "A", "units": 5, "price": 30.0, "revenue": 150.0},
+        {"id": 3, "product": "C", "units": 10, "price": 15.0, "revenue": 150.0}
+      ]
+    },
+    {
+      "input": {
+        "sales": [
+          {"id": 1, "product": "X", "units": 1, "price": 99.0}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "sales": [
+          {"id": 1, "product": "Y", "units": 10, "price": 10.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "product": "Y", "units": 10, "price": 10.0, "revenue": 100.0}
+      ]
+    }
+  ]
+}

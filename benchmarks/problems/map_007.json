@@ -1,0 +1,47 @@
+{
+  "id": "map_007",
+  "category": "map",
+  "description": "Add a new column 'area' calculated as width multiplied by height",
+  "input_schema": {
+    "rectangles": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "width", "type": "DECIMAL"},
+      {"name": "height", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "rectangles": [
+          {"id": 1, "name": "A", "width": 5.0, "height": 3.0},
+          {"id": 2, "name": "B", "width": 4.0, "height": 4.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "A", "width": 5.0, "height": 3.0, "area": 15.0},
+        {"id": 2, "name": "B", "width": 4.0, "height": 4.0, "area": 16.0}
+      ]
+    },
+    {
+      "input": {
+        "rectangles": [
+          {"id": 1, "name": "X", "width": 0.0, "height": 10.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "X", "width": 0.0, "height": 10.0, "area": 0.0}
+      ]
+    },
+    {
+      "input": {
+        "rectangles": [
+          {"id": 1, "name": "Y", "width": 2.5, "height": 4.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "Y", "width": 2.5, "height": 4.0, "area": 10.0}
+      ]
+    }
+  ]
+}

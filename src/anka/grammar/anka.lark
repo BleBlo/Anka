@@ -1,0 +1,385 @@
+// Anka Grammar - Single Source of Truth
+// A DSL optimized for LLM code generation accuracy
+
+start: pipeline
+
+pipeline: "PIPELINE" NAME ":" input_decl+ pipeline_body* output_decl
+
+// Pipeline body can contain steps or statements
+pipeline_body: step -> body_step
+             | set_stmt -> body_set
+             | if_stmt -> body_if
+             | for_each_stmt -> body_for_each
+             | while_stmt -> body_while
+             | try_stmt -> body_try
+             | match_stmt -> body_match
+             | assert_stmt -> body_assert
+             | return_stmt -> body_return
+             | break_stmt -> body_break
+             | continue_stmt -> body_continue
+             | append_stmt -> body_append
+             | print_stmt -> body_print
+             | log_stmt -> body_log
+
+input_decl: "INPUT" NAME ":" type_expr
+
+output_decl: "OUTPUT" NAME
+
+// Steps contain operations
+step: "STEP" NAME ":" operation
+
+// SET statement for variable assignment
+// arith_expr already handles NAME, NUMBER, and complex expressions
+set_stmt: "SET" NAME "=" set_value
+set_value: "true"i -> set_true_value
+         | "false"i -> set_false_value
+         | arith_expr -> set_arith_value
+
+// IF/ELSE conditional statement
+if_stmt: "IF" if_condition ":" if_body else_clause? "END"
+if_condition: expr
+if_body: pipeline_body+
+else_clause: "ELSE" ":" if_body -> else_body
+           | "ELSE" if_stmt -> else_if
+
+// FOR_EACH loop
+for_each_stmt: "FOR_EACH" NAME "IN" NAME ":" for_body "END"
+for_body: pipeline_body+
+
+// WHILE loop
+while_stmt: "WHILE" while_condition ":" while_body "END"
+while_condition: expr
+while_body: pipeline_body+
+
+// TRY/ON_ERROR error handling
+try_stmt: "TRY" ":" try_body "ON_ERROR" ":" error_body "END"
+try_body: pipeline_body+
+error_body: pipeline_body+
+
+// MATCH pattern matching
+match_stmt: "MATCH" NAME ":" match_case+ default_case? "END"
+match_case: "CASE" match_value ":" match_body
+default_case: "DEFAULT" ":" match_body
+match_value: NUMBER -> match_number
+           | QUOTED_STRING -> match_string
+           | "true"i -> match_true
+           | "false"i -> match_false
+match_body: pipeline_body+
+
+// ASSERT statement - validation that fails if condition is false
+assert_stmt: "ASSERT" expr assert_message?
+assert_message: "MESSAGE" QUOTED_STRING
+
+// RETURN statement - early exit with optional value
+return_stmt: "RETURN" NAME?
+
+// BREAK statement - exit from loop early
+break_stmt: "BREAK"
+
+// CONTINUE statement - skip to next loop iteration
+continue_stmt: "CONTINUE"
+
+// APPEND statement - add data to a collection
+append_stmt: "APPEND" NAME "TO" NAME
+
+// PRINT statement - output for debugging
+print_stmt: "PRINT" arith_expr
+
+// LOG statements - structured logging
+log_stmt: "LOG_INFO" arith_expr   -> log_info
+        | "LOG_WARN" arith_expr   -> log_warn
+        | "LOG_ERROR" arith_expr  -> log_error
+        | "LOG_DEBUG" arith_expr  -> log_debug
+
+// Operations (extensible for SELECT, etc.)
+operation: filter_op | select_op | map_op | sort_op | limit_op | skip_op | distinct_op | aggregate_op
+         | read_op | write_op | fetch_op | post_op
+         | join_op | left_join_op | rename_op | drop_op | union_op | slice_op | add_column_op
+
+// FILTER operation
+filter_op: "FILTER" NAME "WHERE" expr "INTO" NAME
+
+// SELECT operation
+select_op: "SELECT" name_list "FROM" NAME "INTO" NAME
+
+// MAP operation - adds ONE computed column
+// For multiple columns, use multiple sequential MAP steps
+map_op: "MAP" NAME "WITH" NAME "=>" arith_expr "INTO" NAME
+
+// SORT operation
+sort_op: "SORT" NAME "BY" NAME sort_order nulls_order? "INTO" NAME
+sort_order: "ASC" -> sort_asc
+          | "DESC" -> sort_desc
+nulls_order: "NULLS_FIRST" -> nulls_first
+           | "NULLS_LAST" -> nulls_last
+
+// LIMIT operation
+limit_op: "LIMIT" NAME "COUNT" NUMBER "INTO" NAME
+
+// SKIP operation (pagination)
+skip_op: "SKIP" NAME "COUNT" NUMBER "INTO" NAME
+
+// DISTINCT operation
+distinct_op: "DISTINCT" NAME "BY" name_list "INTO" NAME
+
+// AGGREGATE operation
+aggregate_op: "AGGREGATE" NAME group_clause? compute_clause "INTO" NAME
+group_clause: "GROUP_BY" name_list
+compute_clause: "COMPUTE" agg_expr ("," agg_expr)*
+agg_expr: agg_func "AS" NAME
+agg_func: "COUNT" "(" NAME? ")"  -> count_func
+        | "SUM" "(" NAME ")"     -> sum_func
+        | "AVG" "(" NAME ")"     -> avg_func
+        | "MIN" "(" NAME ")"     -> min_func
+        | "MAX" "(" NAME ")"     -> max_func
+
+// READ operation - load data from file
+read_op: "READ" QUOTED_STRING "FORMAT" format_type "INTO" NAME
+
+// WRITE operation - save data to file
+write_op: "WRITE" NAME "TO" QUOTED_STRING "FORMAT" format_type
+
+// Format types for file operations
+format_type: "JSON" -> json_format
+           | "CSV" -> csv_format
+
+// FETCH operation - HTTP GET request
+fetch_op: "FETCH" QUOTED_STRING "METHOD" http_method headers_clause? "INTO" NAME
+
+// POST operation - HTTP POST request
+post_op: "POST" QUOTED_STRING "BODY" post_body headers_clause? "INTO" NAME
+post_body: object_literal -> post_object_body
+         | NAME -> post_var_body
+
+// HTTP methods
+http_method: "GET" -> get_method
+           | "POST" -> post_method
+           | "PUT" -> put_method
+           | "DELETE" -> delete_method
+
+// Headers clause for HTTP operations
+headers_clause: "HEADERS" object_literal
+
+// JOIN operation - inner join two tables
+join_op: "JOIN" NAME "WITH" NAME "ON" join_condition "INTO" NAME
+join_condition: NAME "." NAME "==" NAME "." NAME
+
+// LEFT_JOIN operation - left outer join
+left_join_op: "LEFT_JOIN" NAME "WITH" NAME "ON" join_condition "INTO" NAME
+
+// RENAME operation - rename columns
+rename_op: "RENAME" NAME rename_clause+ "INTO" NAME
+rename_clause: "WITH" NAME "AS" NAME
+
+// DROP operation - remove columns
+drop_op: "DROP" NAME "COLUMNS" name_list "INTO" NAME
+
+// UNION operation - combine tables
+union_op: "UNION" NAME "WITH" NAME "INTO" NAME
+        | "UNION_ALL" NAME "WITH" NAME "INTO" NAME -> union_all_op
+
+// SLICE operation - pagination/range
+slice_op: "SLICE" NAME "FROM" NUMBER "TO" NUMBER "INTO" NAME
+
+// ADD_COLUMN operation - add column with default value
+add_column_op: "ADD_COLUMN" NAME "COLUMN" NAME "DEFAULT" arith_expr "INTO" NAME
+
+// Object literal for headers and POST body
+object_literal: "{" (key_value ("," key_value)*)? "}"
+key_value: QUOTED_STRING ":" literal_value
+literal_value: QUOTED_STRING -> obj_string
+             | NUMBER -> obj_number
+             | "true"i -> obj_true
+             | "false"i -> obj_false
+             | "null"i -> obj_null
+
+// Column name list
+name_list: NAME ("," NAME)*
+
+// Expressions for WHERE clause (compound conditions with AND/OR/NOT)
+expr: or_expr
+
+or_expr: and_expr ("OR" and_expr)*
+and_expr: not_expr ("AND" not_expr)*
+not_expr: "NOT" not_expr -> negation
+        | "(" or_expr ")" -> grouped_expr
+        | comparison
+
+comparison: NAME compare_op value         -> binary_comparison
+          | NAME "IS_NULL"                -> is_null_check
+          | NAME "IS_NOT_NULL"            -> is_not_null_check
+          | NAME "==" "NULL"              -> is_null_check_alias
+          | NAME "!=" "NULL"              -> is_not_null_check_alias
+          | NAME "IN" "(" value_list ")"  -> in_check
+          | NAME "BETWEEN" value "AND" value -> between_check
+          | string_check
+          | date_check
+          | type_check
+
+value_list: value ("," value)*
+
+compare_op: ">" -> gt
+          | "<" -> lt
+          | ">=" -> gte
+          | "<=" -> lte
+          | "==" -> eq
+          | "!=" -> neq
+
+value: SIGNED_NUMBER -> number_literal
+     | QUOTED_STRING -> string_literal
+     | "true"i -> true_literal
+     | "false"i -> false_literal
+
+// Arithmetic expressions (for MAP lambda bodies)
+arith_expr: arith_term ((ADD | SUB) arith_term)*
+arith_term: arith_factor ((MUL | DIV) arith_factor)*
+arith_factor: arith_atom
+            | "(" arith_expr ")" -> arith_paren
+arith_atom: SIGNED_NUMBER -> arith_number
+          | NAME -> arith_name
+          | QUOTED_STRING -> arith_string
+          | coalesce_expr
+          | string_func
+          | date_func
+          | math_func
+          | type_func
+          | list_func
+          | if_expr
+
+// COALESCE function for null handling (IFNULL is alias for compatibility)
+// Second argument can be a value literal or another column name
+coalesce_expr: "COALESCE" "(" NAME "," coalesce_default ")"
+             | "IFNULL" "(" NAME "," coalesce_default ")"
+coalesce_default: value -> coalesce_value
+                | NAME -> coalesce_name
+
+// String functions - expanded with full set of operations
+string_func: "UPPER" "(" arith_expr ")"                               -> upper_func
+           | "LOWER" "(" arith_expr ")"                               -> lower_func
+           | "TRIM" "(" arith_expr ")"                                -> trim_func
+           | "LTRIM" "(" arith_expr ")"                               -> ltrim_func
+           | "RTRIM" "(" arith_expr ")"                               -> rtrim_func
+           | "LENGTH" "(" arith_expr ")"                              -> length_func
+           | "REVERSE" "(" arith_expr ")"                             -> reverse_func
+           | "SUBSTRING" "(" arith_expr "," arith_expr "," arith_expr ")" -> substring_func
+           | "LEFT" "(" arith_expr "," arith_expr ")"                 -> left_func
+           | "RIGHT" "(" arith_expr "," arith_expr ")"                -> right_func
+           | "INDEX_OF" "(" arith_expr "," arith_expr ")"             -> index_of_func
+           | "REPLACE" "(" arith_expr "," arith_expr "," arith_expr ")"    -> replace_func
+           | "REPLACE_ALL" "(" arith_expr "," arith_expr "," arith_expr ")" -> replace_all_func
+           | "PAD_LEFT" "(" arith_expr "," arith_expr "," arith_expr ")"   -> pad_left_func
+           | "PAD_RIGHT" "(" arith_expr "," arith_expr "," arith_expr ")"  -> pad_right_func
+           | "REPEAT" "(" arith_expr "," arith_expr ")"               -> repeat_func
+           | "CONCAT" "(" concat_args ")"                             -> concat_func
+
+concat_args: concat_arg ("," concat_arg)+
+concat_arg: NAME -> concat_name
+          | QUOTED_STRING -> concat_string
+
+// String boolean checks for WHERE clause
+string_check: "CONTAINS" "(" NAME "," QUOTED_STRING ")"      -> contains_check
+            | "STARTS_WITH" "(" NAME "," QUOTED_STRING ")"   -> starts_with_check
+            | "ENDS_WITH" "(" NAME "," QUOTED_STRING ")"     -> ends_with_check
+            | "MATCHES" "(" NAME "," QUOTED_STRING ")"       -> matches_check
+
+// Date/Time functions
+date_func: "NOW" "(" ")"                                     -> now_func
+         | "TODAY" "(" ")"                                   -> today_func
+         | "YEAR" "(" arith_expr ")"                         -> year_func
+         | "MONTH" "(" arith_expr ")"                        -> month_func
+         | "DAY" "(" arith_expr ")"                          -> day_func
+         | "HOUR" "(" arith_expr ")"                         -> hour_func
+         | "MINUTE" "(" arith_expr ")"                       -> minute_func
+         | "SECOND" "(" arith_expr ")"                       -> second_func
+         | "DAY_OF_WEEK" "(" arith_expr ")"                  -> day_of_week_func
+         | "WEEK_OF_YEAR" "(" arith_expr ")"                 -> week_of_year_func
+         | "ADD_DAYS" "(" arith_expr "," arith_expr ")"      -> add_days_func
+         | "ADD_MONTHS" "(" arith_expr "," arith_expr ")"    -> add_months_func
+         | "ADD_YEARS" "(" arith_expr "," arith_expr ")"     -> add_years_func
+         | "ADD_HOURS" "(" arith_expr "," arith_expr ")"     -> add_hours_func
+         | "DIFF_DAYS" "(" arith_expr "," arith_expr ")"     -> diff_days_func
+         | "PARSE_DATE" "(" arith_expr "," QUOTED_STRING ")" -> parse_date_func
+         | "TO_DATE" "(" arith_expr ")"                       -> to_date_func
+         | "FORMAT_DATE" "(" arith_expr "," QUOTED_STRING ")" -> format_date_func
+
+// Date boolean checks for WHERE clause
+date_check: "IS_BEFORE" "(" NAME "," arith_expr ")"          -> is_before_check
+          | "IS_AFTER" "(" NAME "," arith_expr ")"           -> is_after_check
+          | "IS_WEEKEND" "(" NAME ")"                        -> is_weekend_check
+
+// Math functions
+math_func: "ABS" "(" arith_expr ")"                          -> abs_func
+         | "ROUND" "(" arith_expr "," arith_expr ")"         -> round_func
+         | "FLOOR" "(" arith_expr ")"                        -> floor_func
+         | "CEIL" "(" arith_expr ")"                         -> ceil_func
+         | "MOD" "(" arith_expr "," arith_expr ")"           -> mod_func
+         | "POWER" "(" arith_expr "," arith_expr ")"         -> power_func
+         | "SQRT" "(" arith_expr ")"                         -> sqrt_func
+         | "SIGN" "(" arith_expr ")"                         -> sign_func
+         | "TRUNC" "(" arith_expr ")"                        -> trunc_func
+         | "MIN_VAL" "(" arith_expr "," arith_expr ")"       -> min_val_func
+         | "MAX_VAL" "(" arith_expr "," arith_expr ")"       -> max_val_func
+
+// Type casting functions
+type_func: "TO_INT" "(" arith_expr ")"                       -> to_int_func
+         | "TO_STRING" "(" arith_expr ")"                    -> to_string_func
+         | "TO_DECIMAL" "(" arith_expr ")"                   -> to_decimal_func
+         | "TO_BOOL" "(" arith_expr ")"                      -> to_bool_func
+
+// Type checking functions (return boolean in expressions)
+type_check: "IS_INT" "(" arith_expr ")"                      -> is_int_check
+          | "IS_STRING" "(" arith_expr ")"                   -> is_string_check
+          | "IS_DECIMAL" "(" arith_expr ")"                  -> is_decimal_check
+          | "IS_BOOL" "(" arith_expr ")"                     -> is_bool_check
+          | "IS_LIST" "(" arith_expr ")"                     -> is_list_check
+          | "IS_DATE" "(" arith_expr ")"                     -> is_date_check
+          | "IS_EMPTY" "(" arith_expr ")"                    -> is_empty_check
+          | "IS_NUMERIC" "(" arith_expr ")"                  -> is_numeric_check
+
+// List functions
+list_func: "FIRST" "(" arith_expr ")"                        -> first_func
+         | "LAST" "(" arith_expr ")"                         -> last_func
+         | "NTH" "(" arith_expr "," arith_expr ")"           -> nth_func
+         | "FLATTEN" "(" arith_expr ")"                      -> flatten_func
+         | "UNIQUE" "(" arith_expr ")"                       -> unique_func
+         | "LIST_CONTAINS" "(" arith_expr "," arith_expr ")" -> list_contains_func
+         | "RANGE" "(" arith_expr "," arith_expr ")"         -> range_func
+         | "RANGE" "(" arith_expr "," arith_expr "," arith_expr ")" -> range_step_func
+
+// Inline IF expression
+if_expr: "IF" "(" expr "," arith_expr "," arith_expr ")"     -> if_func
+       | "NULLIF" "(" arith_expr "," arith_expr ")"          -> nullif_func
+
+ADD: "+"
+SUB: "-"
+MUL: "*"
+DIV: "/"
+
+// Type expressions
+type_expr: table_type
+
+table_type: "TABLE" "[" field_list "]"
+
+field_list: field ("," field)*
+
+field: NAME ":" type_name
+
+type_name: "INT" -> int_type
+         | "STRING" -> string_type
+         | "DECIMAL" -> decimal_type
+         | "BOOL" -> bool_type
+         | "DATE" -> date_type
+         | "DATETIME" -> datetime_type
+
+// Terminals
+NAME: /[a-zA-Z_][a-zA-Z0-9_]*/
+SIGNED_NUMBER: /-?\d+(\.\d+)?/
+NUMBER: /\d+(\.\d+)?/
+QUOTED_STRING: /"[^"]*"/ | /'[^']*'/
+
+// Comments (single-line with --)
+COMMENT: "--" /[^\n]/*
+%ignore COMMENT
+
+%import common.WS
+%ignore WS

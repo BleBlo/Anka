@@ -1,0 +1,45 @@
+{
+  "id": "offbyone_004",
+  "category": "adversarial",
+  "description": "Filter scores where value is less than or equal to 50 (include 50)",
+  "input_schema": {
+    "scores": [
+      {"name": "student", "type": "STRING"},
+      {"name": "value", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "scores": [
+          {"student": "Alice", "value": 49},
+          {"student": "Bob", "value": 50},
+          {"student": "Charlie", "value": 51},
+          {"student": "Diana", "value": 100}
+        ]
+      },
+      "expected_output": [
+        {"student": "Alice", "value": 49},
+        {"student": "Bob", "value": 50}
+      ]
+    },
+    {
+      "input": {
+        "scores": [
+          {"student": "Eve", "value": 50}
+        ]
+      },
+      "expected_output": [
+        {"student": "Eve", "value": 50}
+      ]
+    },
+    {
+      "input": {
+        "scores": [
+          {"student": "Frank", "value": 51}
+        ]
+      },
+      "expected_output": []
+    }
+  ]
+}

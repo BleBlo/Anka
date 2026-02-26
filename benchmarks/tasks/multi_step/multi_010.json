@@ -1,0 +1,37 @@
+{
+  "id": "multi_010",
+  "category": "multi_step",
+  "difficulty": "hard",
+  "description": "Complete ETL pipeline",
+  "prompt": "Join orders with products on product_id, add a 'revenue' column (price * quantity), filter to only completed orders, group by product name, and calculate total revenue per product",
+  "input_schema": {
+    "orders": {
+      "columns": ["id", "product_id", "quantity", "status"],
+      "types": ["INT", "INT", "INT", "STRING"]
+    },
+    "products": {
+      "columns": ["id", "name", "price"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "product_id": 1, "quantity": 5, "status": "completed"},
+          {"id": 2, "product_id": 2, "quantity": 3, "status": "pending"},
+          {"id": 3, "product_id": 1, "quantity": 2, "status": "completed"},
+          {"id": 4, "product_id": 2, "quantity": 4, "status": "completed"}
+        ],
+        "products": [
+          {"id": 1, "name": "Widget", "price": 10},
+          {"id": 2, "name": "Gadget", "price": 25}
+        ]
+      },
+      "expected": [
+        {"name": "Widget", "total_revenue": 70},
+        {"name": "Gadget", "total_revenue": 100}
+      ]
+    }
+  ]
+}

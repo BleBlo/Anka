@@ -1,0 +1,43 @@
+{
+  "id": "hard_003",
+  "category": "hard",
+  "difficulty": "hard",
+  "operations_required": 5,
+  "domain": "general",
+  "description": "Employee performance analysis",
+  "prompt": "Given employees and performance_reviews: 1) Join employees with performance_reviews on employee_id, 2) Filter to reviews from 2024, 3) Filter to scores >= 4.0, 4) Aggregate by department to get avg_score and employee_count, 5) Filter to departments with 2+ high performers",
+  "input_schema": {
+    "employees": {
+      "columns": ["employee_id", "name", "department"],
+      "types": ["INT", "STRING", "STRING"]
+    },
+    "performance_reviews": {
+      "columns": ["review_id", "employee_id", "review_date", "score"],
+      "types": ["INT", "INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "employees": [
+          {"employee_id": 1, "name": "Alice", "department": "Engineering"},
+          {"employee_id": 2, "name": "Bob", "department": "Engineering"},
+          {"employee_id": 3, "name": "Carol", "department": "Sales"},
+          {"employee_id": 4, "name": "Dave", "department": "Sales"},
+          {"employee_id": 5, "name": "Eve", "department": "Marketing"}
+        ],
+        "performance_reviews": [
+          {"review_id": 1, "employee_id": 1, "review_date": "2024-06-01", "score": 4.5},
+          {"review_id": 2, "employee_id": 2, "review_date": "2024-06-01", "score": 4.2},
+          {"review_id": 3, "employee_id": 3, "review_date": "2024-06-01", "score": 4.8},
+          {"review_id": 4, "employee_id": 4, "review_date": "2024-06-01", "score": 3.5},
+          {"review_id": 5, "employee_id": 5, "review_date": "2024-06-01", "score": 4.0},
+          {"review_id": 6, "employee_id": 3, "review_date": "2023-06-01", "score": 4.9}
+        ]
+      },
+      "expected": [
+        {"department": "Engineering", "avg_score": 4.35, "employee_count": 2}
+      ]
+    }
+  ]
+}

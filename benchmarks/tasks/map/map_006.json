@@ -1,0 +1,27 @@
+{
+  "id": "map_006",
+  "category": "map",
+  "difficulty": "medium",
+  "description": "Column with type casting",
+  "prompt": "Add a new column 'price_str' to the products table using TO_STRING(price) to convert the numeric price to a plain string",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "price"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 99.99},
+          {"id": 2, "name": "Gadget", "price": 149.50}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Widget", "price": 99.99, "price_str": "99.99"},
+        {"id": 2, "name": "Gadget", "price": 149.5, "price_str": "149.5"}
+      ]
+    }
+  ]
+}

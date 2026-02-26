@@ -1,0 +1,19 @@
+PIPELINE fetch_and_process:
+    INPUT placeholder: TABLE[x: INT]
+
+    STEP get_posts:
+        FETCH "https://jsonplaceholder.typicode.com/posts"
+        METHOD GET
+        INTO posts
+
+    STEP limit_results:
+        LIMIT posts
+        COUNT 5
+        INTO top_posts
+
+    STEP select_fields:
+        SELECT id, title
+        FROM top_posts
+        INTO summary
+
+    OUTPUT summary

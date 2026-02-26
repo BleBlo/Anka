@@ -1,0 +1,31 @@
+{
+  "id": "fin_004",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 1,
+  "description": "Calculate trade value",
+  "prompt": "Given trades with shares and price, add a column trade_value that calculates shares * price",
+  "input_schema": {
+    "trades": {
+      "columns": ["trade_id", "ticker", "shares", "price"],
+      "types": ["INT", "STRING", "INT", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "trades": [
+          {"trade_id": 1, "ticker": "AAPL", "shares": 100, "price": 150.0},
+          {"trade_id": 2, "ticker": "GOOGL", "shares": 50, "price": 140.0},
+          {"trade_id": 3, "ticker": "MSFT", "shares": 200, "price": 50.0}
+        ]
+      },
+      "expected": [
+        {"trade_id": 1, "ticker": "AAPL", "shares": 100, "price": 150.0, "trade_value": 15000.0},
+        {"trade_id": 2, "ticker": "GOOGL", "shares": 50, "price": 140.0, "trade_value": 7000.0},
+        {"trade_id": 3, "ticker": "MSFT", "shares": 200, "price": 50.0, "trade_value": 10000.0}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "sort_008",
+  "category": "sort",
+  "description": "Sort invoices by total in descending order",
+  "input_schema": {
+    "invoices": [
+      {"name": "invoice_id", "type": "INT"},
+      {"name": "customer", "type": "STRING"},
+      {"name": "total", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "invoices": [
+          {"invoice_id": 1, "customer": "Alice", "total": 150.0},
+          {"invoice_id": 2, "customer": "Bob", "total": 300.0},
+          {"invoice_id": 3, "customer": "Charlie", "total": 200.0}
+        ]
+      },
+      "expected_output": [
+        {"invoice_id": 2, "customer": "Bob", "total": 300.0},
+        {"invoice_id": 3, "customer": "Charlie", "total": 200.0},
+        {"invoice_id": 1, "customer": "Alice", "total": 150.0}
+      ]
+    },
+    {
+      "input": {
+        "invoices": [
+          {"invoice_id": 1, "customer": "X", "total": 500.0}
+        ]
+      },
+      "expected_output": [
+        {"invoice_id": 1, "customer": "X", "total": 500.0}
+      ]
+    },
+    {
+      "input": {
+        "invoices": []
+      },
+      "expected_output": []
+    }
+  ]
+}

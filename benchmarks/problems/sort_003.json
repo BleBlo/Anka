@@ -1,0 +1,46 @@
+{
+  "id": "sort_003",
+  "category": "sort",
+  "description": "Sort products by price in descending order",
+  "input_schema": {
+    "products": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "price", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 25.0},
+          {"id": 2, "name": "Gadget", "price": 75.0},
+          {"id": 3, "name": "Gizmo", "price": 50.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 2, "name": "Gadget", "price": 75.0},
+        {"id": 3, "name": "Gizmo", "price": 50.0},
+        {"id": 1, "name": "Widget", "price": 25.0}
+      ]
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "A", "price": 10.0},
+          {"id": 2, "name": "B", "price": 20.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 2, "name": "B", "price": 20.0},
+        {"id": 1, "name": "A", "price": 10.0}
+      ]
+    },
+    {
+      "input": {
+        "products": []
+      },
+      "expected_output": []
+    }
+  ]
+}

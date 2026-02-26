@@ -1,0 +1,44 @@
+{
+  "id": "select_004",
+  "category": "select",
+  "description": "Select first_name and last_name columns from employees",
+  "input_schema": {
+    "employees": [
+      {"name": "emp_id", "type": "INT"},
+      {"name": "first_name", "type": "STRING"},
+      {"name": "last_name", "type": "STRING"},
+      {"name": "department", "type": "STRING"},
+      {"name": "salary", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "employees": [
+          {"emp_id": 1, "first_name": "John", "last_name": "Doe", "department": "Sales", "salary": 50000},
+          {"emp_id": 2, "first_name": "Jane", "last_name": "Smith", "department": "IT", "salary": 60000}
+        ]
+      },
+      "expected_output": [
+        {"first_name": "John", "last_name": "Doe"},
+        {"first_name": "Jane", "last_name": "Smith"}
+      ]
+    },
+    {
+      "input": {
+        "employees": [
+          {"emp_id": 1, "first_name": "A", "last_name": "B", "department": "C", "salary": 0}
+        ]
+      },
+      "expected_output": [
+        {"first_name": "A", "last_name": "B"}
+      ]
+    },
+    {
+      "input": {
+        "employees": []
+      },
+      "expected_output": []
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "pipeline_003",
+  "category": "pipeline",
+  "description": "Calculate total as price * quantity, then limit to first 2 rows",
+  "input_schema": {
+    "items": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "price", "type": "DECIMAL"},
+      {"name": "quantity", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "items": [
+          {"id": 1, "name": "A", "price": 10.0, "quantity": 2},
+          {"id": 2, "name": "B", "price": 5.0, "quantity": 3},
+          {"id": 3, "name": "C", "price": 8.0, "quantity": 4}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "A", "price": 10.0, "quantity": 2, "total": 20.0},
+        {"id": 2, "name": "B", "price": 5.0, "quantity": 3, "total": 15.0}
+      ]
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "name": "X", "price": 100.0, "quantity": 1}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "X", "price": 100.0, "quantity": 1, "total": 100.0}
+      ]
+    },
+    {
+      "input": {
+        "items": []
+      },
+      "expected_output": []
+    }
+  ]
+}

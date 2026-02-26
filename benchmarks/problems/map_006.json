@@ -1,0 +1,46 @@
+{
+  "id": "map_006",
+  "category": "map",
+  "description": "Add a new column 'tax' calculated as amount multiplied by 0.1",
+  "input_schema": {
+    "invoices": [
+      {"name": "invoice_id", "type": "INT"},
+      {"name": "customer", "type": "STRING"},
+      {"name": "amount", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "invoices": [
+          {"invoice_id": 1, "customer": "Alice", "amount": 100.0},
+          {"invoice_id": 2, "customer": "Bob", "amount": 250.0}
+        ]
+      },
+      "expected_output": [
+        {"invoice_id": 1, "customer": "Alice", "amount": 100.0, "tax": 10.0},
+        {"invoice_id": 2, "customer": "Bob", "amount": 250.0, "tax": 25.0}
+      ]
+    },
+    {
+      "input": {
+        "invoices": [
+          {"invoice_id": 1, "customer": "X", "amount": 0.0}
+        ]
+      },
+      "expected_output": [
+        {"invoice_id": 1, "customer": "X", "amount": 0.0, "tax": 0.0}
+      ]
+    },
+    {
+      "input": {
+        "invoices": [
+          {"invoice_id": 1, "customer": "Y", "amount": 500.0}
+        ]
+      },
+      "expected_output": [
+        {"invoice_id": 1, "customer": "Y", "amount": 500.0, "tax": 50.0}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "operator_005",
+  "category": "adversarial",
+  "description": "Calculate percentage as (part / total) * 100, handling division correctly",
+  "input_schema": {
+    "data": [
+      {"name": "id", "type": "INT"},
+      {"name": "part", "type": "DECIMAL"},
+      {"name": "total", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "data": [
+          {"id": 1, "part": 25.0, "total": 100.0},
+          {"id": 2, "part": 1.0, "total": 4.0},
+          {"id": 3, "part": 33.0, "total": 100.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "part": 25.0, "total": 100.0, "percentage": 25.0},
+        {"id": 2, "part": 1.0, "total": 4.0, "percentage": 25.0},
+        {"id": 3, "part": 33.0, "total": 100.0, "percentage": 33.0}
+      ]
+    },
+    {
+      "input": {
+        "data": [
+          {"id": 1, "part": 50.0, "total": 200.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "part": 50.0, "total": 200.0, "percentage": 25.0}
+      ]
+    },
+    {
+      "input": {
+        "data": [
+          {"id": 1, "part": 0.0, "total": 100.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "part": 0.0, "total": 100.0, "percentage": 0.0}
+      ]
+    }
+  ]
+}

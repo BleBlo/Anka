@@ -1,0 +1,50 @@
+{
+  "id": "offbyone_005",
+  "category": "adversarial",
+  "description": "Skip the first 2 rows and take the next 3 rows (rows at index 2,3,4)",
+  "input_schema": {
+    "records": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "records": [
+          {"id": 1, "name": "first"},
+          {"id": 2, "name": "second"},
+          {"id": 3, "name": "third"},
+          {"id": 4, "name": "fourth"},
+          {"id": 5, "name": "fifth"},
+          {"id": 6, "name": "sixth"}
+        ]
+      },
+      "expected_output": [
+        {"id": 3, "name": "third"},
+        {"id": 4, "name": "fourth"},
+        {"id": 5, "name": "fifth"}
+      ]
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "name": "a"},
+          {"id": 2, "name": "b"},
+          {"id": 3, "name": "c"}
+        ]
+      },
+      "expected_output": [
+        {"id": 3, "name": "c"}
+      ]
+    },
+    {
+      "input": {
+        "records": [
+          {"id": 1, "name": "only"}
+        ]
+      },
+      "expected_output": []
+    }
+  ]
+}

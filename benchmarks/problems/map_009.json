@@ -1,0 +1,43 @@
+{
+  "id": "map_009",
+  "category": "map",
+  "description": "Add a new column 'net' calculated as income minus expenses",
+  "input_schema": {
+    "budgets": [
+      {"name": "id", "type": "INT"},
+      {"name": "department", "type": "STRING"},
+      {"name": "income", "type": "DECIMAL"},
+      {"name": "expenses", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "budgets": [
+          {"id": 1, "department": "Sales", "income": 10000.0, "expenses": 6000.0},
+          {"id": 2, "department": "IT", "income": 5000.0, "expenses": 7000.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "department": "Sales", "income": 10000.0, "expenses": 6000.0, "net": 4000.0},
+        {"id": 2, "department": "IT", "income": 5000.0, "expenses": 7000.0, "net": -2000.0}
+      ]
+    },
+    {
+      "input": {
+        "budgets": [
+          {"id": 1, "department": "X", "income": 500.0, "expenses": 500.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "department": "X", "income": 500.0, "expenses": 500.0, "net": 0.0}
+      ]
+    },
+    {
+      "input": {
+        "budgets": []
+      },
+      "expected_output": []
+    }
+  ]
+}

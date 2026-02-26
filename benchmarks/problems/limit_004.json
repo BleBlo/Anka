@@ -1,0 +1,59 @@
+{
+  "id": "limit_004",
+  "category": "limit",
+  "description": "Take only the first 10 rows from the entries",
+  "input_schema": {
+    "entries": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "entries": [
+          {"id": 1, "name": "A"},
+          {"id": 2, "name": "B"},
+          {"id": 3, "name": "C"},
+          {"id": 4, "name": "D"},
+          {"id": 5, "name": "E"},
+          {"id": 6, "name": "F"},
+          {"id": 7, "name": "G"},
+          {"id": 8, "name": "H"},
+          {"id": 9, "name": "I"},
+          {"id": 10, "name": "J"},
+          {"id": 11, "name": "K"},
+          {"id": 12, "name": "L"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "A"},
+        {"id": 2, "name": "B"},
+        {"id": 3, "name": "C"},
+        {"id": 4, "name": "D"},
+        {"id": 5, "name": "E"},
+        {"id": 6, "name": "F"},
+        {"id": 7, "name": "G"},
+        {"id": 8, "name": "H"},
+        {"id": 9, "name": "I"},
+        {"id": 10, "name": "J"}
+      ]
+    },
+    {
+      "input": {
+        "entries": [
+          {"id": 1, "name": "X"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "name": "X"}
+      ]
+    },
+    {
+      "input": {
+        "entries": []
+      },
+      "expected_output": []
+    }
+  ]
+}

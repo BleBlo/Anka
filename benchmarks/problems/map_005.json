@@ -1,0 +1,47 @@
+{
+  "id": "map_005",
+  "category": "map",
+  "description": "Add a new column 'profit' calculated as revenue minus cost",
+  "input_schema": {
+    "sales": [
+      {"name": "id", "type": "INT"},
+      {"name": "product", "type": "STRING"},
+      {"name": "revenue", "type": "DECIMAL"},
+      {"name": "cost", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "sales": [
+          {"id": 1, "product": "A", "revenue": 100.0, "cost": 60.0},
+          {"id": 2, "product": "B", "revenue": 200.0, "cost": 150.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "product": "A", "revenue": 100.0, "cost": 60.0, "profit": 40.0},
+        {"id": 2, "product": "B", "revenue": 200.0, "cost": 150.0, "profit": 50.0}
+      ]
+    },
+    {
+      "input": {
+        "sales": [
+          {"id": 1, "product": "X", "revenue": 50.0, "cost": 50.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "product": "X", "revenue": 50.0, "cost": 50.0, "profit": 0.0}
+      ]
+    },
+    {
+      "input": {
+        "sales": [
+          {"id": 1, "product": "Y", "revenue": 30.0, "cost": 40.0}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "product": "Y", "revenue": 30.0, "cost": 40.0, "profit": -10.0}
+      ]
+    }
+  ]
+}

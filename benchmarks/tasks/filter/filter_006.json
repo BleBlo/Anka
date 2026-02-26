@@ -1,0 +1,30 @@
+{
+  "id": "filter_006",
+  "category": "filter",
+  "difficulty": "medium",
+  "description": "Filter rows with OR condition",
+  "prompt": "Filter the products to only include those where the category is 'electronics' OR the price is greater than 500",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "category", "price"],
+      "types": ["INT", "STRING", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Phone", "category": "electronics", "price": 300},
+          {"id": 2, "name": "Chair", "category": "furniture", "price": 150},
+          {"id": 3, "name": "Sofa", "category": "furniture", "price": 800},
+          {"id": 4, "name": "Laptop", "category": "electronics", "price": 1000}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Phone", "category": "electronics", "price": 300},
+        {"id": 3, "name": "Sofa", "category": "furniture", "price": 800},
+        {"id": 4, "name": "Laptop", "category": "electronics", "price": 1000}
+      ]
+    }
+  ]
+}

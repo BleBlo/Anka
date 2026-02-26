@@ -1,0 +1,45 @@
+{
+  "id": "offbyone_001",
+  "category": "adversarial",
+  "description": "Filter orders where amount is greater than or equal to 1000 (include 1000)",
+  "input_schema": {
+    "orders": [
+      {"name": "id", "type": "INT"},
+      {"name": "amount", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 999.99},
+          {"id": 2, "amount": 1000.00},
+          {"id": 3, "amount": 1000.01},
+          {"id": 4, "amount": 500.00}
+        ]
+      },
+      "expected_output": [
+        {"id": 2, "amount": 1000.00},
+        {"id": 3, "amount": 1000.01}
+      ]
+    },
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 1000.00}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "amount": 1000.00}
+      ]
+    },
+    {
+      "input": {
+        "orders": [
+          {"id": 1, "amount": 999.99}
+        ]
+      },
+      "expected_output": []
+    }
+  ]
+}

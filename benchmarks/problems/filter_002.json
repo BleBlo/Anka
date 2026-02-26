@@ -1,0 +1,46 @@
+{
+  "id": "filter_002",
+  "category": "filter",
+  "description": "Filter users where status equals 'active'",
+  "input_schema": {
+    "users": [
+      {"name": "user_id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "status", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"user_id": 1, "name": "Alice", "status": "active"},
+          {"user_id": 2, "name": "Bob", "status": "inactive"},
+          {"user_id": 3, "name": "Charlie", "status": "active"}
+        ]
+      },
+      "expected_output": [
+        {"user_id": 1, "name": "Alice", "status": "active"},
+        {"user_id": 3, "name": "Charlie", "status": "active"}
+      ]
+    },
+    {
+      "input": {
+        "users": [
+          {"user_id": 1, "name": "Alice", "status": "pending"},
+          {"user_id": 2, "name": "Bob", "status": "inactive"}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "users": [
+          {"user_id": 1, "name": "Alice", "status": "active"}
+        ]
+      },
+      "expected_output": [
+        {"user_id": 1, "name": "Alice", "status": "active"}
+      ]
+    }
+  ]
+}

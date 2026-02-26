@@ -1,0 +1,47 @@
+-- Data Validation Pipeline
+-- Demonstrates: control flow, assertions, type checking, logging
+
+PIPELINE data_validation:
+    INPUT records: TABLE[id: INT, email: STRING, amount: DECIMAL, status: STRING]
+
+    -- Initialize counters
+    SET valid_count = 0
+    SET invalid_count = 0
+    SET total_amount = 0
+
+    -- Log start of validation
+    LOG_INFO "Starting data validation"
+
+    -- Validate records using control flow
+    FOR_EACH record IN records:
+        -- Check for valid email
+        IF CONTAINS(email, "@"):
+            SET valid_count = valid_count + 1
+            SET total_amount = total_amount + COALESCE(amount, 0)
+        ELSE:
+            SET invalid_count = invalid_count + 1
+            LOG_WARN "Invalid email found"
+        END
+    END
+
+    -- Assert we have some valid records
+    ASSERT valid_count > 0 MESSAGE "No valid records found"
+
+    -- Filter valid emails
+    STEP filter_valid:
+        FILTER records WHERE CONTAINS(email, "@") INTO valid_records
+
+    -- Filter by status
+    STEP filter_active:
+        FILTER valid_records WHERE status IN ("active", "pending") INTO active_records
+
+    -- Handle nulls in amount
+    STEP fill_nulls:
+        MAP active_records
+        WITH safe_amount => COALESCE(amount, 0)
+        INTO with_amounts
+
+    -- Log completion
+    LOG_INFO "Validation complete"
+
+    OUTPUT with_amounts

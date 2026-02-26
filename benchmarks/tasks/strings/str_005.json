@@ -1,0 +1,29 @@
+{
+  "id": "str_005",
+  "category": "strings",
+  "difficulty": "medium",
+  "description": "String length",
+  "prompt": "Add a column 'name_length' that contains the length of the name column",
+  "input_schema": {
+    "users": {
+      "columns": ["id", "name"],
+      "types": ["INT", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"id": 1, "name": "Alice"},
+          {"id": 2, "name": "Bob"},
+          {"id": 3, "name": "Christopher"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Alice", "name_length": 5},
+        {"id": 2, "name": "Bob", "name_length": 3},
+        {"id": 3, "name": "Christopher", "name_length": 11}
+      ]
+    }
+  ]
+}

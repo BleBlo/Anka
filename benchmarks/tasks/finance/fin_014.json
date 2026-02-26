@@ -1,0 +1,31 @@
+{
+  "id": "fin_014",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 1,
+  "description": "Calculate risk contribution",
+  "prompt": "Add a column risk_contribution that calculates market_value * volatility",
+  "input_schema": {
+    "positions": {
+      "columns": ["ticker", "market_value", "volatility"],
+      "types": ["STRING", "DECIMAL", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "positions": [
+          {"ticker": "AAPL", "market_value": 10000.0, "volatility": 0.25},
+          {"ticker": "GOOGL", "market_value": 5000.0, "volatility": 0.30},
+          {"ticker": "MSFT", "market_value": 5000.0, "volatility": 0.20}
+        ]
+      },
+      "expected": [
+        {"ticker": "AAPL", "market_value": 10000.0, "volatility": 0.25, "risk_contribution": 2500.0},
+        {"ticker": "GOOGL", "market_value": 5000.0, "volatility": 0.30, "risk_contribution": 1500.0},
+        {"ticker": "MSFT", "market_value": 5000.0, "volatility": 0.20, "risk_contribution": 1000.0}
+      ]
+    }
+  ]
+}

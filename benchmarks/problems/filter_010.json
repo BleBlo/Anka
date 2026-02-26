@@ -1,0 +1,45 @@
+{
+  "id": "filter_010",
+  "category": "filter",
+  "description": "Filter accounts where balance is less than 0",
+  "input_schema": {
+    "accounts": [
+      {"name": "account_id", "type": "INT"},
+      {"name": "holder", "type": "STRING"},
+      {"name": "balance", "type": "DECIMAL"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "accounts": [
+          {"account_id": 1, "holder": "Alice", "balance": 100.0},
+          {"account_id": 2, "holder": "Bob", "balance": -50.0},
+          {"account_id": 3, "holder": "Charlie", "balance": -25.0}
+        ]
+      },
+      "expected_output": [
+        {"account_id": 2, "holder": "Bob", "balance": -50.0},
+        {"account_id": 3, "holder": "Charlie", "balance": -25.0}
+      ]
+    },
+    {
+      "input": {
+        "accounts": [
+          {"account_id": 1, "holder": "X", "balance": 0.0}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "accounts": [
+          {"account_id": 1, "holder": "A", "balance": -0.01}
+        ]
+      },
+      "expected_output": [
+        {"account_id": 1, "holder": "A", "balance": -0.01}
+      ]
+    }
+  ]
+}

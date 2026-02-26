@@ -1,0 +1,45 @@
+{
+  "id": "operator_002",
+  "category": "adversarial",
+  "description": "Filter items where code equals the string '100' (string comparison, not numeric)",
+  "input_schema": {
+    "items": [
+      {"name": "id", "type": "INT"},
+      {"name": "code", "type": "STRING"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "items": [
+          {"id": 1, "code": "100"},
+          {"id": 2, "code": "99"},
+          {"id": 3, "code": "1000"},
+          {"id": 4, "code": "100"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "code": "100"},
+        {"id": 4, "code": "100"}
+      ]
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "code": "ABC"}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "code": "100"}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "code": "100"}
+      ]
+    }
+  ]
+}

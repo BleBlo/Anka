@@ -1,0 +1,32 @@
+{
+  "id": "hard_010",
+  "category": "hard",
+  "difficulty": "easy",
+  "operations_required": 1,
+  "domain": "general",
+  "description": "Aggregate sales by category",
+  "prompt": "Aggregate sales by category to calculate total_revenue (sum of amount) and sale_count",
+  "input_schema": {
+    "sales": {
+      "columns": ["sale_id", "category", "amount"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "sales": [
+          {"sale_id": 1, "category": "Electronics", "amount": 100.0},
+          {"sale_id": 2, "category": "Electronics", "amount": 150.0},
+          {"sale_id": 3, "category": "Clothing", "amount": 200.0},
+          {"sale_id": 4, "category": "Electronics", "amount": 300.0},
+          {"sale_id": 5, "category": "Clothing", "amount": 250.0}
+        ]
+      },
+      "expected": [
+        {"category": "Electronics", "total_revenue": 550.0, "sale_count": 3},
+        {"category": "Clothing", "total_revenue": 450.0, "sale_count": 2}
+      ]
+    }
+  ]
+}

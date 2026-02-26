@@ -1,0 +1,36 @@
+{
+  "id": "filter_002",
+  "category": "filter",
+  "difficulty": "easy",
+  "description": "Filter rows by numeric less-than-or-equal comparison",
+  "prompt": "Filter the products to only include those where the price is less than or equal to 50",
+  "input_schema": {
+    "products": {
+      "columns": ["id", "name", "price"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 25},
+          {"id": 2, "name": "Gadget", "price": 75},
+          {"id": 3, "name": "Gizmo", "price": 50},
+          {"id": 4, "name": "Thing", "price": 10}
+        ]
+      },
+      "expected": [
+        {"id": 1, "name": "Widget", "price": 25},
+        {"id": 3, "name": "Gizmo", "price": 50},
+        {"id": 4, "name": "Thing", "price": 10}
+      ]
+    },
+    {
+      "input": {
+        "products": [{"id": 1, "name": "Expensive", "price": 100}]
+      },
+      "expected": []
+    }
+  ]
+}

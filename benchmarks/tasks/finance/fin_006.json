@@ -1,0 +1,27 @@
+{
+  "id": "fin_006",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 2,
+  "description": "Calculate total portfolio value",
+  "prompt": "Given positions with market_value, aggregate to get total_value (sum of all market_value)",
+  "input_schema": {
+    "positions": {
+      "columns": ["ticker", "market_value"],
+      "types": ["STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "positions": [
+          {"ticker": "AAPL", "market_value": 15000.0},
+          {"ticker": "GOOGL", "market_value": 7000.0},
+          {"ticker": "MSFT", "market_value": 10000.0}
+        ]
+      },
+      "expected": [{"total_value": 32000.0}]
+    }
+  ]
+}

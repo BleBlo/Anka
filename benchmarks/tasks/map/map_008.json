@@ -1,0 +1,27 @@
+{
+  "id": "map_008",
+  "category": "map",
+  "difficulty": "medium",
+  "description": "Column with string concatenation",
+  "prompt": "Add a new column 'full_name' to the users table that concatenates first_name and last_name with a space between them",
+  "input_schema": {
+    "users": {
+      "columns": ["id", "first_name", "last_name", "email"],
+      "types": ["INT", "STRING", "STRING", "STRING"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "users": [
+          {"id": 1, "first_name": "John", "last_name": "Doe", "email": "john@example.com"},
+          {"id": 2, "first_name": "Jane", "last_name": "Smith", "email": "jane@example.com"}
+        ]
+      },
+      "expected": [
+        {"id": 1, "first_name": "John", "last_name": "Doe", "email": "john@example.com", "full_name": "John Doe"},
+        {"id": 2, "first_name": "Jane", "last_name": "Smith", "email": "jane@example.com", "full_name": "Jane Smith"}
+      ]
+    }
+  ]
+}

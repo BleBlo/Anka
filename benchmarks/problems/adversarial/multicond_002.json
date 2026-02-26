@@ -1,0 +1,47 @@
+{
+  "id": "multicond_002",
+  "category": "adversarial",
+  "description": "Filter products where price >= 20, then filter where quantity > 0, then select name and price",
+  "input_schema": {
+    "products": [
+      {"name": "id", "type": "INT"},
+      {"name": "name", "type": "STRING"},
+      {"name": "price", "type": "DECIMAL"},
+      {"name": "quantity", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Widget", "price": 25.0, "quantity": 10},
+          {"id": 2, "name": "Gadget", "price": 15.0, "quantity": 5},
+          {"id": 3, "name": "Gizmo", "price": 30.0, "quantity": 0},
+          {"id": 4, "name": "Tool", "price": 20.0, "quantity": 3}
+        ]
+      },
+      "expected_output": [
+        {"name": "Widget", "price": 25.0},
+        {"name": "Tool", "price": 20.0}
+      ]
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Item", "price": 50.0, "quantity": 0}
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "products": [
+          {"id": 1, "name": "Thing", "price": 100.0, "quantity": 1}
+        ]
+      },
+      "expected_output": [
+        {"name": "Thing", "price": 100.0}
+      ]
+    }
+  ]
+}

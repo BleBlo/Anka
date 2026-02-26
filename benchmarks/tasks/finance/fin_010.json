@@ -1,0 +1,33 @@
+{
+  "id": "fin_010",
+  "category": "finance",
+  "difficulty": "easy",
+  "domain": "finance",
+  "operations_required": 1,
+  "description": "Sort stocks by price",
+  "prompt": "Sort stocks by price in descending order",
+  "input_schema": {
+    "stocks": {
+      "columns": ["ticker", "price"],
+      "types": ["STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "stocks": [
+          {"ticker": "AAPL", "price": 150.0},
+          {"ticker": "GOOGL", "price": 140.0},
+          {"ticker": "MSFT", "price": 50.0},
+          {"ticker": "AMZN", "price": 180.0}
+        ]
+      },
+      "expected": [
+        {"ticker": "AMZN", "price": 180.0},
+        {"ticker": "AAPL", "price": 150.0},
+        {"ticker": "GOOGL", "price": 140.0},
+        {"ticker": "MSFT", "price": 50.0}
+      ]
+    }
+  ]
+}

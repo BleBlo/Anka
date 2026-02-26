@@ -1,0 +1,48 @@
+{
+  "id": "null_003",
+  "category": "adversarial",
+  "description": "Calculate total as price * quantity, treating null quantity as 0",
+  "input_schema": {
+    "items": [
+      {"name": "id", "type": "INT"},
+      {"name": "price", "type": "DECIMAL"},
+      {"name": "quantity", "type": "INT"}
+    ]
+  },
+  "test_cases": [
+    {
+      "input": {
+        "items": [
+          {"id": 1, "price": 10.0, "quantity": 5},
+          {"id": 2, "price": 20.0, "quantity": null},
+          {"id": 3, "price": 15.0, "quantity": 3}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "price": 10.0, "quantity": 5, "total": 50.0},
+        {"id": 2, "price": 20.0, "quantity": null, "total": 0.0},
+        {"id": 3, "price": 15.0, "quantity": 3, "total": 45.0}
+      ]
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "price": 100.0, "quantity": null}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "price": 100.0, "quantity": null, "total": 0.0}
+      ]
+    },
+    {
+      "input": {
+        "items": [
+          {"id": 1, "price": 50.0, "quantity": 2}
+        ]
+      },
+      "expected_output": [
+        {"id": 1, "price": 50.0, "quantity": 2, "total": 100.0}
+      ]
+    }
+  ]
+}

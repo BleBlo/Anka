@@ -1,0 +1,599 @@
+\relax 
+\bibstyle{acl_natbib}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{chen2021codex,nijkamp2023codegen,li2023starcoder}
+\citation{github2022copilot}
+\citation{austin2021program,hendrycks2021measuring}
+\citation{pearce2022examining,jesse2023large}
+\@LN@col{1}
+\@LN{0}{0}
+\@LN{1}{0}
+\@LN{2}{0}
+\@LN{3}{0}
+\@LN{4}{0}
+\@LN{5}{0}
+\@LN{6}{0}
+\@LN{7}{0}
+\@LN{8}{0}
+\@LN{9}{0}
+\@LN{10}{0}
+\@LN{11}{0}
+\@LN{12}{0}
+\@LN{13}{0}
+\@LN{14}{0}
+\@LN{15}{0}
+\@LN{16}{0}
+\@LN{17}{0}
+\@LN{18}{0}
+\@LN{19}{0}
+\@LN{20}{0}
+\@LN{21}{0}
+\@LN{22}{0}
+\@LN{23}{0}
+\@LN{24}{0}
+\@LN{25}{0}
+\@LN{26}{0}
+\@LN{27}{0}
+\@LN{28}{0}
+\@LN{29}{0}
+\@LN{30}{0}
+\@LN{31}{0}
+\@LN{32}{0}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:introduction}{{1}{1}{Introduction}{section.1}{}}
+\@LN{33}{0}
+\@LN{34}{0}
+\@LN{35}{0}
+\@LN{36}{0}
+\@LN{37}{0}
+\@LN{38}{0}
+\@LN{39}{0}
+\@LN@col{2}
+\@LN{40}{0}
+\@LN{41}{0}
+\@LN{42}{0}
+\@LN{43}{0}
+\@LN{44}{0}
+\@LN{45}{0}
+\@LN{46}{0}
+\@LN{47}{0}
+\@LN{48}{0}
+\@LN{49}{0}
+\@LN{50}{0}
+\@LN{51}{0}
+\@LN{52}{0}
+\@LN{53}{0}
+\@LN{54}{0}
+\@LN{55}{0}
+\@LN{56}{0}
+\@LN{57}{0}
+\@LN{58}{0}
+\@LN{59}{0}
+\@LN{60}{0}
+\@LN{61}{0}
+\@LN{62}{0}
+\@LN{63}{0}
+\@LN{64}{0}
+\@LN{65}{0}
+\@LN{66}{0}
+\@LN{67}{0}
+\@LN{68}{0}
+\@LN{69}{0}
+\@LN{70}{0}
+\@LN{71}{0}
+\@LN{72}{0}
+\@LN{73}{0}
+\@LN{74}{0}
+\@LN{75}{0}
+\@LN{76}{0}
+\@LN{77}{0}
+\citation{chen2021codex}
+\citation{nijkamp2023codegen}
+\citation{li2023starcoder}
+\citation{chen2021codex}
+\citation{austin2021program}
+\citation{hendrycks2021measuring}
+\citation{fowler2010domain,mernik2005and}
+\citation{gulwani2011automating}
+\citation{ellis2021dreamcoder}
+\citation{wei2022chain}
+\citation{wang2023selfconsistency}
+\citation{scholak2021picard,poesia2022synchromesh}
+\@LN@col{1}
+\@LN{78}{1}
+\@LN{79}{1}
+\@LN{80}{1}
+\@LN{81}{1}
+\@LN{82}{1}
+\@LN{83}{1}
+\@LN{84}{1}
+\@LN{85}{1}
+\@LN{86}{1}
+\@LN{87}{1}
+\@LN{88}{1}
+\@LN{89}{1}
+\@LN{90}{1}
+\@LN{91}{1}
+\@LN{92}{1}
+\@LN{93}{1}
+\@LN{94}{1}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
+\newlabel{sec:related}{{2}{2}{Related Work}{section.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{LLM Code Generation.}{2}{section*.1}\protected@file@percent }
+\@LN{95}{1}
+\@LN{96}{1}
+\@LN{97}{1}
+\@LN{98}{1}
+\@LN{99}{1}
+\@LN{100}{1}
+\@LN{101}{1}
+\@LN{102}{1}
+\@LN{103}{1}
+\@LN{104}{1}
+\@LN{105}{1}
+\@LN{106}{1}
+\@LN{107}{1}
+\@LN{108}{1}
+\@writefile{toc}{\contentsline {paragraph}{Domain-Specific Languages.}{2}{section*.2}\protected@file@percent }
+\@LN{109}{1}
+\@LN{110}{1}
+\@LN{111}{1}
+\@LN{112}{1}
+\@LN{113}{1}
+\@LN{114}{1}
+\@LN{115}{1}
+\@LN{116}{1}
+\@LN{117}{1}
+\@writefile{toc}{\contentsline {paragraph}{Constrained Generation.}{2}{section*.3}\protected@file@percent }
+\@LN{118}{1}
+\@LN{119}{1}
+\@LN{120}{1}
+\@LN{121}{1}
+\@LN{122}{1}
+\@LN{123}{1}
+\@LN{124}{1}
+\@LN@col{2}
+\@LN{125}{1}
+\@LN{126}{1}
+\@LN{127}{1}
+\@writefile{toc}{\contentsline {section}{\numberline {3}The Anka Language}{2}{section.3}\protected@file@percent }
+\newlabel{sec:language}{{3}{2}{The Anka Language}{section.3}{}}
+\@LN{128}{1}
+\@LN{129}{1}
+\@LN{130}{1}
+\@LN{131}{1}
+\@LN{132}{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Design Principles}{2}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Principle 1: One Canonical Form.}{2}{section*.4}\protected@file@percent }
+\@LN{133}{1}
+\@LN{134}{1}
+\@LN{135}{1}
+\@LN{136}{1}
+\@LN{137}{1}
+\@LN{138}{1}
+\@LN{139}{1}
+\@LN{140}{1}
+\@writefile{toc}{\contentsline {paragraph}{Principle 2: Named Intermediate Results.}{2}{section*.5}\protected@file@percent }
+\@LN{141}{1}
+\@LN{142}{1}
+\@LN{143}{1}
+\@LN{144}{1}
+\@LN{145}{1}
+\@writefile{toc}{\contentsline {paragraph}{Principle 3: Explicit Step Structure.}{2}{section*.6}\protected@file@percent }
+\@LN{146}{1}
+\@LN{147}{1}
+\@LN{148}{1}
+\@writefile{toc}{\contentsline {paragraph}{Principle 4: Verbose Keywords.}{2}{section*.7}\protected@file@percent }
+\@LN{149}{1}
+\@LN{150}{1}
+\@LN{151}{1}
+\@LN{152}{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Syntax Overview}{2}{subsection.3.2}\protected@file@percent }
+\@LN{153}{1}
+\@LN{154}{1}
+\@LN{155}{1}
+\@LN{156}{1}
+\@LN{157}{1}
+\@LN{158}{1}
+\@LN{159}{1}
+\@LN{160}{1}
+\@LN{161}{1}
+\@LN{162}{1}
+\@LN{163}{1}
+\@LN{164}{1}
+\@LN{165}{1}
+\@LN{166}{1}
+\@LN{167}{1}
+\@LN{168}{1}
+\@LN{169}{1}
+\@LN{170}{1}
+\@LN{171}{1}
+\@LN{172}{1}
+\@LN@col{1}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Connection between Anka design features and LLM error prevention.}}{3}{table.caption.8}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:design_errors}{{1}{3}{Connection between Anka design features and LLM error prevention}{table.caption.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Benchmark categories and task distribution.}}{3}{table.caption.9}\protected@file@percent }
+\newlabel{tab:benchmark_categories}{{2}{3}{Benchmark categories and task distribution}{table.caption.9}{}}
+\@LN{173}{2}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Implementation}{3}{subsection.3.3}\protected@file@percent }
+\@LN{174}{2}
+\@LN{175}{2}
+\@LN{176}{2}
+\@LN{177}{2}
+\@LN{178}{2}
+\@LN{179}{2}
+\@LN{180}{2}
+\@LN{181}{2}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Methodology}{3}{section.4}\protected@file@percent }
+\newlabel{sec:methodology}{{4}{3}{Methodology}{section.4}{}}
+\@LN{182}{2}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Benchmark Suite}{3}{subsection.4.1}\protected@file@percent }
+\@LN{183}{2}
+\@LN{184}{2}
+\@LN{185}{2}
+\@LN{186}{2}
+\@LN{187}{2}
+\@LN{188}{2}
+\@LN{189}{2}
+\@LN{190}{2}
+\@LN{191}{2}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Evaluation Protocol}{3}{subsection.4.2}\protected@file@percent }
+\@LN{192}{2}
+\@LN{193}{2}
+\@writefile{toc}{\contentsline {paragraph}{Prompt Structure.}{3}{section*.10}\protected@file@percent }
+\@LN{194}{2}
+\@LN{195}{2}
+\@LN{196}{2}
+\@LN{197}{2}
+\@LN@col{2}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Task accuracy by category (Claude 3.5 Haiku). Bold indicates better performance.}}{3}{table.caption.13}\protected@file@percent }
+\newlabel{tab:main_results}{{3}{3}{Task accuracy by category (Claude 3.5 Haiku). Bold indicates better performance}{table.caption.13}{}}
+\@LN{198}{2}
+\@LN{199}{2}
+\@writefile{toc}{\contentsline {paragraph}{Sampling.}{3}{section*.11}\protected@file@percent }
+\@LN{200}{2}
+\@LN{201}{2}
+\@writefile{toc}{\contentsline {paragraph}{Models.}{3}{section*.12}\protected@file@percent }
+\@LN{202}{2}
+\@LN{203}{2}
+\@LN{204}{2}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Metrics}{3}{subsection.4.3}\protected@file@percent }
+\@LN{205}{2}
+\@LN{206}{2}
+\@LN{207}{2}
+\@LN{208}{2}
+\@LN{209}{2}
+\@LN{210}{2}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{3}{section.5}\protected@file@percent }
+\newlabel{sec:results}{{5}{3}{Results}{section.5}{}}
+\@LN{211}{2}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Main Results}{3}{subsection.5.1}\protected@file@percent }
+\@LN{212}{2}
+\@writefile{toc}{\contentsline {paragraph}{Key Finding 1: Multi-step Advantage.}{3}{section*.14}\protected@file@percent }
+\@LN{213}{2}
+\@LN{214}{2}
+\@LN{215}{2}
+\@LN{216}{2}
+\@LN{217}{2}
+\@LN{218}{2}
+\@LN{219}{2}
+\@writefile{toc}{\contentsline {paragraph}{Key Finding 2: Parse Success.}{3}{section*.15}\protected@file@percent }
+\@LN{220}{2}
+\@LN{221}{2}
+\@LN{222}{2}
+\@LN{223}{2}
+\@writefile{toc}{\contentsline {paragraph}{Key Finding 3: Overall Improvement.}{3}{section*.16}\protected@file@percent }
+\@LN{224}{2}
+\@LN{225}{2}
+\@LN{226}{2}
+\@LN{227}{2}
+\@LN@col{1}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Multi-step task accuracy across model families.}}{4}{table.caption.17}\protected@file@percent }
+\newlabel{tab:cross_model}{{4}{4}{Multi-step task accuracy across model families}{table.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Anka advantage grows with task complexity. Simple tasks (1--2 ops) show no advantage; complex tasks (5+ ops) show +40\% advantage.}}{4}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:complexity}{{1}{4}{Anka advantage grows with task complexity. Simple tasks (1--2 ops) show no advantage; complex tasks (5+ ops) show +40\% advantage}{figure.caption.21}{}}
+\@LN{228}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Cross-Model Validation}{4}{subsection.5.2}\protected@file@percent }
+\@LN{229}{3}
+\@LN{230}{3}
+\@LN{231}{3}
+\@LN{232}{3}
+\@LN{233}{3}
+\@LN{234}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Error Analysis}{4}{subsection.5.3}\protected@file@percent }
+\@LN{235}{3}
+\@writefile{toc}{\contentsline {paragraph}{Variable Shadowing (42\% of errors).}{4}{section*.18}\protected@file@percent }
+\@LN{236}{3}
+\@LN{237}{3}
+\@LN{238}{3}
+\@LN{239}{3}
+\@writefile{toc}{\contentsline {paragraph}{Operation Sequencing (31\% of errors).}{4}{section*.19}\protected@file@percent }
+\@LN{240}{3}
+\@LN{241}{3}
+\@LN{242}{3}
+\@LN{243}{3}
+\@writefile{toc}{\contentsline {paragraph}{Chaining Confusion (27\% of errors).}{4}{section*.20}\protected@file@percent }
+\@LN{244}{3}
+\@LN{245}{3}
+\@LN{246}{3}
+\@LN{247}{3}
+\@LN{248}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Complexity Analysis}{4}{subsection.5.4}\protected@file@percent }
+\@LN{249}{3}
+\@LN{250}{3}
+\@LN{251}{3}
+\@LN{252}{3}
+\@LN@col{2}
+\@LN{253}{3}
+\@LN{254}{3}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{4}{section.6}\protected@file@percent }
+\newlabel{sec:discussion}{{6}{4}{Discussion}{section.6}{}}
+\@LN{255}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Why Does Constrained Syntax Help?}{4}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Reduced Decision Space.}{4}{section*.22}\protected@file@percent }
+\@LN{256}{3}
+\@LN{257}{3}
+\@LN{258}{3}
+\@LN{259}{3}
+\@writefile{toc}{\contentsline {paragraph}{Explicit State Management.}{4}{section*.23}\protected@file@percent }
+\@LN{260}{3}
+\@LN{261}{3}
+\@LN{262}{3}
+\@writefile{toc}{\contentsline {paragraph}{Structural Scaffolding.}{4}{section*.24}\protected@file@percent }
+\@LN{263}{3}
+\@LN{264}{3}
+\@LN{265}{3}
+\@LN{266}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}When Does Anka Not Help?}{4}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Simple Tasks.}{4}{section*.25}\protected@file@percent }
+\@LN{267}{3}
+\@LN{268}{3}
+\@writefile{toc}{\contentsline {paragraph}{Complex Conditional Logic.}{4}{section*.26}\protected@file@percent }
+\@LN{269}{3}
+\@LN{270}{3}
+\@LN{271}{3}
+\@writefile{toc}{\contentsline {paragraph}{Recommendation.}{4}{section*.27}\protected@file@percent }
+\@LN{272}{3}
+\@LN{273}{3}
+\@LN{274}{3}
+\@LN{275}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Implications for DSL Design}{4}{subsection.6.3}\protected@file@percent }
+\@LN{276}{3}
+\@LN{277}{3}
+\@LN{278}{3}
+\@LN{279}{3}
+\@LN{280}{3}
+\@LN{281}{3}
+\@LN{282}{3}
+\@LN{283}{3}
+\@LN{284}{3}
+\@LN{285}{3}
+\@LN{286}{3}
+\@LN{287}{3}
+\@LN{288}{3}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Limitations}{4}{section.7}\protected@file@percent }
+\newlabel{sec:limitations}{{7}{4}{Limitations}{section.7}{}}
+\@writefile{toc}{\contentsline {paragraph}{Benchmark Scope.}{4}{section*.28}\protected@file@percent }
+\@LN{289}{3}
+\@LN{290}{3}
+\@LN{291}{3}
+\bibdata{references}
+\bibcite{austin2021program}{{1}{2021}{{Austin et~al.}}{{Austin, Odena, Nye, Bosma, Michalewski, Dohan, Jiang, Cai, Terry, Le et~al.}}}
+\bibcite{chen2021codex}{{2}{2021}{{Chen et~al.}}{{Chen, Tworek, Jun, Yuan, Pinto, Kaplan, Edwards, Burda, Joseph, Brockman et~al.}}}
+\bibcite{ellis2021dreamcoder}{{3}{2021}{{Ellis et~al.}}{{Ellis, Wong, Nye, Sable-Meyer, Morales, Hewitt, Cary, Solar-Lezama, and Tenenbaum}}}
+\bibcite{fowler2010domain}{{4}{2010}{{Fowler}}{{}}}
+\bibcite{github2022copilot}{{5}{2022}{{GitHub}}{{}}}
+\bibcite{gulwani2011automating}{{6}{2011}{{Gulwani}}{{}}}
+\bibcite{hendrycks2021measuring}{{7}{2021}{{Hendrycks et~al.}}{{Hendrycks, Basart, Kadavath, Mazeika, Arora, Guo, Burns, Puranik, He, Song et~al.}}}
+\bibcite{jesse2023large}{{8}{2023}{{Jesse et~al.}}{{Jesse, Toufique, Elbaum, Stolee, and Tip}}}
+\bibcite{li2023starcoder}{{9}{2023}{{Li et~al.}}{{Li, Allal, Zi, Muennighoff, Kocetkov, Mou, Marone, Akiki, Li, Chim et~al.}}}
+\bibcite{mernik2005and}{{10}{2005}{{Mernik et~al.}}{{Mernik, Heering, and Sloane}}}
+\bibcite{nijkamp2023codegen}{{11}{2023}{{Nijkamp et~al.}}{{Nijkamp, Pang, Hayashi, Tu, Wang, Zhou, Savarese, and Xiong}}}
+\bibcite{pearce2022examining}{{12}{2023}{{Pearce et~al.}}{{Pearce, Tan, Ahmad, Karri, and Dolan-Gavitt}}}
+\bibcite{poesia2022synchromesh}{{13}{2022}{{Poesia et~al.}}{{Poesia, Polozov, Le, Tiwari, Soares, Meek, and Gulwani}}}
+\@LN@col{1}
+\@writefile{toc}{\contentsline {paragraph}{Model Coverage.}{5}{section*.29}\protected@file@percent }
+\@LN{292}{4}
+\@LN{293}{4}
+\@LN{294}{4}
+\@LN{295}{4}
+\@writefile{toc}{\contentsline {paragraph}{No Fine-Tuning Comparison.}{5}{section*.30}\protected@file@percent }
+\@LN{296}{4}
+\@LN{297}{4}
+\@LN{298}{4}
+\@LN{299}{4}
+\@writefile{toc}{\contentsline {paragraph}{No User Study.}{5}{section*.31}\protected@file@percent }
+\@LN{300}{4}
+\@LN{301}{4}
+\@writefile{toc}{\contentsline {paragraph}{Single Benchmark Suite.}{5}{section*.32}\protected@file@percent }
+\@LN{302}{4}
+\@LN{303}{4}
+\@LN{304}{4}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{5}{section.8}\protected@file@percent }
+\newlabel{sec:conclusion}{{8}{5}{Conclusion}{section.8}{}}
+\@LN{305}{4}
+\@LN{306}{4}
+\@LN{307}{4}
+\@LN{308}{4}
+\@LN{309}{4}
+\@LN{310}{4}
+\@LN{311}{4}
+\@LN{312}{4}
+\@LN{313}{4}
+\@LN{314}{4}
+\@LN{315}{4}
+\@LN{316}{4}
+\@LN{317}{4}
+\@LN{318}{4}
+\@LN{319}{4}
+\@LN{320}{4}
+\@LN{321}{4}
+\@LN{322}{4}
+\@LN{323}{4}
+\@LN{324}{4}
+\@writefile{toc}{\contentsline {paragraph}{Future Work.}{5}{section*.33}\protected@file@percent }
+\@LN{325}{4}
+\@LN{326}{4}
+\@LN{327}{4}
+\@LN{328}{4}
+\@LN{329}{4}
+\@LN{330}{4}
+\@LN{331}{4}
+\@LN{332}{4}
+\@LN{333}{4}
+\@LN{334}{4}
+\@LN{335}{4}
+\@LN@col{2}
+\@LN{336}{4}
+\@LN{337}{4}
+\@LN{338}{4}
+\@LN{339}{4}
+\@LN{340}{4}
+\@LN{341}{4}
+\@LN{342}{4}
+\@LN{343}{4}
+\@LN{344}{4}
+\@LN{345}{4}
+\@LN{346}{4}
+\@LN{347}{4}
+\@LN{348}{4}
+\@LN{349}{4}
+\@LN{350}{4}
+\@LN{351}{4}
+\@LN{352}{4}
+\@LN{353}{4}
+\@LN{354}{4}
+\@LN{355}{4}
+\@LN{356}{4}
+\@LN{357}{4}
+\@LN{358}{4}
+\@LN{359}{4}
+\@LN{360}{4}
+\@LN{361}{4}
+\@LN{362}{4}
+\@LN{363}{4}
+\@LN{364}{4}
+\@LN{365}{4}
+\@LN{366}{4}
+\@LN{367}{4}
+\@LN{368}{4}
+\@LN{369}{4}
+\@LN{370}{4}
+\@LN{371}{4}
+\@LN{372}{4}
+\@LN{373}{4}
+\@LN{374}{4}
+\@LN{375}{4}
+\@LN{376}{4}
+\@LN{377}{4}
+\@LN{378}{4}
+\@LN{379}{4}
+\@LN{380}{4}
+\@LN{381}{4}
+\@LN{382}{4}
+\@LN{383}{4}
+\@LN{384}{4}
+\@LN{385}{4}
+\@LN{386}{4}
+\@LN{387}{4}
+\@LN{388}{4}
+\@LN{389}{4}
+\@LN{390}{4}
+\bibcite{scholak2021picard}{{14}{2021}{{Scholak et~al.}}{{Scholak, Schucher, and Bahdanau}}}
+\bibcite{wang2023selfconsistency}{{15}{2023}{{Wang et~al.}}{{Wang, Wei, Schuurmans, Le, Chi, Narang, Chowdhery, and Zhou}}}
+\bibcite{wei2022chain}{{16}{2022}{{Wei et~al.}}{{Wei, Wang, Schuurmans, Bosma, Ichter, Xia, Chi, Le, and Zhou}}}
+\@LN@col{1}
+\@LN{391}{5}
+\@LN{392}{5}
+\@LN{393}{5}
+\@LN{394}{5}
+\@LN{395}{5}
+\@LN{396}{5}
+\@LN{397}{5}
+\@LN{398}{5}
+\@LN{399}{5}
+\@LN{400}{5}
+\@LN{401}{5}
+\@LN{402}{5}
+\@LN{403}{5}
+\@LN{404}{5}
+\@LN{405}{5}
+\@LN{406}{5}
+\@LN{407}{5}
+\@LN{408}{5}
+\@LN{409}{5}
+\@LN{410}{5}
+\@LN{411}{5}
+\@LN{412}{5}
+\@LN{413}{5}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Complete Grammar Specification}{6}{appendix.A}\protected@file@percent }
+\newlabel{sec:grammar}{{A}{6}{Complete Grammar Specification}{appendix.A}{}}
+\@LN{414}{5}
+\@LN{415}{5}
+\@LN{416}{5}
+\@LN{417}{5}
+\@writefile{toc}{\contentsline {paragraph}{Top-level Structure.}{6}{section*.36}\protected@file@percent }
+\@LN{418}{5}
+\@LN{419}{5}
+\@LN{420}{5}
+\@writefile{toc}{\contentsline {paragraph}{Type System.}{6}{section*.37}\protected@file@percent }
+\@LN{421}{5}
+\@LN{422}{5}
+\@LN{423}{5}
+\@LN{424}{5}
+\@writefile{toc}{\contentsline {paragraph}{Operations.}{6}{section*.38}\protected@file@percent }
+\@LN{425}{5}
+\@LN{426}{5}
+\@LN{427}{5}
+\@LN{428}{5}
+\@LN{429}{5}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Extended Examples}{6}{appendix.B}\protected@file@percent }
+\newlabel{sec:examples}{{B}{6}{Extended Examples}{appendix.B}{}}
+\@writefile{toc}{\contentsline {paragraph}{Multi-step Pipeline.}{6}{section*.39}\protected@file@percent }
+\@LN{430}{5}
+\@LN{431}{5}
+\@LN{432}{5}
+\@LN{433}{5}
+\@LN{434}{5}
+\@LN{435}{5}
+\@LN{436}{5}
+\@LN{437}{5}
+\@LN{438}{5}
+\@LN{439}{5}
+\@LN{440}{5}
+\@LN{441}{5}
+\@LN{442}{5}
+\@LN@col{2}
+\@LN{443}{5}
+\@LN{444}{5}
+\@LN{445}{5}
+\@LN{446}{5}
+\@LN{447}{5}
+\@LN{448}{5}
+\@LN{449}{5}
+\@LN{450}{5}
+\@LN{451}{5}
+\@LN{452}{5}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Prompt Templates}{6}{appendix.C}\protected@file@percent }
+\newlabel{sec:prompts}{{C}{6}{Prompt Templates}{appendix.C}{}}
+\@LN{453}{5}
+\@LN{454}{5}
+\@LN{455}{5}
+\@LN{456}{5}
+\@LN{457}{5}
+\@LN{458}{5}
+\@writefile{toc}{\contentsline {section}{\numberline {D}Benchmark Task Examples}{6}{appendix.D}\protected@file@percent }
+\newlabel{sec:tasks}{{D}{6}{Benchmark Task Examples}{appendix.D}{}}
+\@writefile{toc}{\contentsline {paragraph}{Multi-step Task Example.}{6}{section*.40}\protected@file@percent }
+\@LN{459}{5}
+\@LN{460}{5}
+\@LN{461}{5}
+\@LN{462}{5}
+\@LN{463}{5}
+\@LN{464}{5}
+\@LN{465}{5}
+\@LN{466}{5}
+\gdef \@abspage@last{6}

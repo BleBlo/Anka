@@ -1,0 +1,32 @@
+{
+  "id": "hard_006",
+  "category": "hard",
+  "difficulty": "medium",
+  "operations_required": 2,
+  "domain": "general",
+  "description": "Filter and aggregate orders by region",
+  "prompt": "Filter orders to only include those where amount is greater than 100, then aggregate by region to calculate total_sales (sum of amount) and order_count",
+  "input_schema": {
+    "orders": {
+      "columns": ["order_id", "region", "amount"],
+      "types": ["INT", "STRING", "DECIMAL"]
+    }
+  },
+  "test_cases": [
+    {
+      "input": {
+        "orders": [
+          {"order_id": 1, "region": "East", "amount": 150.0},
+          {"order_id": 2, "region": "East", "amount": 50.0},
+          {"order_id": 3, "region": "West", "amount": 200.0},
+          {"order_id": 4, "region": "West", "amount": 300.0},
+          {"order_id": 5, "region": "Central", "amount": 80.0}
+        ]
+      },
+      "expected": [
+        {"region": "East", "total_sales": 150.0, "order_count": 1},
+        {"region": "West", "total_sales": 500.0, "order_count": 2}
+      ]
+    }
+  ]
+}

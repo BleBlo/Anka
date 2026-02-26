@@ -1,0 +1,40 @@
+-- Advanced Analytics Pipeline
+-- Demonstrates: JOIN, aggregation, IF expressions, math functions
+
+PIPELINE advanced_analytics:
+    INPUT orders: TABLE[id: INT, customer_id: INT, amount: DECIMAL, order_date: STRING]
+    INPUT customers: TABLE[id: INT, name: STRING, region: STRING, tier: STRING]
+
+    -- Join orders with customer data
+    STEP join_data:
+        JOIN orders WITH customers ON orders.customer_id == customers.id INTO order_details
+
+    -- Calculate order metrics with conditional categorization
+    STEP add_metrics:
+        MAP order_details
+        WITH priority => IF(amount > 1000, "high", "standard")
+        INTO with_priority
+
+    STEP add_rounded:
+        MAP with_priority
+        WITH rounded_amount => ROUND(amount, 2)
+        INTO with_rounded
+
+    -- Aggregate by region
+    STEP summarize:
+        AGGREGATE with_rounded
+        GROUP_BY customers_region
+        COMPUTE SUM(amount) AS total_revenue, COUNT() AS order_count, AVG(amount) AS avg_order
+        INTO regional_summary
+
+    -- Add performance tier
+    STEP categorize_regions:
+        MAP regional_summary
+        WITH performance => IF(total_revenue > 10000, "top", IF(total_revenue > 5000, "mid", "developing"))
+        INTO with_performance
+
+    -- Sort by revenue
+    STEP rank_regions:
+        SORT with_performance BY total_revenue DESC INTO ranked
+
+    OUTPUT ranked
